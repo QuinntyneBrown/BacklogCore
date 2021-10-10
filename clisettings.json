@@ -1,0 +1,16 @@
+{
+  "domainNamespace": "Backlog.Api",
+  "applicationNamespace": "Backlog.Api",
+  "infrastructureNamespace": "Backlog.Api",
+  "apiNamespace": "Backlog.Api",
+  "domainDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
+  "applicationDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
+  "infrastructureDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
+  "apiDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
+  "path": "C:\\Projects\\Backlog",
+  "dbContext": "BacklogDbContext",
+  "sourceFolder": "src",
+  "resources": [
+    "Story"
+  ]
+}

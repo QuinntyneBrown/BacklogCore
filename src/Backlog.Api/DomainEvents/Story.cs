@@ -10,6 +10,7 @@ namespace Backlog.Api.DomainEvents
         public string Title { get; private set; }
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
+        public string Status { get; private set; }
 
         public CreateStory(
             string name,
@@ -21,6 +22,36 @@ namespace Backlog.Api.DomainEvents
             Title = title;
             Description = description;
             AcceptanceCriteria = acceptanceCriteria;
+        }
+    }
+
+    public class UpdateStoryAcceptanceCriteria: BaseDomainEvent
+    {
+        public string AcceptanceCriteria { get; private set; }
+
+        public UpdateStoryAcceptanceCriteria(string acceptanceCriteria)
+        {
+            AcceptanceCriteria = acceptanceCriteria;
+        }
+    }
+
+    public class UpdateStoryDescription : BaseDomainEvent
+    {
+        public string Description { get; private set; }
+
+        public UpdateStoryDescription(string description)
+        {
+            Description = description;
+        }
+    }
+
+    public class UpdateStoryStatus : BaseDomainEvent
+    {
+        public string Status { get; private set; }
+
+        public UpdateStoryStatus(string status)
+        {
+            Status = status;
         }
     }
 }

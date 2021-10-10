@@ -11,7 +11,9 @@
   "applicationDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
   "infrastructureDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
   "apiDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
-  "appDirectories": null,
+  "appDirectories": [
+    "C:\\Projects\\Backlog\\src\\Backlog.App"
+  ],
   "buildingBlocksCoreNamespace": "BuildingBlocks.Core",
   "buildingBlocksEventStoreNamespace": "BuildingBlocks.EventStore",
   "store": null,
@@ -27,6 +29,7 @@
   "resources": [
     "Story",
     "StoredEvent",
-    "Bug"
+    "Bug",
+    "StoryStatus"
   ]
 }

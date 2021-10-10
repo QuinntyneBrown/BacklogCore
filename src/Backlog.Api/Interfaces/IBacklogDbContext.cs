@@ -10,7 +10,8 @@ namespace Backlog.Api.Interfaces
         DbSet<Story> Stories { get; }
         DbSet<StoredEvent> StoredEvents { get; }
         DbSet<Bug> Bugs { get; }
+        DbSet<StoryStatus> StoryStatuses { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-
+        
     }
 }

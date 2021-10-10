@@ -1,4 +1,8 @@
 {
+  "projects": null,
+  "path": "C:\\Projects\\Backlog",
+  "solutionName": null,
+  "rootNamespace": null,
   "domainNamespace": "Backlog.Api",
   "applicationNamespace": "Backlog.Api",
   "infrastructureNamespace": "Backlog.Api",
@@ -7,10 +11,22 @@
   "applicationDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
   "infrastructureDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
   "apiDirectory": "C:\\Projects\\Backlog\\src\\Backlog.Api",
-  "path": "C:\\Projects\\Backlog",
-  "dbContext": "BacklogDbContext",
+  "appDirectories": null,
+  "buildingBlocksCoreNamespace": "BuildingBlocks.Core",
+  "buildingBlocksEventStoreNamespace": "BuildingBlocks.EventStore",
+  "store": null,
+  "namespace": null,
+  "domain": null,
+  "core": null,
+  "api": null,
+  "entityIdDataType": null,
   "sourceFolder": "src",
+  "testFolder": null,
+  "dbContext": "BacklogDbContext",
+  "eventSourcing": false,
   "resources": [
-    "Story"
+    "Story",
+    "StoredEvent",
+    "Bug"
   ]
 }

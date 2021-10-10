@@ -8,26 +8,26 @@ using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
-    public class CreateStory
+    public class CreateStoredEvent
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.Story).NotNull();
-                RuleFor(request => request.Story).SetValidator(new StoryValidator());
+                RuleFor(request => request.StoredEvent).NotNull();
+                RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());
             }
 
         }
 
         public class Request : IRequest<Response>
         {
-            public StoryDto Story { get; set; }
+            public StoredEventDto StoredEvent { get; set; }
         }
 
         public class Response : ResponseBase
         {
-            public StoryDto Story { get; set; }
+            public StoredEventDto StoredEvent { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -39,19 +39,15 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var story = new Story(new(
-                    request.Story.Name,
-                    request.Story.Title,
-                    request.Story.Description,
-                    request.Story.AcceptanceCriteria));
+                var storedEvent = new StoredEvent();
 
-                _context.Stories.Add(story);
+                _context.StoredEvents.Add(storedEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new()
+                return new Response()
                 {
-                    Story = story.ToDto()
+                    StoredEvent = storedEvent.ToDto()
                 };
             }
 

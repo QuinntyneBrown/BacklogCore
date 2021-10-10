@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetStoriesPage
+    public class GetBugsPage
     {
         public class Request : IRequest<Response>
         {
@@ -23,7 +23,7 @@ namespace Backlog.Api.Features
         public class Response : ResponseBase
         {
             public int Length { get; set; }
-            public List<StoryDto> Entities { get; set; }
+            public List<BugDto> Entities { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -35,18 +35,18 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var query = from story in _context.Stories
-                            select story;
+                var query = from bug in _context.Bugs
+                            select bug;
 
-                var length = await _context.Stories.CountAsync();
+                var length = await _context.Bugs.CountAsync();
 
-                var stories = await query.Page(request.Index, request.PageSize)
+                var bugs = await query.Page(request.Index, request.PageSize)
                     .Select(x => x.ToDto()).ToListAsync();
 
                 return new()
                 {
                     Length = length,
-                    Entities = stories
+                    Entities = bugs
                 };
             }
 

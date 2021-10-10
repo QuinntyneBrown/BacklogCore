@@ -2,32 +2,24 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System;
 using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
-    public class CreateStory
+    public class RemoveBug
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Story).NotNull();
-                RuleFor(request => request.Story).SetValidator(new StoryValidator());
-            }
-
-        }
-
         public class Request : IRequest<Response>
         {
-            public StoryDto Story { get; set; }
+            public Guid BugId { get; set; }
         }
 
         public class Response : ResponseBase
         {
-            public StoryDto Story { get; set; }
+            public BugDto Bug { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -39,19 +31,15 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var story = new Story(new(
-                    request.Story.Name,
-                    request.Story.Title,
-                    request.Story.Description,
-                    request.Story.AcceptanceCriteria));
+                var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.BugId);
 
-                _context.Stories.Add(story);
+                _context.Bugs.Remove(bug);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new()
+                return new Response()
                 {
-                    Story = story.ToDto()
+                    Bug = bug.ToDto()
                 };
             }
 

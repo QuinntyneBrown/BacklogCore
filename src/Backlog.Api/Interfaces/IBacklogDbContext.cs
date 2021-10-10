@@ -8,7 +8,9 @@ namespace Backlog.Api.Interfaces
     public interface IBacklogDbContext
     {
         DbSet<Story> Stories { get; }
+        DbSet<StoredEvent> StoredEvents { get; }
+        DbSet<Bug> Bugs { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

@@ -1,28 +1,19 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Backlog.Api.Features
 {
-    public class CreateStory
+    public class UpdateStoryAcceptanceCriteria
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Story).NotNull();
-                RuleFor(request => request.Story).SetValidator(new StoryValidator());
-            }
-
-        }
-
         public class Request : IRequest<Response>
         {
-            public StoryDto Story { get; set; }
+            public Guid StoryId { get; set; }
+            public string AcceptanceCriteria { get; set; }
         }
 
         public class Response : ResponseBase
@@ -39,17 +30,11 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var story = new Story(new(
-                    request.Story.Name,
-                    request.Story.Title,
-                    request.Story.Description,
-                    request.Story.AcceptanceCriteria));
-
-                _context.Stories.Add(story);
+                var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new()
+                return new Response()
                 {
                     Story = story.ToDto()
                 };

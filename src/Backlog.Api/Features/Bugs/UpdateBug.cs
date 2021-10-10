@@ -8,47 +8,47 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class UpdateStory
+    public class UpdateBug
     {
-        public class Validator: AbstractValidator<Request>
+        public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.Story).NotNull();
-                RuleFor(request => request.Story).SetValidator(new StoryValidator());
+                RuleFor(request => request.Bug).NotNull();
+                RuleFor(request => request.Bug).SetValidator(new BugValidator());
             }
-        
+
         }
 
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
-            public StoryDto Story { get; set; }
+            public BugDto Bug { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
-            public StoryDto Story { get; set; }
+            public BugDto Bug { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IBacklogDbContext _context;
-        
+
             public Handler(IBacklogDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var story = await _context.Stories.SingleAsync(x => x.StoryId == request.Story.StoryId);
-                
+                var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.Bug.BugId);
+
                 await _context.SaveChangesAsync(cancellationToken);
-                
+
                 return new Response()
                 {
-                    Story = story.ToDto()
+                    Bug = bug.ToDto()
                 };
             }
-            
+
         }
     }
 }

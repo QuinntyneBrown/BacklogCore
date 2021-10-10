@@ -1,25 +1,22 @@
-using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.Api.Models;
+using System.Linq;
+using System.Collections.Generic;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class RemoveStory
+    public class GetStoredEvents
     {
-        public class Request : IRequest<Response>
-        {
-            public Guid StoryId { get; set; }
-        }
+        public class Request : IRequest<Response> { }
 
         public class Response : ResponseBase
         {
-            public StoryDto Story { get; set; }
+            public List<StoredEventDto> StoredEvents { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -31,15 +28,9 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
-
-                _context.Stories.Remove(story);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
+                return new()
                 {
-                    Story = story.ToDto()
+                    StoredEvents = await _context.StoredEvents.Select(x => x.ToDto()).ToListAsync()
                 };
             }
 

@@ -1,8 +1,8 @@
 {
   "projects": null,
   "path": "C:\\Projects\\Backlog",
-  "solutionName": null,
-  "rootNamespace": null,
+  "solutionName": "Backlog.sln",
+  "rootNamespace": "Backlog",
   "domainNamespace": "Backlog.Api",
   "applicationNamespace": "Backlog.Api",
   "infrastructureNamespace": "Backlog.Api",
@@ -23,7 +23,7 @@
   "api": null,
   "entityIdDataType": null,
   "sourceFolder": "src",
-  "testFolder": null,
+  "testFolder": "test",
   "dbContext": "BacklogDbContext",
   "eventSourcing": false,
   "resources": [

@@ -1,6 +1,7 @@
 ﻿using Backlog.Api.Interfaces;
 using MediatR;
 using System;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
@@ -38,7 +39,9 @@ namespace Backlog.Api.Core
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            _messages.Subscribe(onNextFactory(tcs));
+            _messages
+                .Where(x => tcs.Task.Status != TaskStatus.RanToCompletion)
+                .Subscribe(onNextFactory(tcs));
 
             await Publish(startWith);
 

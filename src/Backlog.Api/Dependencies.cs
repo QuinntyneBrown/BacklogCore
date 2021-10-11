@@ -1,3 +1,4 @@
+using Backlog.Api.Core;
 using Backlog.Api.Data;
 using Backlog.Api.Extensions;
 using Backlog.Api.Interfaces;
@@ -53,9 +54,12 @@ namespace Backlog.Api
 
             services.AddTransient<IBacklogDbContext, BacklogDbContext>();
 
+            services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
+
             services.AddDbContext<BacklogDbContext>(options =>
             {
-                options.UseInMemoryDatabase(nameof(Backlog.Api))
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
+                    builder => builder.MigrationsAssembly("Backlog.Api").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });

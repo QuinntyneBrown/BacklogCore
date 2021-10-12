@@ -6,8 +6,8 @@ namespace Backlog.Api.Features
     {
         public static StoryStatusDto ToDto(this StoryStatus storyStatus)
         {
-            return new (storyStatus.StoryStatusId, storyStatus.Name);
+            return new(storyStatus.StoryStatusId, storyStatus.Name);
         }
-        
+
     }
 }

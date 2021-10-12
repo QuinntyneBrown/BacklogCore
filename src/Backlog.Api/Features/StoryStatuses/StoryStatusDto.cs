@@ -13,7 +13,7 @@ namespace Backlog.Api.Features
         }
 
         public StoryStatusDto(Guid storyStatusId, string name)
-            :this(name)
+            : this(name)
         {
             StoryStatusId = storyStatusId;
         }

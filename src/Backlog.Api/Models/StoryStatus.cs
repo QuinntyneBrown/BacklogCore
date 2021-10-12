@@ -4,7 +4,7 @@ using System;
 
 namespace Backlog.Api.Models
 {
-    public class StoryStatus: AggregateRoot
+    public class StoryStatus : AggregateRoot
     {
         public Guid StoryStatusId { get; set; }
         public string Name { get; set; }

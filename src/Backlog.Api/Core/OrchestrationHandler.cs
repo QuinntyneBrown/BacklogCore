@@ -39,13 +39,12 @@ namespace Backlog.Api.Core
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
 
-            _messages
-                .Where(x => tcs.Task.Status != TaskStatus.RanToCompletion)
-                .Subscribe(onNextFactory(tcs));
+            using (_messages.Subscribe(onNextFactory(tcs)))
+            {
+                await Publish(startWith);
 
-            await Publish(startWith);
-
-            return await tcs.Task;
+                return await tcs.Task;
+            }
         }
     }
 }

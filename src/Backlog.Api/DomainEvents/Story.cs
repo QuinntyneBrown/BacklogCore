@@ -25,7 +25,7 @@ namespace Backlog.Api.DomainEvents
         }
     }
 
-    public class UpdateStoryAcceptanceCriteria: BaseDomainEvent
+    public class UpdateStoryAcceptanceCriteria : BaseDomainEvent
     {
         public string AcceptanceCriteria { get; private set; }
 

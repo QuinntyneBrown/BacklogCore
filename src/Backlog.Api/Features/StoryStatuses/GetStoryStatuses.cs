@@ -12,27 +12,28 @@ namespace Backlog.Api.Features
 {
     public class GetStoryStatuses
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<StoryStatusDto> StoryStatuses { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IBacklogDbContext _context;
-        
+
             public Handler(IBacklogDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     StoryStatuses = await _context.StoryStatuses.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

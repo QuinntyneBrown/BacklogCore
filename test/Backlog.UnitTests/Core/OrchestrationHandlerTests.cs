@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Backlog.UnitTests.Core
 {
-    public class OrchestrationHandlerTests: TestBase
+    public class OrchestrationHandlerTests : TestBase
     {
         [Fact]
         public async Task HandleTests()
@@ -25,7 +25,7 @@ namespace Backlog.UnitTests.Core
 
             var result1 = await sut.Handle<bool>(startWith, (ctx) => @event =>
             {
-                switch(@event)
+                switch (@event)
                 {
                     case Created created:
                         ctx.SetResult(true);
@@ -44,6 +44,7 @@ namespace Backlog.UnitTests.Core
             });
 
             Assert.True(result1);
+            Assert.True(result2);
         }
 
         public class Create : BaseDomainEvent { }

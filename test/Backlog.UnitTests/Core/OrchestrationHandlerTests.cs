@@ -12,22 +12,50 @@ namespace Backlog.UnitTests.Core
     public class OrchestrationHandlerTests : TestBase
     {
         [Fact]
-        public async Task HandleTests()
+        public async Task Handle()
         {
             var container = _serviceCollection
                 .AddMediatR(typeof(OrchestrationHandlerTests))
+                .AddSingleton<OrchestrationItemsCache>()
                 .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
                 .BuildServiceProvider();
 
             var sut = container.GetService<IOrchestrationHandler>();
 
-            var startWith = new Create();
+            var startWith = new Step1();
+
+            var result = await sut.Handle<bool>(startWith, (ctx) => @event =>
+            {
+                switch (@event)
+                {
+                    case Step1Completed created:
+                        ctx.SetResult(true);
+                        break;
+                }
+            });
+
+            Assert.True(result);
+        }
+
+
+        [Fact]
+        public async Task Handle_Multiple()
+        {
+            var container = _serviceCollection
+                .AddMediatR(typeof(OrchestrationHandlerTests))
+                .AddSingleton<OrchestrationItemsCache>()
+                .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
+                .BuildServiceProvider();
+
+            var sut = container.GetService<IOrchestrationHandler>();
+
+            var startWith = new Step1();
 
             var result1 = await sut.Handle<bool>(startWith, (ctx) => @event =>
             {
                 switch (@event)
                 {
-                    case Created created:
+                    case Step1Completed created:
                         ctx.SetResult(true);
                         break;
                 }
@@ -37,7 +65,7 @@ namespace Backlog.UnitTests.Core
             {
                 switch (@event)
                 {
-                    case Created created:
+                    case Step1Completed created:
                         ctx.SetResult(true);
                         break;
                 }
@@ -47,20 +75,24 @@ namespace Backlog.UnitTests.Core
             Assert.True(result2);
         }
 
-        public class Create : BaseDomainEvent { }
+        public class Step1 : BaseDomainEvent { }
 
-        public class Created : BaseDomainEvent { }
+        public class Step1Completed : BaseDomainEvent { }
 
-        public class Handler : INotificationHandler<Create>
+        public class Step2 : BaseDomainEvent { }
+
+        public class Step2Completed : BaseDomainEvent { }
+
+        public class Handler : INotificationHandler<Step1>
         {
             private readonly IOrchestrationHandler _orchestrationHandler;
             public Handler(IOrchestrationHandler orchestrationHandler)
             {
                 _orchestrationHandler = orchestrationHandler;
             }
-            public async Task Handle(Create notification, CancellationToken cancellationToken)
+            public async Task Handle(Step1 notification, CancellationToken cancellationToken)
             {
-                await _orchestrationHandler.Publish(new Created());
+                await _orchestrationHandler.Publish(new Step1Completed());
             }
         }
     }

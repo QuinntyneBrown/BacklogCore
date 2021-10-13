@@ -56,6 +56,8 @@ namespace Backlog.Api
 
             services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
 
+            services.AddScoped<OrchestrationItemsCache>();
+
             services.AddDbContext<BacklogDbContext>(options =>
             {
                 options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],

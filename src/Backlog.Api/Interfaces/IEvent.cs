@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using System;
+using System.Collections.Generic;
 
 namespace Backlog.Api.Interfaces
 {
@@ -8,5 +9,6 @@ namespace Backlog.Api.Interfaces
         DateTime Created { get; }
         Guid CorrelationId { get; }
         void WithCorrelationIdFrom(IEvent @event);
+        Dictionary<string,object> Items { get; }
     }
 }

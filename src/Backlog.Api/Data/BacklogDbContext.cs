@@ -7,16 +7,17 @@ using System.Linq;
 
 namespace Backlog.Api.Data
 {
-    public class BacklogDbContext : DbContext, IBacklogDbContext
+    public class BacklogDbContext: DbContext, IBacklogDbContext
     {
         public DbSet<Story> Stories { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public DbSet<Bug> Bugs { get; private set; }
         public DbSet<StoryStatus> StoryStatuses { get; private set; }
-        public BacklogDbContext(DbContextOptions options) : base(options)
-        {
-            SavingChanges += DbContext_SavingChanges;
-        }
+        public DbSet<Profile> Profiles { get; private set; }
+        public BacklogDbContext(DbContextOptions options)
+            {
+                SavingChanges += DbContext_SavingChanges;
+            }
 
         private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {
@@ -26,7 +27,7 @@ namespace Backlog.Api.Data
                     e.State == EntityState.Modified)
                 .Select(e => e.Entity)
                 .ToList();
-
+            
             foreach (var aggregate in entries)
             {
                 foreach (var storedEvent in aggregate.StoredEvents)
@@ -35,27 +36,27 @@ namespace Backlog.Api.Data
                 }
             }
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BacklogDbContext).Assembly);
         }
-
+        
         public override void Dispose()
         {
             SavingChanges -= DbContext_SavingChanges;
-
+            
             base.Dispose();
         }
-
+        
         public override ValueTask DisposeAsync()
         {
             SavingChanges -= DbContext_SavingChanges;
-
+            
             return base.DisposeAsync();
         }
-
+        
     }
 }

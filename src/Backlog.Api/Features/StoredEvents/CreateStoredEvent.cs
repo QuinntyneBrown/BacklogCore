@@ -1,10 +1,10 @@
+using Backlog.Api.Core;
+using Backlog.Api.Interfaces;
+using Backlog.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Backlog.Api.Models;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
@@ -17,7 +17,6 @@ namespace Backlog.Api.Features
                 RuleFor(request => request.StoredEvent).NotNull();
                 RuleFor(request => request.StoredEvent).SetValidator(new StoredEventValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -45,7 +44,7 @@ namespace Backlog.Api.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     StoredEvent = storedEvent.ToDto()
                 };

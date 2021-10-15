@@ -14,10 +14,7 @@ namespace Backlog.Api.Models
             Apply(@event);
         }
 
-        protected override void EnsureValidState()
-        {
-
-        }
+        protected override void EnsureValidState() { }
 
         protected override void When(dynamic @event) => When(@event);
 

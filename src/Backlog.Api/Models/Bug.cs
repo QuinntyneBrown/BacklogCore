@@ -21,7 +21,7 @@ namespace Backlog.Api.Models
 
         private void When(CreateBug @event)
         {
-            Apply(@event);
+            BugId = @event.BugId;
         }
     }
 }

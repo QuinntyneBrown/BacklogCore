@@ -26,15 +26,6 @@ namespace Backlog.Api.Core
             await _mediator.Publish(@event);
         }
 
-        public async Task Publish(IEvent @event, IEvent previousEvent)
-        {
-            @event.WithCorrelationIdFrom(previousEvent);
-
-            _messages.OnNext(@event);
-
-            await _mediator.Publish(@event);
-        }
-
         public async Task<T> Handle<T>(IEvent startWith, Func<TaskCompletionSource<T>, Action<INotification>> onNextFactory)
         {
             var tcs = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);

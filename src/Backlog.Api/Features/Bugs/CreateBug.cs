@@ -1,10 +1,10 @@
+using Backlog.Api.Core;
+using Backlog.Api.Interfaces;
+using Backlog.Api.Models;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Backlog.Api.Models;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
@@ -17,7 +17,6 @@ namespace Backlog.Api.Features
                 RuleFor(request => request.Bug).NotNull();
                 RuleFor(request => request.Bug).SetValidator(new BugValidator());
             }
-
         }
 
         public class Request : IRequest<Response>
@@ -39,7 +38,7 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var bug = new Bug();
+                var bug = new Bug(new ());
 
                 _context.Bugs.Add(bug);
 

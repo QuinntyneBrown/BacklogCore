@@ -30,7 +30,8 @@
     "Story",
     "StoredEvent",
     "Bug",
-    "StoryStatus",
-    "Profile"
+    "Profile",
+    "Status",
+    "TaskItem"
   ]
 }

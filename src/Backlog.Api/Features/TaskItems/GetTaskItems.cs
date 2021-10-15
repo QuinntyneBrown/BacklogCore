@@ -2,39 +2,37 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetStoryStatusById
+    public class GetTaskItems
     {
-        public class Request : IRequest<Response>
+        public class Request: IRequest<Response> { }
+
+        public class Response: ResponseBase
         {
-            public Guid StoryStatusId { get; set; }
+            public List<TaskItemDto> TaskItems { get; set; }
         }
 
-        public class Response : ResponseBase
-        {
-            public StoryStatusDto StoryStatus { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
+        public class Handler: IRequestHandler<Request, Response>
         {
             private readonly IBacklogDbContext _context;
-
+        
             public Handler(IBacklogDbContext context)
                 => _context = context;
-
+        
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new()
-                {
-                    StoryStatus = (await _context.StoryStatuses.SingleOrDefaultAsync(x => x.StoryStatusId == request.StoryStatusId)).ToDto()
+                return new () {
+                    TaskItems = await _context.TaskItems.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-
+            
         }
     }
 }

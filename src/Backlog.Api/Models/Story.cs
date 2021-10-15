@@ -1,6 +1,7 @@
 using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
 using System;
+using static System.String;
 
 namespace Backlog.Api.Models
 {
@@ -11,6 +12,7 @@ namespace Backlog.Api.Models
         public string Title { get; set; }
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
+        public string Status { get; private set; } = Empty;
 
         public Story(CreateStory @event)
         {

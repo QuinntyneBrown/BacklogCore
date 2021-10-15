@@ -1,9 +1,9 @@
-using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.Api.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Backlog.Api.Data
 {
@@ -12,12 +12,14 @@ namespace Backlog.Api.Data
         public DbSet<Story> Stories { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public DbSet<Bug> Bugs { get; private set; }
-        public DbSet<StoryStatus> StoryStatuses { get; private set; }
         public DbSet<Profile> Profiles { get; private set; }
+        public DbSet<Status> Statuses { get; private set; }
+        public DbSet<TaskItem> TaskItems { get; private set; }
         public BacklogDbContext(DbContextOptions options)
-            {
-                SavingChanges += DbContext_SavingChanges;
-            }
+            :base(options)
+        {
+            SavingChanges += DbContext_SavingChanges;
+        }
 
         private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {
@@ -40,23 +42,19 @@ namespace Backlog.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BacklogDbContext).Assembly);
         }
         
         public override void Dispose()
         {
-            SavingChanges -= DbContext_SavingChanges;
-            
+            SavingChanges -= DbContext_SavingChanges;          
             base.Dispose();
         }
         
         public override ValueTask DisposeAsync()
         {
-            SavingChanges -= DbContext_SavingChanges;
-            
+            SavingChanges -= DbContext_SavingChanges;           
             return base.DisposeAsync();
         }
-        
     }
 }

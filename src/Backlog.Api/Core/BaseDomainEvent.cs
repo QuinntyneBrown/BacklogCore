@@ -6,14 +6,14 @@ namespace Backlog.Api.Core
 {
     public class BaseDomainEvent : IEvent
     {
-        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public DateTime Created => Convert.ToDateTime(Items[nameof(Created)]);
+        public Guid CorrelationId => new Guid(Items[nameof(CorrelationId)] as string);
+        public Dictionary<string, object> Items { get; private set; } = new Dictionary<string, object>();
 
-        public Guid CorrelationId { get; set; }
-        public Dictionary<string, object> Items { get; private set; }
-
-        public void WithCorrelationIdFrom(IEvent @event)
+        public BaseDomainEvent()
         {
-
+            Items.Add(nameof(Created), DateTime.Now);
+            Items.Add(nameof(CorrelationId), Guid.NewGuid());
         }
     }
 }

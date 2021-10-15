@@ -8,7 +8,6 @@ namespace Backlog.Api.Interfaces
     {
         DateTime Created { get; }
         Guid CorrelationId { get; }
-        void WithCorrelationIdFrom(IEvent @event);
         Dictionary<string, object> Items { get; }
     }
 }

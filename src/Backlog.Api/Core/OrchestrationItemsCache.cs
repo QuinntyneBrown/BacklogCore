@@ -2,7 +2,7 @@
 
 namespace Backlog.Api.Core
 {
-    public class OrchestrationItemsCache: Dictionary<string, object>
+    public class OrchestrationItemsCache : Dictionary<string, object>
     {
 
     }

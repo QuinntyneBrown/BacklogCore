@@ -38,13 +38,13 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var bug = new Bug(new ());
+                var bug = new Bug(new());
 
                 _context.Bugs.Add(bug);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new()
                 {
                     Bug = bug.ToDto()
                 };

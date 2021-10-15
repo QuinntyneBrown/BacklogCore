@@ -4,7 +4,7 @@ using System;
 
 namespace Backlog.Api.Models
 {
-    public class Bug: AggregateRoot
+    public class Bug : AggregateRoot
     {
         public Guid BugId { get; private set; }
         public Bug(CreateBug @event)

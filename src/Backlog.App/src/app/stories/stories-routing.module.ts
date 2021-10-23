@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StoryListComponent } from './story-list/story-list.component';
-
+import { StoriesComponent } from './stories.component';
 
 const routes: Routes = [
-  { path: '', component: StoryListComponent }
+  {
+    path: '',
+    component: StoriesComponent,
+    children: [
+      { path: '', redirectTo: 'create', pathMatch: 'full' },
+      { path: 'create', loadChildren: () => import('./create-story/create-story.module').then(m => m.CreateStoryModule) }
+    ]
+  }
 ];
 
 @NgModule({

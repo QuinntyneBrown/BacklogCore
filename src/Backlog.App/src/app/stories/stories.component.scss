@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+
+  .stories__router-outlet {
+    border-left: 1px solid #CCC;
+  }
+
+  .stores__content-container {
+
+    padding-top: 40px;
+  }
+}

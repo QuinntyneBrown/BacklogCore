@@ -9,7 +9,9 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                SkillRequirementId = skillRequirement.SkillRequirementId
+                SkillRequirementId = skillRequirement.SkillRequirementId,
+                Technology = skillRequirement.Technology,
+                CompentencyLevel = skillRequirement.CompentencyLevel
             };
         }
         

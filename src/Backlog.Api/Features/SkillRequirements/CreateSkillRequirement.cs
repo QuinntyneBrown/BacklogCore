@@ -39,7 +39,7 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var skillRequirement = new SkillRequirement();
+                var skillRequirement = new SkillRequirement(new(request.SkillRequirement.Technology, request.SkillRequirement.CompentencyLevel));
                 
                 _context.SkillRequirements.Add(skillRequirement);
                 

@@ -8,7 +8,17 @@ namespace Backlog.Api.Models
     {
         public Guid SkillRequirementId { get; private set; }
         public string Technology { get; private set; }
-        public string CompentencyLevel { get; set; }
+        public string CompentencyLevel { get; private set; }
+
+        private SkillRequirement()
+        {
+
+        }
+
+        public SkillRequirement(CreateSkillRequirement @event)
+        {
+            Apply(@event);                
+        }
 
         protected override void EnsureValidState()
         {

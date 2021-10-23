@@ -9,7 +9,9 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                DependencyRelationshipId = dependencyRelationship.DependencyRelationshipId
+                DependencyRelationshipId = dependencyRelationship.DependencyRelationshipId,
+                Target = dependencyRelationship.Target,
+                DependsOn = dependencyRelationship.DependsOn
             };
         }
         

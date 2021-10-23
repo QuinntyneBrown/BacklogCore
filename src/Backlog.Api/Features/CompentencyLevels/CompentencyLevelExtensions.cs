@@ -7,9 +7,11 @@ namespace Backlog.Api.Features
     {
         public static CompentencyLevelDto ToDto(this CompentencyLevel compentencyLevel)
         {
-            return new ()
+            return new()
             {
-                CompentencyLevelId = compentencyLevel.CompentencyLevelId
+                CompentencyLevelId = compentencyLevel.CompentencyLevelId,
+                Description = compentencyLevel.Description,
+                Name = compentencyLevel.Name
             };
         }
         

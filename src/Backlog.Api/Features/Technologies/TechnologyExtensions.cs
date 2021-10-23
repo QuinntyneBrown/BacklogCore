@@ -1,4 +1,3 @@
-using System;
 using Backlog.Api.Models;
 
 namespace Backlog.Api.Features
@@ -9,7 +8,9 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                TechnologyId = technology.TechnologyId
+                TechnologyId = technology.TechnologyId,
+                Name = technology.Name,
+                Description = technology.Description
             };
         }
         

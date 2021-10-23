@@ -9,7 +9,9 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                StatusId = status.StatusId
+                StatusId = status.StatusId,
+                Name = status.Name,
+                Description = status.Description
             };
         }
         

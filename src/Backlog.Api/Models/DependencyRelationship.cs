@@ -7,8 +7,8 @@ namespace Backlog.Api.Models
     public class DependencyRelationship: AggregateRoot
     {
         public Guid DependencyRelationshipId { get; private set; }
-        public Guid TargetId { get; private set; }
-        public Guid DependsOnId { get; private set; }
+        public string Target { get; private set; }
+        public string DependsOn { get; private set; }
 
         private DependencyRelationship()
         {
@@ -30,17 +30,17 @@ namespace Backlog.Api.Models
         private void When(CreateDependencyRelationship @event)
         {
             DependencyRelationshipId = @event.DependencyRelationshipId;
-            TargetId = @event.TargetId;
-            DependsOnId = @event.DependsOnId;
+            Target = @event.Target;
+            DependsOn = @event.DependsOn;
         }
 
         private void When(UpdateDependencyRelationshipTargetId @event)
         {
-            TargetId = @event.TargetId;
+            Target = @event.Target;
         }
         private void When(UpdateDependencyRelationshipDependsOnId @event)
         {
-            DependsOnId = @event.DependsOnId;
+            DependsOn = @event.DependsOn;
         }
 
         private void When(RemoveDependencyRelationship @event)

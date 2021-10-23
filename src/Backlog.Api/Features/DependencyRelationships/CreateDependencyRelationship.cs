@@ -39,7 +39,7 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var dependencyRelationship = new DependencyRelationship(new(request.DependencyRelationship.TargetId, request.DependencyRelationship.DependsOnId));
+                var dependencyRelationship = new DependencyRelationship(new(request.DependencyRelationship.Target, request.DependencyRelationship.DependsOn));
                 
                 _context.DependencyRelationships.Add(dependencyRelationship);
                 

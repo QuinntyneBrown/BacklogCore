@@ -5,33 +5,33 @@ namespace Backlog.Api.DomainEvents
 {
     public class CreateDependencyRelationship: BaseDomainEvent {
         public Guid DependencyRelationshipId { get; private set; } = Guid.NewGuid();
-        public Guid TargetId { get; private set; }
-        public Guid DependsOnId { get; private set; }
+        public string Target { get; private set; }
+        public string DependsOn { get; private set; }
 
-        public CreateDependencyRelationship(Guid targetId, Guid dependsOnId)
+        public CreateDependencyRelationship(string target, string dependsOn)
         {
-            TargetId = targetId;
-            DependsOnId = dependsOnId;
+            Target = target;
+            DependsOn = dependsOn;
         }
     }
 
     public class UpdateDependencyRelationshipTargetId : BaseDomainEvent
     {
-        public Guid TargetId { get; private set; }
+        public string Target { get; private set; }
 
-        public UpdateDependencyRelationshipTargetId(Guid targetId)
+        public UpdateDependencyRelationshipTargetId(string target)
         {
-            TargetId = targetId;
+            Target = target;
         }
     }
 
     public class UpdateDependencyRelationshipDependsOnId : BaseDomainEvent
     {
-        public Guid DependsOnId { get; private set; }
+        public string DependsOn { get; private set; }
 
-        public UpdateDependencyRelationshipDependsOnId(Guid dependsOnId)
+        public UpdateDependencyRelationshipDependsOnId(string dependsOn)
         {
-            DependsOnId = dependsOnId;
+            DependsOn = dependsOn;
         }
     }
 

@@ -20,6 +20,19 @@ namespace Backlog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompentencyLevels",
+                columns: table => new
+                {
+                    CompentencyLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompentencyLevels", x => x.CompentencyLevelId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Profiles",
                 columns: table => new
                 {
@@ -30,6 +43,19 @@ namespace Backlog.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ProfileId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SkillRequirements",
+                columns: table => new
+                {
+                    SkillRequirementId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompentencyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillRequirements", x => x.SkillRequirementId);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +100,8 @@ namespace Backlog.Api.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AcceptanceCriteria = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Difficulty = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,6 +118,42 @@ namespace Backlog.Api.Migrations
                 {
                     table.PrimaryKey("PK_TaskItems", x => x.TaskItemId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Technologies",
+                columns: table => new
+                {
+                    TechnologyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Technologies", x => x.TechnologyId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DependencyRelationships",
+                columns: table => new
+                {
+                    DependencyRelationshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DependencyRelationships", x => x.DependencyRelationshipId);
+                    table.ForeignKey(
+                        name: "FK_DependencyRelationships_Stories_StoryId",
+                        column: x => x.StoryId,
+                        principalTable: "Stories",
+                        principalColumn: "StoryId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DependencyRelationships_StoryId",
+                table: "DependencyRelationships",
+                column: "StoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -99,7 +162,16 @@ namespace Backlog.Api.Migrations
                 name: "Bugs");
 
             migrationBuilder.DropTable(
+                name: "CompentencyLevels");
+
+            migrationBuilder.DropTable(
+                name: "DependencyRelationships");
+
+            migrationBuilder.DropTable(
                 name: "Profiles");
+
+            migrationBuilder.DropTable(
+                name: "SkillRequirements");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
@@ -108,10 +180,13 @@ namespace Backlog.Api.Migrations
                 name: "StoredEvents");
 
             migrationBuilder.DropTable(
-                name: "Stories");
+                name: "TaskItems");
 
             migrationBuilder.DropTable(
-                name: "TaskItems");
+                name: "Technologies");
+
+            migrationBuilder.DropTable(
+                name: "Stories");
         }
     }
 }

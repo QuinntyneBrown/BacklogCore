@@ -33,6 +33,39 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Bugs");
                 });
 
+            modelBuilder.Entity("Backlog.Api.Models.CompentencyLevel", b =>
+                {
+                    b.Property<Guid>("CompentencyLevelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CompentencyLevelId");
+
+                    b.ToTable("CompentencyLevels");
+                });
+
+            modelBuilder.Entity("Backlog.Api.Models.DependencyRelationship", b =>
+                {
+                    b.Property<Guid>("DependencyRelationshipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("StoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DependencyRelationshipId");
+
+                    b.HasIndex("StoryId");
+
+                    b.ToTable("DependencyRelationships");
+                });
+
             modelBuilder.Entity("Backlog.Api.Models.Profile", b =>
                 {
                     b.Property<Guid>("ProfileId")
@@ -48,6 +81,23 @@ namespace Backlog.Api.Migrations
                     b.HasKey("ProfileId");
 
                     b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("Backlog.Api.Models.SkillRequirement", b =>
+                {
+                    b.Property<Guid>("SkillRequirementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompentencyLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Technology")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SkillRequirementId");
+
+                    b.ToTable("SkillRequirements");
                 });
 
             modelBuilder.Entity("Backlog.Api.Models.Status", b =>
@@ -117,6 +167,9 @@ namespace Backlog.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Difficulty")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -140,6 +193,35 @@ namespace Backlog.Api.Migrations
                     b.HasKey("TaskItemId");
 
                     b.ToTable("TaskItems");
+                });
+
+            modelBuilder.Entity("Backlog.Api.Models.Technology", b =>
+                {
+                    b.Property<Guid>("TechnologyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TechnologyId");
+
+                    b.ToTable("Technologies");
+                });
+
+            modelBuilder.Entity("Backlog.Api.Models.DependencyRelationship", b =>
+                {
+                    b.HasOne("Backlog.Api.Models.Story", null)
+                        .WithMany("DependsOn")
+                        .HasForeignKey("StoryId");
+                });
+
+            modelBuilder.Entity("Backlog.Api.Models.Story", b =>
+                {
+                    b.Navigation("DependsOn");
                 });
 #pragma warning restore 612, 618
         }

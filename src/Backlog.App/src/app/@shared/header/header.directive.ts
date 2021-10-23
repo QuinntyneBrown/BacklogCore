@@ -11,4 +11,7 @@ export class HeaderDirective {
     (elementRef.nativeElement as HTMLElement).classList.add('bl-header');
   }
 
+  public close() {
+
+  }
 }

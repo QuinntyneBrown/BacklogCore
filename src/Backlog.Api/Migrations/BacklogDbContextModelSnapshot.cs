@@ -56,8 +56,14 @@ namespace Backlog.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("DependsOn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("StoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DependencyRelationshipId");
 
@@ -92,10 +98,15 @@ namespace Backlog.Api.Migrations
                     b.Property<string>("CompentencyLevel")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("StoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Technology")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SkillRequirementId");
+
+                    b.HasIndex("StoryId");
 
                     b.ToTable("SkillRequirements");
                 });
@@ -105,6 +116,9 @@ namespace Backlog.Api.Migrations
                     b.Property<Guid>("StatusId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -167,9 +181,6 @@ namespace Backlog.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Difficulty")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -219,9 +230,18 @@ namespace Backlog.Api.Migrations
                         .HasForeignKey("StoryId");
                 });
 
+            modelBuilder.Entity("Backlog.Api.Models.SkillRequirement", b =>
+                {
+                    b.HasOne("Backlog.Api.Models.Story", null)
+                        .WithMany("SkillRequirements")
+                        .HasForeignKey("StoryId");
+                });
+
             modelBuilder.Entity("Backlog.Api.Models.Story", b =>
                 {
                     b.Navigation("DependsOn");
+
+                    b.Navigation("SkillRequirements");
                 });
 #pragma warning restore 612, 618
         }

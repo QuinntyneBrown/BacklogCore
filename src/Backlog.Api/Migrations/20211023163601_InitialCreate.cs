@@ -46,24 +46,12 @@ namespace Backlog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SkillRequirements",
-                columns: table => new
-                {
-                    SkillRequirementId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompentencyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SkillRequirements", x => x.SkillRequirementId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Statuses",
                 columns: table => new
                 {
                     StatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,8 +88,7 @@ namespace Backlog.Api.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AcceptanceCriteria = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Difficulty = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,6 +124,8 @@ namespace Backlog.Api.Migrations
                 columns: table => new
                 {
                     DependencyRelationshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Target = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DependsOn = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -150,9 +139,34 @@ namespace Backlog.Api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SkillRequirements",
+                columns: table => new
+                {
+                    SkillRequirementId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CompentencyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillRequirements", x => x.SkillRequirementId);
+                    table.ForeignKey(
+                        name: "FK_SkillRequirements_Stories_StoryId",
+                        column: x => x.StoryId,
+                        principalTable: "Stories",
+                        principalColumn: "StoryId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DependencyRelationships_StoryId",
                 table: "DependencyRelationships",
+                column: "StoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SkillRequirements_StoryId",
+                table: "SkillRequirements",
                 column: "StoryId");
         }
 

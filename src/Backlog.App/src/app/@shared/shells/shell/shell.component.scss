@@ -1,23 +1,88 @@
+@use "src/scss/breakpoints";
+
+
 :host {
-  border-top:10px #CFECE3 solid;
-  display: block;
-  position: relative;
-  min-height: 100%;
-  box-sizing: border-box;
-  padding-bottom: 75px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  --layout-drawer-width: 368px;
+  --layout-gutter-desktop-x: 0px;
+  --layout-gutter-desktop-y: 0px;
+  --layout-gutter-mobile-x: 30px;
+  --layout-gutter-mobile-y: 40px;
+  --layout-gutter-x:0px;
+  --layout-footer-height: 70px;
 
-
-  main {
+  mat-drawer {
     display: block;
-    padding: 0 22px;
-    box-sizing: border-box;
+    width: 368px;
+    border: none;
+    border-right: 1px solid #D7D3CB;
+    padding-left: var(--layout-gutter-mobile-x);
+    padding-right: var(--layout-gutter-mobile-x);
+    padding-top: var(--layout-gutter-mobile-y);
   }
 
-  .shell__tray {
-    height: 97px;
-    position:fixed;
-    bottom:0px;
+  mat-drawer-container {
+    height: calc(100vh - 110px);
+    margin-top: 110px;
+  }
+
+  ::ng-deep .mat-drawer-inner-container {
+    overflow: hidden ;
+  }
+
+  app-footer {
+    height: var(--layout-footer-height);
+  }
+
+  app-footer,
+  main {
+    padding: 0 var(--layout-gutter-x);
+  }
+
+  main {
+    min-height: calc(100% - var(--layout-footer-height));
+    display: block;
+    box-sizing: border-box;
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  div[bl-header] {
+    position: fixed;
+    top: 0;
     width: 100%;
-    background-color: #fff;
+    box-sizing: border-box;
+  }
+}
+
+@media only screen and (min-width: breakpoints.$screen-md-min) {
+  :host {
+    display: block;
+    div[bl-header] {
+      display: none;
+    }
+
+    mat-drawer {
+      width: var(--layout-drawer-width);
+    }
+
+    mat-drawer-container {
+      height: 100vh;
+      margin-top: 0px;
+      box-sizing: border-box;
+    }
+
+    app-footer,
+    main {
+      padding: 0 var(--layout-gutter-desktop-x);
+    }
+
+    main {
+      padding-top: var(--layout-gutter-desktop-y);
+      padding-right: 40px;
+      padding-left: 40px;
+    }
   }
 }

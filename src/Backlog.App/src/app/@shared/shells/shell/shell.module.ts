@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '@shared/footer/footer.module';
 import { ActionsModule } from '@shared/actions/actions.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidenavModule } from '@shared/sidenav';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     HeaderModule,
     MatIconModule,
     FooterModule,
-    MatSidenavModule
+    MatIconModule,
+    MatSidenavModule,
+    SidenavModule
   ]
 })
 export class ShellModule { }

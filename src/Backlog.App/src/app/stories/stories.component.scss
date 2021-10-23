@@ -1,14 +1,22 @@
+@use 'src/scss/breakpoints';
+
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100vh;
+  height: calc(100vh - 52px);
+  box-sizing: border-box;
 
   .stories__router-outlet {
     border-left: 1px solid #CCC;
   }
 
   .stores__content-container {
-
     padding-top: 40px;
+  }
+}
+
+@media only screen and (min-width: breakpoints.$screen-md-min) {
+  :host {
+    height: 100vh;
   }
 }

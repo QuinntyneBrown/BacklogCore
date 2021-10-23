@@ -24,8 +24,8 @@
   }
 
   mat-drawer-container {
-    height: calc(100vh - 110px);
-    margin-top: 110px;
+    margin-top: 52px;
+
   }
 
   ::ng-deep .mat-drawer-inner-container {
@@ -42,7 +42,7 @@
   }
 
   main {
-    min-height: calc(100% - var(--layout-footer-height));
+    min-height: calc(100% - 52px);
     display: block;
     box-sizing: border-box;
     padding-right: 40px;

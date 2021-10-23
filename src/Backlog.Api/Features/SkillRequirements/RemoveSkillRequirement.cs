@@ -2,32 +2,24 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System;
 using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
-    public class CreateDifficulty
+    public class RemoveSkillRequirement
     {
-        public class Validator: AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Difficulty).NotNull();
-                RuleFor(request => request.Difficulty).SetValidator(new DifficultyValidator());
-            }
-        
-        }
-
         public class Request: IRequest<Response>
         {
-            public DifficultyDto Difficulty { get; set; }
+            public Guid SkillRequirementId { get; set; }
         }
 
         public class Response: ResponseBase
         {
-            public DifficultyDto Difficulty { get; set; }
+            public SkillRequirementDto SkillRequirement { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -39,15 +31,15 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var difficulty = new Difficulty();
+                var skillRequirement = await _context.SkillRequirements.SingleAsync(x => x.SkillRequirementId == request.SkillRequirementId);
                 
-                _context.Difficulties.Add(difficulty);
+                _context.SkillRequirements.Remove(skillRequirement);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()
                 {
-                    Difficulty = difficulty.ToDto()
+                    SkillRequirement = skillRequirement.ToDto()
                 };
             }
             

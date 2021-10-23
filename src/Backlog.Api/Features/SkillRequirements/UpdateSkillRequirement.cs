@@ -8,26 +8,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class UpdateDifficulty
+    public class UpdateSkillRequirement
     {
         public class Validator: AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.Difficulty).NotNull();
-                RuleFor(request => request.Difficulty).SetValidator(new DifficultyValidator());
+                RuleFor(request => request.SkillRequirement).NotNull();
+                RuleFor(request => request.SkillRequirement).SetValidator(new SkillRequirementValidator());
             }
         
         }
 
         public class Request: IRequest<Response>
         {
-            public DifficultyDto Difficulty { get; set; }
+            public SkillRequirementDto SkillRequirement { get; set; }
         }
 
         public class Response: ResponseBase
         {
-            public DifficultyDto Difficulty { get; set; }
+            public SkillRequirementDto SkillRequirement { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -39,13 +39,13 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var difficulty = await _context.Difficulties.SingleAsync(x => x.DifficultyId == request.Difficulty.DifficultyId);
+                var skillRequirement = await _context.SkillRequirements.SingleAsync(x => x.SkillRequirementId == request.SkillRequirement.SkillRequirementId);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()
                 {
-                    Difficulty = difficulty.ToDto()
+                    SkillRequirement = skillRequirement.ToDto()
                 };
             }
             

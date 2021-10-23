@@ -14,8 +14,9 @@ namespace Backlog.Api.Interfaces
         DbSet<Status> Statuses { get; }
         DbSet<TaskItem> TaskItems { get; }
         DbSet<Technology> Technologies { get; }
-        DbSet<Difficulty> Difficulties { get; }
         DbSet<DependencyRelationship> DependencyRelationships { get; }
+        DbSet<SkillRequirement> SkillRequirements { get; }
+        DbSet<CompentencyLevel> CompentencyLevels { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         
     }

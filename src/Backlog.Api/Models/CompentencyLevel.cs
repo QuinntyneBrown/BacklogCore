@@ -3,9 +3,9 @@ using System;
 
 namespace Backlog.Api.Models
 {
-    public class Difficulty: AggregateRoot
+    public class CompentencyLevel: AggregateRoot
     {
-        public Guid DifficultyId { get; private set; }
+        public Guid CompentencyLevelId { get; private set; }
         public string Value { get; private set; }
 
         protected override void EnsureValidState()

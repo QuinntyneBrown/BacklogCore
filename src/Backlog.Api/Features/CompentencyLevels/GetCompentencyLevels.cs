@@ -2,22 +2,21 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetDifficultyById
+    public class GetCompentencyLevels
     {
-        public class Request: IRequest<Response>
-        {
-            public Guid DifficultyId { get; set; }
-        }
+        public class Request: IRequest<Response> { }
 
         public class Response: ResponseBase
         {
-            public DifficultyDto Difficulty { get; set; }
+            public List<CompentencyLevelDto> CompentencyLevels { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -30,7 +29,7 @@ namespace Backlog.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    Difficulty = (await _context.Difficulties.SingleOrDefaultAsync(x => x.DifficultyId == request.DifficultyId)).ToDto()
+                    CompentencyLevels = await _context.CompentencyLevels.Select(x => x.ToDto()).ToListAsync()
                 };
             }
             

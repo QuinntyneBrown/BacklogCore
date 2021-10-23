@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetDifficulties
+    public class GetSkillRequirements
     {
         public class Request: IRequest<Response> { }
 
         public class Response: ResponseBase
         {
-            public List<DifficultyDto> Difficulties { get; set; }
+            public List<SkillRequirementDto> SkillRequirements { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -29,7 +29,7 @@ namespace Backlog.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    Difficulties = await _context.Difficulties.Select(x => x.ToDto()).ToListAsync()
+                    SkillRequirements = await _context.SkillRequirements.Select(x => x.ToDto()).ToListAsync()
                 };
             }
             

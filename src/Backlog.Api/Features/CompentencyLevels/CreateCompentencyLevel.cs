@@ -39,13 +39,13 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var compentencyLevel = new CompentencyLevel();
+                var compentencyLevel = new CompentencyLevel(new(request.CompentencyLevel.Name, request.CompentencyLevel.Description));
                 
                 _context.CompentencyLevels.Add(compentencyLevel);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     CompentencyLevel = compentencyLevel.ToDto()
                 };

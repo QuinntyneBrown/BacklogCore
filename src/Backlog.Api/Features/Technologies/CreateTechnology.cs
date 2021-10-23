@@ -39,13 +39,13 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var technology = new Technology();
+                var technology = new Technology(new(request.Technology.Name, request.Technology.Description));
                 
                 _context.Technologies.Add(technology);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
-                return new Response()
+                return new ()
                 {
                     Technology = technology.ToDto()
                 };

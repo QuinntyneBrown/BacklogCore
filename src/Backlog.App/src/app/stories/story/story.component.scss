@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  .story__content {
+    padding: 35px 30px;
+    padding-bottom: 70px;
+  }
+
+  h1[bl-title] {
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
+
+  bl-story-actionbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,18 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:25px;
+  justify-content: center;
+  place-items: center;
+  background-color: white;
+  padding:22px;
+  box-sizing: border-box;
+
+  .bl-button,
+  .bl-icon-button {
+    width: 100%;
+    mat-icon {
+      color: green;
+    }
+  }
+}

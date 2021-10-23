@@ -39,7 +39,7 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var taskItem = new TaskItem();
+                var taskItem = new TaskItem(new ());
                 
                 _context.TaskItems.Add(taskItem);
                 

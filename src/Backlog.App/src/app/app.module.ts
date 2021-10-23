@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { baseUrl } from '@core/constants';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShellModule } from '@shared/shells/shell';
+import { ItemShellModule } from '@shared/shells/item-shell/item-shell.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ShellModule,
+    ItemShellModule
   ],
   providers: [
     { provide: baseUrl, useValue: "https://localhost:5001/"}

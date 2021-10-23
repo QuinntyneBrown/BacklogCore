@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  padding-bottom: 60px;
+
+  .story-dialog__content {
+    padding:22px;
+  }
+
+  h1[bl-title] {
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  bl-story-actionbar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

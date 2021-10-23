@@ -25,8 +25,8 @@ namespace Backlog.Api
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "",
-                        Email = ""
+                        Name = "Quinntyne Brown",
+                        Email = "quinntynebrown@gmail.com"
                     },
                     License = new OpenApiLicense
                     {

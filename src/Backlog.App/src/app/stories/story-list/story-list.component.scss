@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  background-color: #F8F6F3;
+
+  h1[bl-title] {
+    cursor: pointer;
+  }
+}

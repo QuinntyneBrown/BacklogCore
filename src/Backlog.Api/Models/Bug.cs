@@ -15,6 +15,11 @@ namespace Backlog.Api.Models
             Apply(@event);
         }
 
+        private Bug()
+        {
+
+        }
+
         protected override void EnsureValidState()
         {
 

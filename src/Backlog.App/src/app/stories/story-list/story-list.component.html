@@ -1,1 +1,15 @@
-<p>story-list works!</p>
+<ng-container *ngIf="vm$ | async as vm">
+
+  <div bl-title-bar>
+    <h1 bl-title [routerLink]="['/','stories','create']">
+      Stories
+      <mat-icon>
+        add_circle
+      </mat-icon>
+    </h1>
+    <mat-icon>
+      search
+    </mat-icon>
+  </div>
+
+</ng-container>

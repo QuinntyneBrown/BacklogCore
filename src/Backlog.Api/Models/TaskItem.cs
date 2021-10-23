@@ -1,9 +1,31 @@
+using Backlog.Api.Core;
+using Backlog.Api.DomainEvents;
 using System;
 
 namespace Backlog.Api.Models
 {
-    public class TaskItem
+    public class TaskItem: AggregateRoot
     {
         public Guid TaskItemId { get; set; }
+
+        public TaskItem(CreateTaskItem @event)
+        {
+            Apply(@event);
+        }
+
+        private TaskItem()
+        {
+
+        }
+
+        protected override void EnsureValidState()
+        {
+
+        }
+
+        protected override void When(dynamic @event)
+        {
+
+        }
     }
 }

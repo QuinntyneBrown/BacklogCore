@@ -32,6 +32,9 @@
     "Bug",
     "Profile",
     "Status",
-    "TaskItem"
+    "TaskItem",
+    "Technology",
+    "Difficulty",
+    "DependencyRelationship"
   ]
 }

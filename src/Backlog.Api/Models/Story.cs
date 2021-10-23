@@ -1,6 +1,7 @@
 using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
 using System;
+using System.Collections.Generic;
 using static System.String;
 
 namespace Backlog.Api.Models
@@ -13,10 +14,17 @@ namespace Backlog.Api.Models
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
         public string Status { get; private set; } = Empty;
+        public string Difficulty { get; private set; } = Empty;
+        public List<DependencyRelationship> DependsOn { get; private set; } = new List<DependencyRelationship>();
 
         public Story(CreateStory @event)
         {
             Apply(@event);
+        }
+
+        private Story()
+        {
+
         }
         protected override void EnsureValidState()
         {

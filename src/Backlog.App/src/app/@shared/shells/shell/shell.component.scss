@@ -1,0 +1,23 @@
+:host {
+  border-top:10px #CFECE3 solid;
+  display: block;
+  position: relative;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 75px;
+
+
+  main {
+    display: block;
+    padding: 0 22px;
+    box-sizing: border-box;
+  }
+
+  .shell__tray {
+    height: 97px;
+    position:fixed;
+    bottom:0px;
+    width: 100%;
+    background-color: #fff;
+  }
+}

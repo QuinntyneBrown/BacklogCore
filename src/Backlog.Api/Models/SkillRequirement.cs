@@ -1,4 +1,5 @@
 using Backlog.Api.Core;
+using Backlog.Api.DomainEvents;
 using System;
 
 namespace Backlog.Api.Models
@@ -14,7 +15,24 @@ namespace Backlog.Api.Models
 
         }
 
-        protected override void When(dynamic @event)
+        protected override void When(dynamic @event) => When(@event);
+
+        private void When(CreateSkillRequirement @event)
+        {
+            SkillRequirementId = @event.SkillRequirementId;
+            Technology = @event.Technology;
+            CompentencyLevel = @event.CompentencyLevel;
+
+        }
+        private void When(UpdateSkillRequirementTechnology @event)
+        {
+            Technology = @event.Technology;
+        }
+        private void When(UpdateSkillRequirementCompentencyLevel @event)
+        {
+            CompentencyLevel = @event.CompentencyLevel;
+        }
+        private void When(RemoveSkillRequirement @event)
         {
 
         }

@@ -15,6 +15,26 @@ namespace Backlog.Api.DomainEvents
         }
     }
 
+    public class UpdateDependencyRelationshipTargetId : BaseDomainEvent
+    {
+        public Guid TargetId { get; private set; }
+
+        public UpdateDependencyRelationshipTargetId(Guid targetId)
+        {
+            TargetId = targetId;
+        }
+    }
+
+    public class UpdateDependencyRelationshipDependsOnId : BaseDomainEvent
+    {
+        public Guid DependsOnId { get; private set; }
+
+        public UpdateDependencyRelationshipDependsOnId(Guid dependsOnId)
+        {
+            DependsOnId = dependsOnId;
+        }
+    }
+
     public class RemoveDependencyRelationship: BaseDomainEvent
     {
 

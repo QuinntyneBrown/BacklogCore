@@ -1,0 +1,54 @@
+@use 'src/scss/breakpoints';
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: calc(100vh - 52px);
+  box-sizing: border-box;
+  width: 100%;
+
+  .two-column-layout__content-column {
+    padding-top: 40px;
+    display: none;
+  }
+}
+
+:host-context(.two-column-layout--default) {
+  .two-column-layout__content-column {
+    display: block;
+  }
+
+  .two-column-layout__router-outlet {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: breakpoints.$screen-md-min) {
+  :host {
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+
+    div[bl-header] {
+      display: none;
+    }
+
+    .two-column-layout__content-column {
+      display: block;
+    }
+
+    .two-column-layout__router-outlet {
+      padding-left: 40px;
+      border-left: 1px solid #CCC;
+    }
+  }
+
+  :host-context(.two-column-layout--default) {
+    .two-column-layout__content-column {
+      display: initial;
+    }
+
+    .two-column-layout__router-outlet {
+      display: initial;
+    }
+  }
+}

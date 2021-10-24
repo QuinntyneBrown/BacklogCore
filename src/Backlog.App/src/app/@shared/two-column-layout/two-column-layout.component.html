@@ -1,0 +1,16 @@
+<ng-container *ngIf="vm$ | async vm">
+  <div class="two-column-layout__content-column">
+    <div bl-header>
+      <h1 bl-header-title>Backlog</h1>
+      <mat-icon>
+        menu
+      </mat-icon>
+    </div>
+    <div class="two-column-layout__content-container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <div class="two-column-layout__router-outlet">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>

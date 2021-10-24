@@ -1,14 +1,12 @@
+using Backlog.Api.Core;
+using Backlog.Api.Extensions;
+using Backlog.Api.Interfaces;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using Backlog.Api.Extensions;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
-using Backlog.Api.Extensions;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Backlog.Api.Features
 {

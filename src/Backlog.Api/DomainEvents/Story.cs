@@ -12,17 +12,20 @@ namespace Backlog.Api.DomainEvents
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
         public string Status { get; private set; }
+        public string JiraUrl { get; private set; }
 
         public CreateStory(
             string name,
             string title,
             string description,
-            string acceptanceCriteria)
+            string acceptanceCriteria,
+            string jiraUrl)
         {
             Name = name;
             Title = title;
             Description = description;
             AcceptanceCriteria = acceptanceCriteria;
+            JiraUrl = jiraUrl;
         }
     }
 
@@ -34,17 +37,20 @@ namespace Backlog.Api.DomainEvents
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
         public string Status { get; private set; }
+        public string JiraUrl { get; private set; }
 
         public UpdateStory(
             string name,
             string title,
             string description,
-            string acceptanceCriteria)
+            string acceptanceCriteria,
+            string jiraUrl)
         {
             Name = name;
             Title = title;
             Description = description;
             AcceptanceCriteria = acceptanceCriteria;
+            JiraUrl = jiraUrl;
         }
     }
 

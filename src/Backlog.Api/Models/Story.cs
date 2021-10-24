@@ -42,6 +42,7 @@ namespace Backlog.Api.Models
             Name = @event.Name;
             Description = @event.Description;
             AcceptanceCriteria = @event.AcceptanceCriteria;
+            JiraUrl = @event.JiraUrl;
             DependsOn = new List<DependencyRelationship>();
             SkillRequirements = new List<SkillRequirement>();
         }
@@ -52,6 +53,7 @@ namespace Backlog.Api.Models
             Name = @event.Name;
             Description = @event.Description;
             AcceptanceCriteria = @event.AcceptanceCriteria;
+            JiraUrl = @event.JiraUrl;
         }
 
         private void When(UpdateStoryJiraUrl @event)

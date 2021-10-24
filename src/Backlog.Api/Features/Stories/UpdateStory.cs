@@ -46,7 +46,8 @@ namespace Backlog.Api.Features
                     request.Story.Name,
                     request.Story.Title,
                     request.Story.Description,
-                    request.Story.AcceptanceCriteria));
+                    request.Story.AcceptanceCriteria,
+                    request.Story.JiraUrl));
 
                 await _context.SaveChangesAsync(cancellationToken);
 			    

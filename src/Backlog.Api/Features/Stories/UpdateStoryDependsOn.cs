@@ -1,19 +1,22 @@
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.Api.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backlog.Api.Features
 {
-    public class AddStoryDependencyRelationship
+    public class UpdateStoryDependsOn
     {
 
         public class Request : IRequest<Response> { 
             public Guid StoryId { get; set; }
-            public string DependsOn { get; set; }
+            public List<string> DependsOn { get; set; }
         }
 
         public class Response: ResponseBase
@@ -35,7 +38,7 @@ namespace Backlog.Api.Features
                 var story = await _context.Stories.Include(x => x.DependsOn)
                     .SingleAsync(x => x.StoryId == request.StoryId);
 
-                story.Apply(new DomainEvents.AddStoryDependsOn(request.DependsOn));
+                story.Apply(new DomainEvents.UpdateDependsOn(request.DependsOn.Select(x => new DependencyRelationship(x)).ToList()));
 
                 await _context.SaveChangesAsync(cancellationToken);
 			    

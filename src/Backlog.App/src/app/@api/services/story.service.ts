@@ -57,4 +57,8 @@ export class StoryService implements IPagableService<Story> {
   public update(options: { story: Story }): Observable<{ story: Story }> {
     return this._client.put<{ story: Story }>(`${this._baseUrl}api/story`, { story: options.story });
   }
+
+  public updateDependsOn(options: { storyId: string, dependsOn: string[] }): Observable<{ story: Story }> {
+    return this._client.put<{ story: Story }>(`${this._baseUrl}api/story/depends-on`, options);
+  }
 }

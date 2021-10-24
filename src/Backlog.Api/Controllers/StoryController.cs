@@ -53,11 +53,11 @@ namespace Backlog.Api.Controllers
         public async Task<ActionResult<AddStorySkillRequirement.Response>> AddStorySkillRequirement([FromBody] AddStorySkillRequirement.Request request)
             => await _mediator.Send(request);
 
-        [HttpPost("depends-on", Name = "AddStoryDependencyRelationshipRoute")]
+        [HttpPut("depends-on", Name = "UpdateStoryDependsOnRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(AddStoryDependencyRelationship.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<AddStoryDependencyRelationship.Response>> AddStoryDependencyRelationship([FromBody] AddStoryDependencyRelationship.Request request)
+        [ProducesResponseType(typeof(UpdateStoryDependsOn.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryDependsOn.Response>> UpdateStoryDependsOn([FromBody] UpdateStoryDependsOn.Request request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetStoriesPageRoute")]

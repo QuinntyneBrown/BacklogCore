@@ -66,16 +66,10 @@ namespace Backlog.Api.Models
             SkillRequirements.Add(@event.SkillRequirement);
         }
 
-        private void When(AddStoryDependsOn @event)
+        private void When(UpdateDependsOn @event)
         {
-            DependsOn.Add(new (@event.DependsOn));
+            DependsOn = @event.DependsOn;
         }
 
-        private void When(RemoveStoryDependsOn @event)
-        {
-            var existingRelationship = DependsOn.Single(x => x.DependsOn == @event.DependsOn);
-
-            DependsOn.Remove(existingRelationship);
-        }
     }
 }

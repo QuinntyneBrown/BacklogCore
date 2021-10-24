@@ -1,4 +1,4 @@
-import { DependencyRelationship, SkillRequirement } from "@api";
+import { SkillRequirement } from "@api";
 
 export type Story = {
     storyId: string,
@@ -7,6 +7,6 @@ export type Story = {
     description: string,
     acceptanceCriteria: string,
     jiraUrl: string,
-    dependencyRelationships: DependencyRelationship[],
+    dependsOn: string[],
     skillRequirements: SkillRequirement[]
 };

@@ -7,8 +7,8 @@ import { Destroyable } from '@core';
 import { StoriesFeatureService } from '@core/feature-services/stories-feature.service';
 import { AddDependencyRelationshipDialogComponent } from '@shared/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/dialogs/add-skill-requirement-dialog';
-import { of } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, of, Subject } from 'rxjs';
+import { map, startWith, switchMap, takeUntil, tap, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-story',
@@ -17,19 +17,20 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 })
 export class StoryComponent extends Destroyable  {
 
+  private readonly _refresh$ = new BehaviorSubject(null);
+
   public vm$ = this._activatedRoute
   .paramMap
   .pipe(
     map(paramMap => paramMap.get("storyId")),
+    switchMap(storyId => this._storiesFeatureService.storiesUpdated$.pipe(map(_ => storyId), startWith(storyId))),
     switchMap(storyId => {
       return storyId
       ? this._storyService.getById({ storyId })
       : of({ })
     }),
     map((story: Story) => {
-
       const storyControl = new FormControl(story,[Validators.required]);
-      this.handleAddDependencyRelationshipClick(story);
       return {
         storyControl
       };
@@ -70,7 +71,12 @@ export class StoryComponent extends Destroyable  {
     })
     .afterClosed()
     .pipe(
-      takeUntil(this._destroyed$)
+      takeUntil(this._destroyed$),
+      tap(result => {
+        if(result) {
+          this._storiesFeatureService.storiesUpdated$.next();
+        }
+      })
     )
     .subscribe();
   }

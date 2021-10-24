@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story, StoryService } from '@api';
 import { Destroyable } from '@core';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-add-dependency-relationship-dialog',
@@ -14,11 +14,11 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 })
 export class AddDependencyRelationshipDialogComponent extends Destroyable {
 
-  public searchControl = new FormControl(null,[Validators.required]);
+  public searchControl = new FormControl(null,[]);
 
   public readonly story$: BehaviorSubject<Story> = new BehaviorSubject(null);
 
-  public readonly stories$: BehaviorSubject<Story[]> = new BehaviorSubject([]);
+  public readonly stories$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) _story: Story,
@@ -26,7 +26,9 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
     private readonly _dialogRef: MatDialogRef<AddDependencyRelationshipDialogComponent>
   ) {
     super();
+    this.stories$.next(_story.dependsOn);
     this.story$.next(_story);
+
   }
 
   filteredOptions: Observable<Story[]> = this.searchControl.valueChanges.pipe(
@@ -38,10 +40,10 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
   public storySelected($event: MatAutocompleteSelectedEvent) {
     var stories = this.stories$.value;
 
-    const index = stories.map(x => x.name).indexOf($event.option.value.name);
+    const index = stories.indexOf($event.option.value.name);
 
     if(index == -1) {
-      stories.push($event.option.value);
+      stories.push($event.option.value.name);
     } else {
       stories.splice(index,1);
     }
@@ -52,4 +54,14 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
   }
 
   public displayWith = value => value?.name;
+
+  public save() {
+    this._storyService.updateDependsOn({ storyId: this.story$.value.storyId, dependsOn: this.stories$.value })
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(_ => {
+        this._dialogRef.close(true)
+      })
+    ).subscribe();
+  }
 }

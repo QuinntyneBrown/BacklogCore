@@ -32,11 +32,11 @@
 
 <div>
   <span *ngFor="let story of (stories$ | async)">
-    {{ story.name }}
+    {{ story }}
   </span>
 </div>
 
 <div class="g-actions">
   <button bl-button [mat-dialog-close]>Cancel</button>
-  <button bl-button>Save</button>
+  <button bl-button (click)="save()">Save</button>
 </div>

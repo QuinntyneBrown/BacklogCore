@@ -1,6 +1,7 @@
 using Backlog.Api.Core;
 using Backlog.Api.Models;
 using System;
+using System.Collections.Generic;
 
 namespace Backlog.Api.DomainEvents
 {
@@ -104,21 +105,11 @@ namespace Backlog.Api.DomainEvents
         }
     }
 
-    public class AddStoryDependsOn : BaseDomainEvent
+    public class UpdateDependsOn : BaseDomainEvent
     {
-        public string DependsOn { get; set; }
+        public List<DependencyRelationship> DependsOn { get; private set; }
 
-        public AddStoryDependsOn(string dependsOn)
-        {
-            DependsOn = dependsOn;
-        }
-    }
-
-    public class RemoveStoryDependsOn : BaseDomainEvent
-    {
-        public string DependsOn { get; set; }
-
-        public RemoveStoryDependsOn(string dependsOn)
+        public UpdateDependsOn(List<DependencyRelationship> dependsOn)
         {
             DependsOn = dependsOn;
         }

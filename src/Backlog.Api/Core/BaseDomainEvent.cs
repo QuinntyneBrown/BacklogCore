@@ -7,7 +7,7 @@ namespace Backlog.Api.Core
     public class BaseDomainEvent : IEvent
     {
         public DateTime Created => Convert.ToDateTime(Items[nameof(Created)]);
-        public Guid CorrelationId => new Guid(Items[nameof(CorrelationId)] as string);
+        public Guid CorrelationId => new Guid($"{Items[nameof(CorrelationId)]}");
         public Dictionary<string, object> Items { get; private set; } = new Dictionary<string, object>();
 
         public BaseDomainEvent()

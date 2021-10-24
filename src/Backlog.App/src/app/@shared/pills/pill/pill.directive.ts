@@ -1,10 +1,16 @@
-import { Directive } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
+import { classListAccessorMixin } from '@core/class-list-accessor';
 
 @Directive({
-  selector: '[blPill]'
+  selector: '[bl-pill]'
 })
-export class PillDirective {
+export class PillDirective extends classListAccessorMixin(class { }) {
 
-  constructor() { }
+  constructor(
+    public readonly elementRef: ElementRef
+  ) {
+    super();
+    this.classList.add("bl-pill")
+  }
 
 }

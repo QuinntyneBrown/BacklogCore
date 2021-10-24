@@ -1,7 +1,26 @@
-<div bl-title-form-field>
-  <input type="text" placeholder="Title">
-</div>
+<form [formGroup]="form">
 
-<textarea bl-textarea placeholder="Description"></textarea>
+  <div bl-title-form-field>
+    <input type="text" placeholder="Title" formControlName="title">
+  </div>
 
-<textarea bl-textarea placeholder="Acceptance Criteria"></textarea>
+  <mat-form-field class="g-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" placeholder="Name">
+  </mat-form-field>
+
+  <div *ngIf="form.value.storyId" class="story-control__options">
+    <span bl-pill (click)="addSkillRequirementClick.emit()">
+      Add Skill Requirement
+    </span>
+
+    <span bl-pill (click)="addDependencyRelationshipClick.emit()">
+      Add Dependency Relationship
+    </span>
+  </div>
+
+  <textarea bl-textarea placeholder="Description" formControlName="description"></textarea>
+
+  <textarea bl-textarea placeholder="Acceptance Criteria"  formControlName="acceptanceCriteria"></textarea>
+
+</form>

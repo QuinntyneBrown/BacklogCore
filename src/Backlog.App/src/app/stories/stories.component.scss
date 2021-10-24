@@ -1,3 +1,19 @@
 @use 'src/scss/breakpoints';
 
+:host {
+  .stories__list {
+    display: grid;
+    row-gap: 20px;
+    grid-template-columns: 1fr;
 
+    span {
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+
+      &:hover {
+        font-weight: 500;
+      }
+    }
+  }
+}

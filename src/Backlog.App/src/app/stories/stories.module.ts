@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { StoriesRoutingModule } from './stories-routing.module';
 import { StoriesComponent } from './stories.component';
 import { TwoColumnLayoutModule } from '@shared/two-column-layout/two-column-layout.module';
+import { TitleModule } from '@shared/title/title.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { TwoColumnLayoutModule } from '@shared/two-column-layout/two-column-layo
   imports: [
     CommonModule,
     TwoColumnLayoutModule,
-    StoriesRoutingModule
+    StoriesRoutingModule,
+    TitleModule,
+    MatIconModule
   ]
 })
 export class StoriesModule { }

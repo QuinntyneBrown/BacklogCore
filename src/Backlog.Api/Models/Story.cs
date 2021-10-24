@@ -43,5 +43,14 @@ namespace Backlog.Api.Models
             DependsOn = new List<DependencyRelationship>();
             SkillRequirements = new List<SkillRequirement>();
         }
+
+
+        private void When(UpdateStory @event)
+        {
+            Title = @event.Title;
+            Name = @event.Name;
+            Description = @event.Description;
+            AcceptanceCriteria = @event.AcceptanceCriteria;
+        }
     }
 }

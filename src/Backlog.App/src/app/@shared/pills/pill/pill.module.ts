@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { PillDirective } from './pill.directive';
 
 
-
 @NgModule({
   declarations: [
+    PillDirective
+  ],
+  exports: [
     PillDirective
   ],
   imports: [

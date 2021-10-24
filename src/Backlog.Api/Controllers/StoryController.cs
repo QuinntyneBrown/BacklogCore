@@ -57,7 +57,7 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateStoryDescription.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateStoryDescription.Response>> Update([FromBody] UpdateStoryDescription.Request request)
+        public async Task<ActionResult<UpdateStory.Response>> Update([FromBody] UpdateStory.Request request)
             => await _mediator.Send(request);
 
         [HttpDelete("{storyId}", Name = "RemoveStoryRoute")]

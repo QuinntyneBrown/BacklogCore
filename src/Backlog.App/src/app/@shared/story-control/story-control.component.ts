@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
@@ -24,7 +24,11 @@ import { BaseControlValueAccessor } from '@core';
 export class StoryControlComponent extends BaseControlValueAccessor implements Validator  {
 
   public form = new FormGroup({
+    storyId: new FormControl(null,[]),
+    title: new FormControl(null, [Validators.required]),
     name: new FormControl(null, [Validators.required]),
+    description: new FormControl(null, [Validators.required]),
+    acceptanceCriteria: new FormControl(null, [Validators.required])
   });
 
   constructor(
@@ -33,22 +37,12 @@ export class StoryControlComponent extends BaseControlValueAccessor implements V
     super();
   }
 
+  @Output() public addSkillRequirementClick = new EventEmitter();
+
+  @Output() public addDependencyRelationshipClick = new EventEmitter();
+
   validate(control: AbstractControl): ValidationErrors | null {
-      return this.form.valid ? null
-      : Object.keys(this.form.controls).reduce(
-          (accumulatedErrors, formControlName) => {
-            const errors: ValidationErrors = { ...accumulatedErrors };
-
-            const controlErrors = this.form.controls[formControlName].errors;
-
-            if (controlErrors) {
-              errors[formControlName] = controlErrors;
-            }
-
-            return errors;
-          },
-          {}
-        );
+      return this.form.errors;
   }
 
   writeValue(obj: any): void {

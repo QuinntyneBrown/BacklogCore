@@ -1,14 +1,16 @@
 import { Directive, ElementRef } from '@angular/core';
+import { ClassListAccessor } from '@core/class-list-accessor';
 
 @Directive({
   selector: '[bl-header]'
 })
-export class HeaderDirective {
+export class HeaderDirective extends ClassListAccessor {
 
   constructor(
-    elementRef: ElementRef
+    public readonly elementRef: ElementRef
   ) {
-    (elementRef.nativeElement as HTMLElement).classList.add('bl-header');
+    super();
+    this.classList.add('bl-header');
   }
 
   public close() {

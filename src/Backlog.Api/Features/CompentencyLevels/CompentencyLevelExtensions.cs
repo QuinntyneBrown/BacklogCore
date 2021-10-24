@@ -3,15 +3,15 @@ using Backlog.Api.Models;
 
 namespace Backlog.Api.Features
 {
-    public static class CompentencyLevelExtensions
+    public static class CompetencyLevelExtensions
     {
-        public static CompentencyLevelDto ToDto(this CompentencyLevel compentencyLevel)
+        public static CompetencyLevelDto ToDto(this CompetencyLevel competencyLevel)
         {
             return new()
             {
-                CompentencyLevelId = compentencyLevel.CompentencyLevelId,
-                Description = compentencyLevel.Description,
-                Name = compentencyLevel.Name
+                CompetencyLevelId = competencyLevel.CompetencyLevelId,
+                Description = competencyLevel.Description,
+                Name = competencyLevel.Name
             };
         }
         

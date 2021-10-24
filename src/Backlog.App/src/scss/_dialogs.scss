@@ -1,5 +1,9 @@
 .g-dialog-panel {
   .mat-dialog-container {
     padding:30px;
+
+    [bl-title-bar] {
+      margin-bottom: 30px;
+    }
   }
 }

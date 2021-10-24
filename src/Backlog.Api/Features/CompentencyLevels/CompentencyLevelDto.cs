@@ -2,9 +2,9 @@ using System;
 
 namespace Backlog.Api.Features
 {
-    public class CompentencyLevelDto
+    public class CompetencyLevelDto
     {
-        public Guid CompentencyLevelId { get; set; }
+        public Guid CompetencyLevelId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }

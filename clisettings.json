@@ -34,8 +34,6 @@
     "Status",
     "TaskItem",
     "Technology",
-    "DependencyRelationship",
-    "SkillRequirement",
     "CompentencyLevel"
   ]
 }

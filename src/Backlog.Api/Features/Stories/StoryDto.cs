@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Backlog.Api.Features
 {
@@ -9,6 +10,9 @@ namespace Backlog.Api.Features
         public string Title { get; set; }
         public string Description { get; set; }
         public string AcceptanceCriteria { get; set; }
+        public string JiraUrl { get; set; }
+        public List<string> DependsOn { get; set; } = new List<string>();
+        public List<SkillRequirementDto> SkillRequirements { get; set; } = new List<SkillRequirementDto>();
 
         public StoryDto()
         {

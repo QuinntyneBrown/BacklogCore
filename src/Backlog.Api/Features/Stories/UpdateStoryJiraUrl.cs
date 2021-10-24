@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace Backlog.Api.Features
 {
-    public class UpdateTechnologyDescription
+    public class UpdateStoryJiraUrl
     {
         public class Validator : AbstractValidator<Request>
         {
             public Validator()
             {
-                RuleFor(request => request.Technology).NotNull();
-                RuleFor(request => request.Technology).SetValidator(new TechnologyValidator());
+                RuleFor(request => request.Story).NotNull();
+                RuleFor(request => request.Story).SetValidator(new StoryValidator());
             }
         }
 
         public class Request : IRequest<Response> { 
-            public TechnologyDto Technology { get; set; }        
+            public StoryDto Story { get; set; }        
         }
 
         public class Response: ResponseBase
         {
-            public TechnologyDto Technology { get; set; }
+            public StoryDto Story { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -37,12 +37,14 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
             
-                var technology = await _context.Technologies.FindAsync(request.Technology.TechnologyId);
+                var story = await _context.Stories.FindAsync(request.Story.StoryId);
+
+                story.Apply(new DomainEvents.UpdateStoryJiraUrl(request.Story.JiraUrl));
 
                 await _context.SaveChangesAsync(cancellationToken);
 			    
                 return new () { 
-                    Technology = technology.ToDto()
+                    Story = story.ToDto()
                 };
             }
         }

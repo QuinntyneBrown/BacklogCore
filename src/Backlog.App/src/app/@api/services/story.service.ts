@@ -42,7 +42,11 @@ export class StoryService implements IPagableService<Story> {
   public create(options: { story: Story }): Observable<{ story: Story }> {
     return this._client.post<{ story: Story }>(`${this._baseUrl}api/story`, { story: options.story });
   }
-  
+
+  public addSkillRequirement(options: { storyId: string, competencyLevel:string, technology: string }): Observable<{ story: Story }> {
+    return this._client.post<{ story: Story }>(`${this._baseUrl}api/story/skill-requirement`, options);
+  }
+
   public update(options: { story: Story }): Observable<{ story: Story }> {
     return this._client.put<{ story: Story }>(`${this._baseUrl}api/story`, { story: options.story });
   }

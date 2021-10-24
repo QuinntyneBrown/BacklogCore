@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetCompentencyLevelsPage
+    public class GetCompetencyLevelsPage
     {
         public class Request: IRequest<Response>
         {
@@ -23,7 +23,7 @@ namespace Backlog.Api.Features
         public class Response: ResponseBase
         {
             public int Length { get; set; }
-            public List<CompentencyLevelDto> Entities { get; set; }
+            public List<CompetencyLevelDto> Entities { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -35,18 +35,18 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var query = from compentencyLevel in _context.CompentencyLevels
-                    select compentencyLevel;
+                var query = from competencyLevel in _context.CompetencyLevels
+                    select competencyLevel;
                 
-                var length = await _context.CompentencyLevels.CountAsync();
+                var length = await _context.CompetencyLevels.CountAsync();
                 
-                var compentencyLevels = await query.Page(request.Index, request.PageSize)
+                var competencyLevels = await query.Page(request.Index, request.PageSize)
                     .Select(x => x.ToDto()).ToListAsync();
                 
                 return new()
                 {
                     Length = length,
-                    Entities = compentencyLevels
+                    Entities = competencyLevels
                 };
             }
             

@@ -2,6 +2,7 @@ using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static System.String;
 
 namespace Backlog.Api.Models
@@ -13,6 +14,7 @@ namespace Backlog.Api.Models
         public string Title { get; set; }
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
+        public string JiraUrl { get; private set; }
         public string Status { get; private set; } = Empty;
         public List<DependencyRelationship> DependsOn { get; private set; }
         public List<SkillRequirement> SkillRequirements { get; private set; }
@@ -44,13 +46,34 @@ namespace Backlog.Api.Models
             SkillRequirements = new List<SkillRequirement>();
         }
 
-
         private void When(UpdateStory @event)
         {
             Title = @event.Title;
             Name = @event.Name;
             Description = @event.Description;
             AcceptanceCriteria = @event.AcceptanceCriteria;
+        }
+
+        private void When(UpdateStoryJiraUrl @event)
+        {
+            JiraUrl = @event.JiraUrl;
+        }
+
+        private void When(AddSkillRequirement @event)
+        {
+            SkillRequirements.Add(@event.SkillRequirement);
+        }
+
+        private void When(AddStoryDependsOn @event)
+        {
+            DependsOn.Add(new (@event.DependsOn));
+        }
+
+        private void When(RemoveStoryDependsOn @event)
+        {
+            var existingRelationship = DependsOn.Single(x => x.DependsOn == @event.DependsOn);
+
+            DependsOn.Remove(existingRelationship);
         }
     }
 }

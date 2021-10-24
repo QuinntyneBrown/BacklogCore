@@ -1,10 +1,38 @@
-<div bl-title-bar>
-  <h1 bl-title>
-    <span>Add Skill Requirement</span>
-  </h1>
-  <button mat-icon-button [mat-dialog-close] tabindex="-1">
-    <mat-icon>
-      close
-    </mat-icon>
-  </button>
-</div>
+<ng-container *ngIf="vm$ | async as vm">
+  <div bl-title-bar>
+    <h1 bl-title>
+      <span>Add Skill Requirement</span>
+    </h1>
+    <button mat-icon-button [mat-dialog-close] tabindex="-1">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="vm.form">
+    <mat-form-field class="g-form-field">
+      <mat-label>Technology</mat-label>
+      <mat-select matInput type="text" formControlName="technology" placeholder="Technology">
+        <mat-option *ngFor="let technology of technologies" [value]="technology">
+          {{ technology }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-field">
+      <mat-label>Competency Level</mat-label>
+      <mat-select matInput type="text" formControlName="competencyLevel" placeholder="Competency Level">
+        <mat-option *ngFor="let competencyLevel of competencyLevels" [value]="competencyLevel">
+          {{ competencyLevel }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+
+  <div class="g-actions">
+    <button bl-button>Cancel</button>
+    <button bl-button (click)="save(vm.form.value)">Save</button>
+  </div>
+</ng-container>

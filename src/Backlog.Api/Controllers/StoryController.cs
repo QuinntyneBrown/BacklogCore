@@ -46,6 +46,20 @@ namespace Backlog.Api.Controllers
         public async Task<ActionResult<CreateStory.Response>> Create([FromBody] CreateStory.Request request)
             => await _mediator.Send(request);
 
+        [HttpPost("skill-requirement", Name = "AddStorySkillRequirementRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(AddStorySkillRequirement.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<AddStorySkillRequirement.Response>> AddStorySkillRequirement([FromBody] AddStorySkillRequirement.Request request)
+            => await _mediator.Send(request);
+
+        [HttpPost("depends-on", Name = "AddStoryDependencyRelationshipRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(AddStoryDependencyRelationship.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<AddStoryDependencyRelationship.Response>> AddStoryDependencyRelationship([FromBody] AddStoryDependencyRelationship.Request request)
+            => await _mediator.Send(request);
+
         [HttpGet("page/{pageSize}/{index}", Name = "GetStoriesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -58,6 +72,13 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateStoryDescription.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<UpdateStory.Response>> Update([FromBody] UpdateStory.Request request)
+            => await _mediator.Send(request);
+
+        [HttpPut("jira", Name = "UpdateStoryJiraUrlRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateStoryJiraUrl.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryJiraUrl.Response>> UpdateJiraUrl([FromBody] UpdateStoryJiraUrl.Request request)
             => await _mediator.Send(request);
 
         [HttpDelete("{storyId}", Name = "RemoveStoryRoute")]

@@ -1,4 +1,5 @@
 using Backlog.Api.Core;
+using Backlog.Api.Models;
 using System;
 
 namespace Backlog.Api.DomainEvents
@@ -57,6 +58,16 @@ namespace Backlog.Api.DomainEvents
         }
     }
 
+    public class UpdateStoryJiraUrl : BaseDomainEvent
+    {
+        public string JiraUrl { get; private set; }
+
+        public UpdateStoryJiraUrl(string jiraUrl)
+        {
+            JiraUrl = jiraUrl;
+        }
+    }
+
     public class UpdateStoryDescription : BaseDomainEvent
     {
         public string Description { get; private set; }
@@ -74,6 +85,36 @@ namespace Backlog.Api.DomainEvents
         public UpdateStoryStatus(string status)
         {
             Status = status;
+        }
+    }
+
+    public class AddSkillRequirement : BaseDomainEvent
+    {
+        public SkillRequirement SkillRequirement { get; set; }
+
+        public AddSkillRequirement(SkillRequirement skillRequirement)
+        {
+            SkillRequirement = skillRequirement;
+        }
+    }
+
+    public class AddStoryDependsOn : BaseDomainEvent
+    {
+        public string DependsOn { get; set; }
+
+        public AddStoryDependsOn(string dependsOn)
+        {
+            DependsOn = dependsOn;
+        }
+    }
+
+    public class RemoveStoryDependsOn : BaseDomainEvent
+    {
+        public string DependsOn { get; set; }
+
+        public RemoveStoryDependsOn(string dependsOn)
+        {
+            DependsOn = dependsOn;
         }
     }
 }

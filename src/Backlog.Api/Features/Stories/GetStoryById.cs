@@ -31,7 +31,10 @@ namespace Backlog.Api.Features
             {
                 return new()
                 {
-                    Story = (await _context.Stories.SingleOrDefaultAsync(x => x.StoryId == request.StoryId)).ToDto()
+                    Story = (await _context.Stories
+                    .Include(x => x.SkillRequirements)
+                    .Include(x => x.DependsOn)
+                    .SingleOrDefaultAsync(x => x.StoryId == request.StoryId)).ToDto()
                 };
             }
 

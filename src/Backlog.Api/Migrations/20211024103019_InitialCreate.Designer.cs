@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backlog.Api.Migrations
 {
     [DbContext(typeof(BacklogDbContext))]
-    [Migration("20211023163601_InitialCreate")]
+    [Migration("20211024103019_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,9 +35,9 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Bugs");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.CompentencyLevel", b =>
+            modelBuilder.Entity("Backlog.Api.Models.CompetencyLevel", b =>
                 {
-                    b.Property<Guid>("CompentencyLevelId")
+                    b.Property<Guid>("CompetencyLevelId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -47,31 +47,9 @@ namespace Backlog.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CompentencyLevelId");
+                    b.HasKey("CompetencyLevelId");
 
-                    b.ToTable("CompentencyLevels");
-                });
-
-            modelBuilder.Entity("Backlog.Api.Models.DependencyRelationship", b =>
-                {
-                    b.Property<Guid>("DependencyRelationshipId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("DependsOn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("StoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Target")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DependencyRelationshipId");
-
-                    b.HasIndex("StoryId");
-
-                    b.ToTable("DependencyRelationships");
+                    b.ToTable("CompetencyLevels");
                 });
 
             modelBuilder.Entity("Backlog.Api.Models.Profile", b =>
@@ -89,28 +67,6 @@ namespace Backlog.Api.Migrations
                     b.HasKey("ProfileId");
 
                     b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("Backlog.Api.Models.SkillRequirement", b =>
-                {
-                    b.Property<Guid>("SkillRequirementId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CompentencyLevel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("StoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Technology")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SkillRequirementId");
-
-                    b.HasIndex("StoryId");
-
-                    b.ToTable("SkillRequirements");
                 });
 
             modelBuilder.Entity("Backlog.Api.Models.Status", b =>
@@ -183,6 +139,9 @@ namespace Backlog.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("JiraUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -225,22 +184,53 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Technologies");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.DependencyRelationship", b =>
-                {
-                    b.HasOne("Backlog.Api.Models.Story", null)
-                        .WithMany("DependsOn")
-                        .HasForeignKey("StoryId");
-                });
-
-            modelBuilder.Entity("Backlog.Api.Models.SkillRequirement", b =>
-                {
-                    b.HasOne("Backlog.Api.Models.Story", null)
-                        .WithMany("SkillRequirements")
-                        .HasForeignKey("StoryId");
-                });
-
             modelBuilder.Entity("Backlog.Api.Models.Story", b =>
                 {
+                    b.OwnsMany("Backlog.Api.Models.DependencyRelationship", "DependsOn", b1 =>
+                        {
+                            b1.Property<Guid>("StoryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("DependsOn")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("StoryId", "Id");
+
+                            b1.ToTable("DependencyRelationships");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StoryId");
+                        });
+
+                    b.OwnsMany("Backlog.Api.Models.SkillRequirement", "SkillRequirements", b1 =>
+                        {
+                            b1.Property<Guid>("StoryId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("CompetencyLevel")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Technology")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("StoryId", "Id");
+
+                            b1.ToTable("SkillRequirement");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StoryId");
+                        });
+
                     b.Navigation("DependsOn");
 
                     b.Navigation("SkillRequirements");

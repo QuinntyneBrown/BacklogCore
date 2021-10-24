@@ -1,4 +1,5 @@
 using Backlog.Api.Models;
+using System.Linq;
 
 namespace Backlog.Api.Features
 {
@@ -11,7 +12,15 @@ namespace Backlog.Api.Features
                 story.Name,
                 story.Title,
                 story.Description,
-                story.AcceptanceCriteria);
+                story.AcceptanceCriteria)
+            {
+                JiraUrl = story.JiraUrl,
+                SkillRequirements = story?.SkillRequirements.Select(x => new SkillRequirementDto {                 
+                    CompetencyLevel = x.CompetencyLevel,
+                    Technology = x.Technology
+                }).ToList(),
+                DependsOn = story?.DependsOn.Select(x => x.DependsOn).ToList()
+            };
         }
     }
 }

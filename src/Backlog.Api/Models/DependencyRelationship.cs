@@ -1,13 +1,10 @@
-using Backlog.Api.Core;
-using Backlog.Api.DomainEvents;
-using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Models
 {
-    public class DependencyRelationship: AggregateRoot
+    [Owned]
+    public class DependencyRelationship
     {
-        public Guid DependencyRelationshipId { get; private set; }
-        public string Target { get; private set; }
         public string DependsOn { get; private set; }
 
         private DependencyRelationship()
@@ -15,37 +12,9 @@ namespace Backlog.Api.Models
 
         }
 
-        public DependencyRelationship(CreateDependencyRelationship @event)
+        public DependencyRelationship(string dependsOn)
         {
-            Apply(@event);
-        }
-
-        protected override void EnsureValidState()
-        {
-
-        }
-
-        protected override void When(dynamic @event) => When(@event);
-
-        private void When(CreateDependencyRelationship @event)
-        {
-            DependencyRelationshipId = @event.DependencyRelationshipId;
-            Target = @event.Target;
-            DependsOn = @event.DependsOn;
-        }
-
-        private void When(UpdateDependencyRelationshipTargetId @event)
-        {
-            Target = @event.Target;
-        }
-        private void When(UpdateDependencyRelationshipDependsOnId @event)
-        {
-            DependsOn = @event.DependsOn;
-        }
-
-        private void When(RemoveDependencyRelationship @event)
-        {
-
+            DependsOn = dependsOn;
         }
     }
 }

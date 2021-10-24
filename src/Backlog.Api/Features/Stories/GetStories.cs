@@ -30,7 +30,10 @@ namespace Backlog.Api.Features
             {
                 return new()
                 {
-                    Stories = await _context.Stories.Select(x => x.ToDto()).ToListAsync()
+                    Stories = await _context.Stories
+                    .Include(x => x.SkillRequirements)
+                    .Include(x => x.DependsOn)
+                    .Select(x => x.ToDto()).ToListAsync()
                 };
             }
 

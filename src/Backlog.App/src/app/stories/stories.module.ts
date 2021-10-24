@@ -5,6 +5,10 @@ import { StoriesComponent } from './stories.component';
 import { TwoColumnLayoutModule } from '@shared/two-column-layout/two-column-layout.module';
 import { TitleModule } from '@shared/title/title.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TitleBarModule } from '@shared/title-bar/title-bar.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SearchDialogModule } from '@shared/dialogs/search-dialog';
 
 
 @NgModule({
@@ -16,7 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
     TwoColumnLayoutModule,
     StoriesRoutingModule,
     TitleModule,
-    MatIconModule
+    TitleBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    SearchDialogModule
   ]
 })
 export class StoriesModule { }

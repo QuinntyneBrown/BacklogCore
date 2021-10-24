@@ -7,27 +7,22 @@ using System.Threading.Tasks;
 using Backlog.Api.Interfaces;
 using Backlog.Api.Models;
 using Backlog.Api.Core;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class UpdateTechnologyName
+    public class AddStorySkillRequirement
     {
-        public class Validator : AbstractValidator<Request>
-        {
-            public Validator()
-            {
-                RuleFor(request => request.Technology).NotNull();
-                RuleFor(request => request.Technology).SetValidator(new TechnologyValidator());
-            }
-        }
-
         public class Request : IRequest<Response> { 
-            public TechnologyDto Technology { get; set; }        
+            public Guid StoryId { get; set; }
+            public string Technology { get; set; }
+            public string CompetencyLevel { get; set; }
         }
 
         public class Response: ResponseBase
         {
-            public TechnologyDto Technology { get; set; }
+            public StoryDto Story { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -39,13 +34,19 @@ namespace Backlog.Api.Features
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-            
-                var technology = await _context.Technologies.FindAsync(request.Technology.TechnologyId);
+
+                var story = await _context.Stories
+                    .Include(x => x.SkillRequirements)
+                    .SingleAsync(x => x.StoryId == request.StoryId);
+
+                var skillRequirement = new SkillRequirement(request.Technology, request.CompetencyLevel);
+                
+                story.Apply(new DomainEvents.AddSkillRequirement(skillRequirement));
 
                 await _context.SaveChangesAsync(cancellationToken);
 			    
                 return new () { 
-                    Technology = technology.ToDto()
+                    Story = story.ToDto()
                 };
             }
         }

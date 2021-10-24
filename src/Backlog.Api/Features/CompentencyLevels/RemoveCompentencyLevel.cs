@@ -10,16 +10,16 @@ using Backlog.Api.Interfaces;
 
 namespace Backlog.Api.Features
 {
-    public class RemoveCompentencyLevel
+    public class RemoveCompetencyLevel
     {
         public class Request: IRequest<Response>
         {
-            public Guid CompentencyLevelId { get; set; }
+            public Guid CompetencyLevelId { get; set; }
         }
 
         public class Response: ResponseBase
         {
-            public CompentencyLevelDto CompentencyLevel { get; set; }
+            public CompetencyLevelDto CompetencyLevel { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -31,15 +31,15 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var compentencyLevel = await _context.CompentencyLevels.SingleAsync(x => x.CompentencyLevelId == request.CompentencyLevelId);
+                var competencyLevel = await _context.CompetencyLevels.SingleAsync(x => x.CompetencyLevelId == request.CompetencyLevelId);
                 
-                _context.CompentencyLevels.Remove(compentencyLevel);
+                _context.CompetencyLevels.Remove(competencyLevel);
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 
                 return new Response()
                 {
-                    CompentencyLevel = compentencyLevel.ToDto()
+                    CompetencyLevel = competencyLevel.ToDto()
                 };
             }
             

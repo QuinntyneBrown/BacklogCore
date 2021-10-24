@@ -20,16 +20,16 @@ namespace Backlog.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompentencyLevels",
+                name: "CompetencyLevels",
                 columns: table => new
                 {
-                    CompentencyLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CompetencyLevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompentencyLevels", x => x.CompentencyLevelId);
+                    table.PrimaryKey("PK_CompetencyLevels", x => x.CompetencyLevelId);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,6 +88,7 @@ namespace Backlog.Api.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AcceptanceCriteria = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    JiraUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -123,51 +124,42 @@ namespace Backlog.Api.Migrations
                 name: "DependencyRelationships",
                 columns: table => new
                 {
-                    DependencyRelationshipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Target = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DependsOn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DependsOn = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DependencyRelationships", x => x.DependencyRelationshipId);
+                    table.PrimaryKey("PK_DependencyRelationships", x => new { x.StoryId, x.Id });
                     table.ForeignKey(
                         name: "FK_DependencyRelationships_Stories_StoryId",
                         column: x => x.StoryId,
                         principalTable: "Stories",
                         principalColumn: "StoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SkillRequirements",
+                name: "SkillRequirement",
                 columns: table => new
                 {
-                    SkillRequirementId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompentencyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CompetencyLevel = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SkillRequirements", x => x.SkillRequirementId);
+                    table.PrimaryKey("PK_SkillRequirement", x => new { x.StoryId, x.Id });
                     table.ForeignKey(
-                        name: "FK_SkillRequirements_Stories_StoryId",
+                        name: "FK_SkillRequirement_Stories_StoryId",
                         column: x => x.StoryId,
                         principalTable: "Stories",
                         principalColumn: "StoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DependencyRelationships_StoryId",
-                table: "DependencyRelationships",
-                column: "StoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SkillRequirements_StoryId",
-                table: "SkillRequirements",
-                column: "StoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -176,7 +168,7 @@ namespace Backlog.Api.Migrations
                 name: "Bugs");
 
             migrationBuilder.DropTable(
-                name: "CompentencyLevels");
+                name: "CompetencyLevels");
 
             migrationBuilder.DropTable(
                 name: "DependencyRelationships");
@@ -185,7 +177,7 @@ namespace Backlog.Api.Migrations
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "SkillRequirements");
+                name: "SkillRequirement");
 
             migrationBuilder.DropTable(
                 name: "Statuses");

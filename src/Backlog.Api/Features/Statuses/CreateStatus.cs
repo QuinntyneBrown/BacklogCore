@@ -39,7 +39,7 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var status = new Status(new (request.Status.Name, request.Status.Description));
+                var status = new Status(request.Status.Name, request.Status.Description);
                 
                 _context.Statuses.Add(status);
                 

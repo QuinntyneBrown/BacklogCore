@@ -45,6 +45,7 @@
 
     .two-column-layout__content-column {
       display: grid;
+      padding-right: 40px;
     }
 
     .two-column-layout__router-outlet {

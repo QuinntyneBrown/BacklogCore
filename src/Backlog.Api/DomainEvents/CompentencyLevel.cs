@@ -3,39 +3,39 @@ using System;
 
 namespace Backlog.Api.DomainEvents
 {
-    public class CreateCompentencyLevel: BaseDomainEvent {
-        public Guid CompentencyLevelId { get; private set; } = Guid.NewGuid();
+    public class CreateCompetencyLevel: BaseDomainEvent {
+        public Guid CompetencyLevelId { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
         public string Description { get; private set; }
 
-        public CreateCompentencyLevel(string name, string description)
+        public CreateCompetencyLevel(string name, string description)
         {
             Name = name;
             Description = description;
         }
     }
 
-    public class UpdateCompentencyLevelName : BaseDomainEvent
+    public class UpdateCompetencyLevelName : BaseDomainEvent
     {
         public string Name { get; private set; }
 
-        public UpdateCompentencyLevelName(string name)
+        public UpdateCompetencyLevelName(string name)
         {
             Name = name;
         }
     }
 
-    public class UpdateCompentencyLevelDescription : BaseDomainEvent
+    public class UpdateCompetencyLevelDescription : BaseDomainEvent
     {
         public string Description { get; private set; }
 
-        public UpdateCompentencyLevelDescription(string description)
+        public UpdateCompetencyLevelDescription(string description)
         {
             Description = description;
         }
     }
 
-    public class RemoveCompentencyLevel : BaseDomainEvent
+    public class RemoveCompetencyLevel : BaseDomainEvent
     {
 
     }

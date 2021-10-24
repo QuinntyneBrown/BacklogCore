@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Features
 {
-    public class GetCompentencyLevelById
+    public class GetCompetencyLevelById
     {
         public class Request: IRequest<Response>
         {
-            public Guid CompentencyLevelId { get; set; }
+            public Guid CompetencyLevelId { get; set; }
         }
 
         public class Response: ResponseBase
         {
-            public CompentencyLevelDto CompentencyLevel { get; set; }
+            public CompetencyLevelDto CompetencyLevel { get; set; }
         }
 
         public class Handler: IRequestHandler<Request, Response>
@@ -30,7 +30,7 @@ namespace Backlog.Api.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
                 return new () {
-                    CompentencyLevel = (await _context.CompentencyLevels.SingleOrDefaultAsync(x => x.CompentencyLevelId == request.CompentencyLevelId)).ToDto()
+                    CompetencyLevel = (await _context.CompetencyLevels.SingleOrDefaultAsync(x => x.CompetencyLevelId == request.CompetencyLevelId)).ToDto()
                 };
             }
             

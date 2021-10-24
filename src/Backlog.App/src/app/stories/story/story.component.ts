@@ -29,7 +29,7 @@ export class StoryComponent extends Destroyable  {
     map((story: Story) => {
 
       const storyControl = new FormControl(story,[Validators.required]);
-
+      this.handleAddDependencyRelationshipClick(story);
       return {
         storyControl
       };
@@ -43,6 +43,7 @@ export class StoryComponent extends Destroyable  {
     private readonly _dialog: MatDialog
   ) {
     super();
+
   }
 
   public save(story: Story) {

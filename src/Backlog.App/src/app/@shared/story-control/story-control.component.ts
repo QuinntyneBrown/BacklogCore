@@ -27,6 +27,7 @@ export class StoryControlComponent extends BaseControlValueAccessor implements V
     storyId: new FormControl(null,[]),
     title: new FormControl(null, [Validators.required]),
     name: new FormControl(null, [Validators.required]),
+    jiraUrl: new FormControl(null,[]),
     description: new FormControl(null, [Validators.required]),
     acceptanceCriteria: new FormControl(null, [Validators.required])
   });

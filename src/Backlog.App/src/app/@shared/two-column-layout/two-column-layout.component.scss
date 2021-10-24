@@ -4,8 +4,15 @@
   display: grid;
   grid-template-columns: 1fr;
   height: 100vh;
+  max-height: 100vh;
   box-sizing: border-box;
   width: 100%;
+
+  .two-column-layout__router-outlet,
+  .two-column-layout__content-column {
+    overflow-y: auto;
+    padding: 0 40px 40px;
+  }
 
   .two-column-layout__content-column {
     padding-top: 40px;
@@ -16,6 +23,7 @@
 
     .two-column-layout__content-container {
       grid-row: 2;
+      overflow-y: auto;
     }
 
     bl-footer {

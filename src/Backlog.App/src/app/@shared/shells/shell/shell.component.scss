@@ -45,8 +45,6 @@
     min-height: calc(100% - 52px);
     display: block;
     box-sizing: border-box;
-    padding-right: 40px;
-    padding-left: 40px;
   }
 
   div[bl-header] {
@@ -81,8 +79,6 @@
 
     main {
       padding-top: var(--layout-gutter-desktop-y);
-      padding-right: 40px;
-      padding-left: 40px;
     }
   }
 }

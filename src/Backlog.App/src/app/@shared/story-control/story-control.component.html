@@ -9,6 +9,11 @@
     <input matInput type="text" formControlName="name" placeholder="Name">
   </mat-form-field>
 
+  <mat-form-field class="g-form-field">
+    <mat-label>Jira</mat-label>
+    <input matInput type="text" formControlName="jiraUrl" placeholder="Jira">
+  </mat-form-field>
+
   <div *ngIf="form.value.storyId" class="story-control__options">
     <span bl-pill (click)="addSkillRequirementClick.emit()">
       Add Skill Requirement

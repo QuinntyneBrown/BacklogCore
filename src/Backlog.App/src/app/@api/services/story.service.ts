@@ -28,6 +28,13 @@ export class StoryService implements IPagableService<Story> {
       );
   }
 
+  public search(options: { query: string }): Observable<Story[]> {
+    return this._client.get<{ stories: Story[] }>(`${this._baseUrl}api/story/search/${options.query}`)
+      .pipe(
+        map(x => x.stories)
+      );
+  }
+
   public getById(options: { storyId: string }): Observable<Story> {
     return this._client.get<{ story: Story }>(`${this._baseUrl}api/story/${options.storyId}`)
       .pipe(

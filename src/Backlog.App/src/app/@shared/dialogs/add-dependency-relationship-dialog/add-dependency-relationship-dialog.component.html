@@ -8,3 +8,35 @@
     </mat-icon>
   </button>
 </div>
+
+<div *ngIf="story$ | async as story" class="add-dependency-relationship-dialog__story">
+  <h1>{{ story.name }}: {{ story.title }}</h1>
+  <a target="blank" [href]="story.jiraUrl">Jira</a>
+</div>
+
+<mat-form-field class="g-form-field">
+  <mat-label>Search:</mat-label>
+  <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto" cdkFocusInitial />
+
+  <mat-autocomplete
+    autoActiveFirstOption
+    [displayWith]="displayWith"
+    #auto="matAutocomplete"
+    (optionSelected)="storySelected($event)"
+  >
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{ option.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<div>
+  <span *ngFor="let story of (stories$ | async)">
+    {{ story.name }}
+  </span>
+</div>
+
+<div class="g-actions">
+  <button bl-button [mat-dialog-close]>Cancel</button>
+  <button bl-button>Save</button>
+</div>

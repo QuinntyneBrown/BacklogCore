@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './search-dialog.component.html',
   styleUrls: ['./search-dialog.component.scss']
 })
-export class SearchDialogComponent implements OnInit {
+export class SearchDialogComponent  {
 
-  constructor() { }
 
-  ngOnInit(): void {
-  }
 
 }

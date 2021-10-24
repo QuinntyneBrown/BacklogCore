@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ClassListAccessor } from '@core/class-list-accessor';
+import { Destroyable } from '@core';
+import { ClassListAccessor, classListAccessorMixin } from '@core/class-list-accessor';
 import { map, tap } from 'rxjs/operators';
 
 
@@ -9,7 +10,7 @@ import { map, tap } from 'rxjs/operators';
   templateUrl: './two-column-layout.component.html',
   styleUrls: ['./two-column-layout.component.scss']
 })
-export class TwoColumnLayoutComponent extends ClassListAccessor {
+export class TwoColumnLayoutComponent extends classListAccessorMixin(Destroyable) {
 
   public vm$ = this._activatedRoute
   .firstChild

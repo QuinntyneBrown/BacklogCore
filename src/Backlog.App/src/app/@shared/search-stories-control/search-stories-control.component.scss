@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  position: relative;
+
+  button[mat-icon-button] {
+    position: absolute;
+    top:0px;
+    right: 0px;
+  }
+
+  .bl-title-form-field {
+    input {
+      padding-right: 40px;
+    }
+  }
+}

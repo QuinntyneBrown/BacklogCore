@@ -1,6 +1,7 @@
 using Backlog.Api.Extensions;
 using Backlog.Api.Interfaces;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -29,15 +30,21 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                var nameResults = _context.Stories.Search("Name", request.Query);
+                try
+                {
+                    var nameResults = _context.Stories.Search("Name", request.Query);
 
-                var titleResults = _context.Stories.Search("Title", request.Query);
+                    var titleResults = _context.Stories.Search("Title", request.Query);
 
-                return new () { 
-                    Stories = nameResults.Union(titleResults)     
-                    .Take(10)
-                    .Select(x => x.ToDto()).ToList()
-                };
+                    return new()
+                    {
+                        Stories = nameResults.Union(titleResults)
+                        .Select(x => x.ToDto()).ToList()
+                    };
+                }catch(Exception e)
+                {
+                    throw e;
+                }
             }
         }
     }

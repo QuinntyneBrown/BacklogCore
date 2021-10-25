@@ -19,6 +19,8 @@ export class StoryComponent extends Destroyable  {
 
   private readonly _refresh$ = new BehaviorSubject(null);
 
+  public readonly createAnotherControl = new FormControl(null, []);
+
   public vm$ = this._activatedRoute
   .paramMap
   .pipe(
@@ -58,7 +60,11 @@ export class StoryComponent extends Destroyable  {
       takeUntil(this._destroyed$),
       tap(x => {
         this._storiesFeatureService.storiesUpdated$.next();
-        this._router.navigate(['/','stories'])
+
+        if(!this.createAnotherControl.value) {
+          this._router.navigate(['/','stories'])
+        }
+
       })
     ).subscribe();
   }

@@ -15,6 +15,15 @@ namespace Backlog.Api.Controllers
         public StoryController(IMediator mediator)
             => _mediator = mediator;
 
+
+        [HttpGet("search/{query}", Name = "SearchStoriesRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(SearchStories.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SearchStories.Response>> SearchStories([FromRoute] SearchStories.Request request)
+            => await _mediator.Send(request);
+
+
         [HttpGet("{storyId}", Name = "GetStoryByIdRoute")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -67,12 +76,6 @@ namespace Backlog.Api.Controllers
         public async Task<ActionResult<GetStoriesPage.Response>> Page([FromRoute] GetStoriesPage.Request request)
             => await _mediator.Send(request);
 
-        [HttpGet("search/{query}", Name = "SearchStoriesRoute")]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(SearchStories.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<SearchStories.Response>> SearchStories([FromRoute] SearchStories.Request request)
-            => await _mediator.Send(request);
 
 
         [HttpPut(Name = "UpdateStoryRoute")]

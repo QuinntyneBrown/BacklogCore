@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { TitleBarModule } from '@shared/title-bar/title-bar.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SearchDialogModule } from '@shared/dialogs/search-dialog';
+import { SearchStoriesControlModule, SearchStoriesResultsModule } from '@shared';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +26,10 @@ import { SearchDialogModule } from '@shared/dialogs/search-dialog';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    SearchDialogModule
+    SearchDialogModule,
+    SearchStoriesControlModule,
+    SearchStoriesResultsModule,
+    ReactiveFormsModule
   ]
 })
 export class StoriesModule { }

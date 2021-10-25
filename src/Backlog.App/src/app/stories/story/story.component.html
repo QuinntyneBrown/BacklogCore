@@ -11,6 +11,10 @@
 
   <div class="g-actions">
 
+    <mat-checkbox *ngIf="!vm.storyControl.value.storyId" [formControl]="createAnotherControl">
+      Create Another
+    </mat-checkbox>
+
     <button bl-button [routerLink]="['/','stories']">
       Cancel
     </button>

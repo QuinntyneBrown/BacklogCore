@@ -10,7 +10,7 @@ import { TitleModule } from '@shared/title/title.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddSkillRequirementDialogModule } from '@shared/dialogs/add-skill-requirement-dialog';
 import { AddDependencyRelationshipDialogModule } from '@shared/dialogs/add-dependency-relationship-dialog';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { AddDependencyRelationshipDialogModule } from '@shared/dialogs/add-depen
     TitleModule,
     MatDialogModule,
     AddSkillRequirementDialogModule,
-    AddDependencyRelationshipDialogModule
+    AddDependencyRelationshipDialogModule,
+    MatCheckboxModule
   ]
 })
 export class StoryModule { }

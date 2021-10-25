@@ -20,8 +20,8 @@ namespace Backlog.Api
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "",
-                    Description = "",
+                    Title = "Backlog",
+                    Description = "Agile Software",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {

@@ -16,8 +16,8 @@ namespace Backlog.Api.Data
         public DbSet<Status> Statuses { get; private set; }
         public DbSet<TaskItem> TaskItems { get; private set; }
         public DbSet<Technology> Technologies { get; private set; }
-        public DbSet<DependencyRelationship> DependencyRelationships { get; private set; }
         public DbSet<CompetencyLevel> CompetencyLevels { get; private set; }
+        public DbSet<DigitalAsset> DigitalAssets { get; private set; }
         public BacklogDbContext(DbContextOptions options)
             :base(options)
             {

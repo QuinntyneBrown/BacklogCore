@@ -1,12 +1,17 @@
 .bl-pill {
-  display: grid;
+  display: flex;
   place-items: center;
-  padding:0px 20px;
-  height: 30px;
+  padding:6px 20px;
+  min-height: 16px;
   border: 1px solid #DDD;
   border-radius: 40px;
   cursor: pointer;
-
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  line-height: 18px;
+  box-sizing: border-box;
   &:hover {
     font-weight: 500;
   }

@@ -18,6 +18,7 @@ namespace Backlog.Api.Models
         public string Status { get; private set; } = Empty;
         public List<DependencyRelationship> DependsOn { get; private set; }
         public List<SkillRequirement> SkillRequirements { get; private set; }
+        public List<Attachment> Attachments { get; private set; }
 
         public Story(CreateStory @event)
         {
@@ -45,6 +46,7 @@ namespace Backlog.Api.Models
             JiraUrl = @event.JiraUrl;
             DependsOn = new List<DependencyRelationship>();
             SkillRequirements = new List<SkillRequirement>();
+            Attachments = new List<Attachment>();
         }
 
         private void When(UpdateStory @event)

@@ -20,9 +20,9 @@ namespace Backlog.Api.Data
         public DbSet<DigitalAsset> DigitalAssets { get; private set; }
         public BacklogDbContext(DbContextOptions options)
             :base(options)
-            {
-                SavingChanges += DbContext_SavingChanges;
-            }
+        {
+            SavingChanges += DbContext_SavingChanges;
+        }
 
         private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
         {

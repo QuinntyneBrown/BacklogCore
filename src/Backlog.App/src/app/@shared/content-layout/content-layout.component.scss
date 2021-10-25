@@ -12,7 +12,15 @@
   }
   div[bl-header] {
     margin-bottom: 30px;
+    h1 {
+      border: 2px solid #000;
+      padding: 0px 10px;
+      letter-spacing: 3px;
+      user-select: none;
+    }
   }
+
+
 }
 
 @media only screen and (min-width: breakpoints.$screen-md-min) {

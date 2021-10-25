@@ -24,7 +24,7 @@ export class StoriesComponent  {
     switchMap(searchEnabled => {
       return searchEnabled
       ? this.searchControl.valueChanges.pipe(
-        startWith(""),
+        startWith(this.searchControl.value),
         switchMap(query => query ? this._storyService.search({ query }).pipe(
           map(stories => ([stories, searchEnabled]))
         )

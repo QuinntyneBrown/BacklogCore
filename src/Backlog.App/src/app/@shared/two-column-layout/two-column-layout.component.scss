@@ -8,33 +8,19 @@
   box-sizing: border-box;
   width: 100%;
 
-  .two-column-layout__router-outlet,
-  .two-column-layout__content-column {
+  .two-column-layout__router-outlet {
     overflow-y: auto;
     padding: 0 40px 40px;
   }
 
   .two-column-layout__content-column {
-    padding-top: 40px;
     display: none;
-    grid-template-rows: auto minmax(1fr, auto) auto;
-    height: 100%;
-    box-sizing: border-box;
-
-    .two-column-layout__content-container {
-      grid-row: 2;
-      overflow-y: auto;
-    }
-
-    bl-footer {
-      grid-row: 3;
-    }
   }
 }
 
 :host-context(.two-column-layout--default) {
   .two-column-layout__content-column {
-    display: grid;
+    display: block;
   }
 
   .two-column-layout__router-outlet {
@@ -53,7 +39,6 @@
 
     .two-column-layout__content-column {
       display: block;
-      padding-right: 40px;
     }
 
     .two-column-layout__router-outlet {
@@ -64,7 +49,7 @@
 
   :host-context(.two-column-layout--default) {
     .two-column-layout__content-column {
-      display: grid;
+      display: block;
     }
 
     .two-column-layout__router-outlet {

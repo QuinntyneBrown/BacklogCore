@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderModule } from '@shared/header/header.module';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterModule } from '@shared/footer/footer.module';
+import { ContentLayoutModule } from '@shared/content-layout';
 
 
 
@@ -20,7 +21,8 @@ import { FooterModule } from '@shared/footer/footer.module';
     RouterModule,
     HeaderModule,
     MatIconModule,
-    FooterModule
+    FooterModule,
+    ContentLayoutModule
   ]
 })
 export class TwoColumnLayoutModule { }

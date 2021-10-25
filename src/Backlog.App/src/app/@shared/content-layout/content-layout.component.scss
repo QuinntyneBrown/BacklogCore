@@ -1,0 +1,24 @@
+@use 'src/scss/breakpoints';
+
+:host {
+  height: 100vh;
+  overflow-y: auto;
+  padding:40px;
+  box-sizing: border-box;
+  position: relative;
+
+  .content-layout__main {
+    min-height: calc(100vh - 155px);
+  }
+  div[bl-header] {
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (min-width: breakpoints.$screen-md-min) {
+  :host {
+    div[bl-header] {
+      display: none;
+    }
+  }
+}

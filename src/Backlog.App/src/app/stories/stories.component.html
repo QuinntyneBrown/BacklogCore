@@ -12,7 +12,7 @@
         </button>
       </div>
 
-      <bl-search-stories-control *ngIf="vm.searchEnabled" [formControl]="searchControl">
+      <bl-search-stories-control *ngIf="vm.searchEnabled" [formControl]="searchControl" (closeClick)="handleCloseClick()">
 
       </bl-search-stories-control>
 
@@ -20,8 +20,8 @@
         <span *ngFor="let story of vm.stories" [routerLink]="['/','stories','edit',story.storyId]">{{ story.name }}: {{ story.title }}</span>
       </div>
 
-      <div *ngIf="vm.stories.length == 0 && vm.searchEnabled">
-        {{ vm.query }}
+      <div *ngIf="vm.stories.length == 0 && vm.searchEnabled && vm.query">
+        Nothing found for {{ vm.query }}. <a [routerLink]="['/','stories','create']">Create Story</a>
       </div>
     </div>
   </bl-two-column-layout>

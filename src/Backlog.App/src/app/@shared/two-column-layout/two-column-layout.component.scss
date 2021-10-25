@@ -17,7 +17,7 @@
   .two-column-layout__content-column {
     padding-top: 40px;
     display: none;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto minmax(1fr, auto) auto;
     height: 100%;
     box-sizing: border-box;
 
@@ -52,7 +52,7 @@
     }
 
     .two-column-layout__content-column {
-      display: grid;
+      display: block;
       padding-right: 40px;
     }
 

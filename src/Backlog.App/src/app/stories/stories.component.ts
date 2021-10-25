@@ -53,4 +53,8 @@ export class StoriesComponent  {
       this._searchEnabled$.next(true);
     }
 
+    public handleCloseClick() {
+      this._searchEnabled$.next(false);
+    }
+
 }

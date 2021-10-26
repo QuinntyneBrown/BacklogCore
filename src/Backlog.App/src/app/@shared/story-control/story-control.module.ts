@@ -7,6 +7,9 @@ import { TitleFormFieldModule } from '@shared/form-fields';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PillModule } from '@shared/pills';
+import { MatIconModule } from '@angular/material/icon';
+import { TitleModule } from '@shared/title/title.module';
+
 
 @NgModule({
   declarations: [StoryControlComponent],
@@ -18,7 +21,9 @@ import { PillModule } from '@shared/pills';
     TitleFormFieldModule,
     MatFormFieldModule,
     MatInputModule,
-    PillModule
+    PillModule,
+    MatIconModule,
+    TitleModule
   ]
 })
 export class StoryControlModule { }

@@ -10,4 +10,11 @@
     gap: 20px;
     margin-bottom: 30px;
   }
+
+  h1[bl-title] {
+    margin-bottom: 30px;
+    mat-icon {
+      color: #BBB;
+    }
+  }
 }

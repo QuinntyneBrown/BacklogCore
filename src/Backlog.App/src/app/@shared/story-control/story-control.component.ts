@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, forwardRef, Output } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { BaseControlValueAccessor } from '@core';
+
 
 @Component({
   selector: 'bl-story-control',
@@ -41,6 +42,8 @@ export class StoryControlComponent extends BaseControlValueAccessor implements V
   @Output() public addSkillRequirementClick = new EventEmitter();
 
   @Output() public addDependencyRelationshipClick = new EventEmitter();
+
+  @Output() public fileUploadClick = new EventEmitter();
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.errors;

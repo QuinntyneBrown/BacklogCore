@@ -22,7 +22,18 @@
     <span bl-pill (click)="addDependencyRelationshipClick.emit()">
       Add Dependency Relationship
     </span>
+
+    <span bl-pill (click)="fileUploadClick.emit()">
+      <mat-icon>
+        upload_file
+      </mat-icon>
+      <spa>
+        File Upload
+      </spa>
+    </span>
   </div>
+
+
 
   <textarea bl-textarea placeholder="Description" formControlName="description"></textarea>
 

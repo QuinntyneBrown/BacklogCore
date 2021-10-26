@@ -8,7 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TitleBarModule } from '@shared/title-bar/title-bar.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { SearchDialogModule } from '@shared/dialogs/search-dialog';
 import { SearchStoriesControlModule, SearchStoriesResultsModule } from '@shared';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -26,7 +25,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    SearchDialogModule,
     SearchStoriesControlModule,
     SearchStoriesResultsModule,
     ReactiveFormsModule

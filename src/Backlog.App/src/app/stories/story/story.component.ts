@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Story, StoryService } from '@api';
 import { Destroyable } from '@core';
 import { StoriesFeatureService } from '@core/feature-services/stories-feature.service';
+import { FileUploadDialogComponent } from '@shared/dialogs';
 import { AddDependencyRelationshipDialogComponent } from '@shared/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/dialogs/add-skill-requirement-dialog';
 import { BehaviorSubject, of, Subject } from 'rxjs';
@@ -100,4 +101,15 @@ export class StoryComponent extends Destroyable  {
     .subscribe();
   }
 
+  public handleFileUploadClick(story: Story) {
+    this._dialog.open(FileUploadDialogComponent, {
+      panelClass: 'g-dialog-panel',
+      width:'100%',
+      maxWidth: '600px'
+    })
+    .afterClosed()
+    .pipe(
+      takeUntil(this._destroyed$)
+    ).subscribe();
+  }
 }

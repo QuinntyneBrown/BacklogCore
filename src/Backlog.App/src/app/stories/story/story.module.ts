@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddSkillRequirementDialogModule } from '@shared/dialogs/add-skill-requirement-dialog';
 import { AddDependencyRelationshipDialogModule } from '@shared/dialogs/add-dependency-relationship-dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FileUploadDialogModule } from '@shared';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDialogModule,
     AddSkillRequirementDialogModule,
     AddDependencyRelationshipDialogModule,
+    FileUploadDialogModule,
     MatCheckboxModule
   ]
 })

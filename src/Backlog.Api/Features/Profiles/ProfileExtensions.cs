@@ -12,6 +12,6 @@ namespace Backlog.Api.Features
                 Firstname = profile.Firstname,
                 Lastname = profile.Lastname
             };
-        }        
+        }
     }
 }

@@ -14,13 +14,14 @@ namespace Backlog.Api.Features
 {
     public class AddStorySkillRequirement
     {
-        public class Request : IRequest<Response> { 
+        public class Request : IRequest<Response>
+        {
             public Guid StoryId { get; set; }
             public string Technology { get; set; }
             public string CompetencyLevel { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public StoryDto Story { get; set; }
         }
@@ -29,23 +30,26 @@ namespace Backlog.Api.Features
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context){
+            public Handler(IBacklogDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var story = await _context.Stories
                     .Include(x => x.SkillRequirements)
                     .SingleAsync(x => x.StoryId == request.StoryId);
 
                 var skillRequirement = new SkillRequirement(request.Technology, request.CompetencyLevel);
-                
+
                 story.Apply(new DomainEvents.AddSkillRequirement(skillRequirement));
 
                 await _context.SaveChangesAsync(cancellationToken);
-			    
-                return new () { 
+
+                return new()
+                {
                     Story = story.ToDto()
                 };
             }

@@ -6,13 +6,13 @@ namespace Backlog.Api.Features
     {
         public static TechnologyDto ToDto(this Technology technology)
         {
-            return new ()
+            return new()
             {
                 TechnologyId = technology.TechnologyId,
                 Name = technology.Name,
                 Description = technology.Description
             };
         }
-        
+
     }
 }

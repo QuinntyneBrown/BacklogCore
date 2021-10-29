@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Backlog.Api.Features
 {
-    public class CompetencyLevelValidator: AbstractValidator<CompetencyLevelDto> { }
+    public class CompetencyLevelValidator : AbstractValidator<CompetencyLevelDto> { }
 }

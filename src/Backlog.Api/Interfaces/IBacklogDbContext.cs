@@ -17,6 +17,6 @@ namespace Backlog.Api.Interfaces
         DbSet<CompetencyLevel> CompetencyLevels { get; }
         DbSet<DigitalAsset> DigitalAssets { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        
+
     }
 }

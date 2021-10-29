@@ -15,7 +15,8 @@ namespace Backlog.Api.Features
                 story.AcceptanceCriteria)
             {
                 JiraUrl = story.JiraUrl,
-                SkillRequirements = story?.SkillRequirements.Select(x => new SkillRequirementDto {                 
+                SkillRequirements = story?.SkillRequirements.Select(x => new SkillRequirementDto
+                {
                     CompetencyLevel = x.CompetencyLevel,
                     Technology = x.Technology
                 }).ToList(),

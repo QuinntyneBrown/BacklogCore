@@ -11,7 +11,8 @@ namespace Backlog.Api.Features
 {
     public class SearchStories
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public string Query { get; set; }
         }
 
@@ -24,11 +25,13 @@ namespace Backlog.Api.Features
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context){
+            public Handler(IBacklogDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 try
                 {
@@ -41,7 +44,8 @@ namespace Backlog.Api.Features
                         Stories = nameResults.Union(titleResults)
                         .Select(x => x.ToDto()).ToList()
                     };
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     throw e;
                 }

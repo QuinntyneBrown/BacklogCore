@@ -18,11 +18,12 @@ namespace Backlog.Api.Features
             }
         }
 
-        public class Request : IRequest<Response> { 
-            public StoryDto Story { get; set; }        
+        public class Request : IRequest<Response>
+        {
+            public StoryDto Story { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public StoryDto Story { get; set; }
         }
@@ -31,19 +32,22 @@ namespace Backlog.Api.Features
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context){
+            public Handler(IBacklogDbContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-            
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+
                 var story = await _context.Stories.FindAsync(request.Story.StoryId);
 
                 story.Apply(new DomainEvents.UpdateStoryJiraUrl(request.Story.JiraUrl));
 
                 await _context.SaveChangesAsync(cancellationToken);
-			    
-                return new () { 
+
+                return new()
+                {
                     Story = story.ToDto()
                 };
             }

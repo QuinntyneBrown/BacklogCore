@@ -4,7 +4,7 @@ using System;
 
 namespace Backlog.Api.Models
 {
-    public class Profile: AggregateRoot
+    public class Profile : AggregateRoot
     {
         public Guid ProfileId { get; private set; }
         public string Firstname { get; private set; }

@@ -12,27 +12,28 @@ namespace Backlog.Api.Features
 {
     public class GetCompetencyLevels
     {
-        public class Request: IRequest<Response> { }
+        public class Request : IRequest<Response> { }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
             public List<CompetencyLevelDto> CompetencyLevels { get; set; }
         }
 
-        public class Handler: IRequestHandler<Request, Response>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IBacklogDbContext _context;
-        
+
             public Handler(IBacklogDbContext context)
                 => _context = context;
-        
+
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new () {
+                return new()
+                {
                     CompetencyLevels = await _context.CompetencyLevels.Select(x => x.ToDto()).ToListAsync()
                 };
             }
-            
+
         }
     }
 }

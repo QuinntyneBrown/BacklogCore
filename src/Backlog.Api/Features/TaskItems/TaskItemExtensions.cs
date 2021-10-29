@@ -7,11 +7,11 @@ namespace Backlog.Api.Features
     {
         public static TaskItemDto ToDto(this TaskItem taskItem)
         {
-            return new ()
+            return new()
             {
                 TaskItemId = taskItem.TaskItemId
             };
         }
-        
+
     }
 }

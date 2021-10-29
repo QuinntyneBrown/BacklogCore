@@ -4,7 +4,7 @@ using System;
 
 namespace Backlog.Api.Models
 {
-    public class TaskItem: AggregateRoot
+    public class TaskItem : AggregateRoot
     {
         public Guid TaskItemId { get; set; }
 

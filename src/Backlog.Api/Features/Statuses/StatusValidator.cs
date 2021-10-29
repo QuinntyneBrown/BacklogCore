@@ -2,5 +2,5 @@ using FluentValidation;
 
 namespace Backlog.Api.Features
 {
-    public class StatusValidator: AbstractValidator<StatusDto> { }
+    public class StatusValidator : AbstractValidator<StatusDto> { }
 }

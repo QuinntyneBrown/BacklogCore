@@ -7,13 +7,13 @@ namespace Backlog.Api.Features
     {
         public static StatusDto ToDto(this Status status)
         {
-            return new ()
+            return new()
             {
                 StatusId = status.StatusId,
                 Name = status.Name,
                 Description = status.Description
             };
         }
-        
+
     }
 }

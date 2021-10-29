@@ -14,6 +14,6 @@ namespace Backlog.Api.Features
                 Name = competencyLevel.Name
             };
         }
-        
+
     }
 }

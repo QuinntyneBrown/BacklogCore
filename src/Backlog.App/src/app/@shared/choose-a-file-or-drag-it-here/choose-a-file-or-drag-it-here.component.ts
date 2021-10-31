@@ -1,8 +1,9 @@
-import { Component, ElementRef, forwardRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
 import { BaseControlValueAccessor } from '@core';
+import { DigitalAsset, DigitalAssetService } from '@api';
 
 @Component({
   selector: 'bl-choose-a-file-or-drag-it-here',
@@ -16,7 +17,7 @@ import { BaseControlValueAccessor } from '@core';
     }
   ]
 })
-export class ChooseAFileOrDragItHereComponent extends BaseControlValueAccessor  {
+export class ChooseAFileOrDragItHereComponent extends BaseControlValueAccessor implements AfterViewInit  {
 
   private readonly _digitalAssetIds$: Subject<string[]> = new Subject();
 
@@ -24,10 +25,71 @@ export class ChooseAFileOrDragItHereComponent extends BaseControlValueAccessor  
 
   @ViewChild("input", { static: true }) public fileInput: ElementRef<HTMLInputElement>;
 
+  @Input() public idOnly: boolean = true;
+
+  public digitalAssetId$: Subject<string| DigitalAsset> = new Subject();
+
+  constructor(
+    private readonly _digitalAssetService: DigitalAssetService,
+    private readonly _elementRef: ElementRef
+  ) {
+    super()
+  }
+
+  public ngAfterViewInit(): void {
+    fromEvent(this._elementRef.nativeElement,"dragover")
+    .pipe(
+      tap((x: DragEvent) => this.onDragOver(x)),
+      takeUntil(this._destroyed$)
+    ).subscribe();
+
+    fromEvent(this._elementRef.nativeElement,"drop")
+    .pipe(
+      tap((x: DragEvent) => this.onDrop(x)),
+      takeUntil(this._destroyed$)
+    ).subscribe();
+  }
+
+  public async onDrop(e: DragEvent): Promise<any> {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.dataTransfer && e.dataTransfer.files) {
+      const packageFiles = function (fileList: FileList): FormData {
+        const formData = new FormData();
+        for (var i = 0; i < fileList.length; i++) {
+          formData.append(fileList[i].name, fileList[i]);
+        }
+        return formData;
+      }
+
+      const data = packageFiles(e.dataTransfer.files);
+
+      this._digitalAssetService.upload({ data })
+        .pipe(
+          switchMap((x) => this._digitalAssetService.getByIds({ digitalAssetIds: x.digitalAssetIds })),
+          tap(x => {
+            if(this.idOnly) {
+              this.digitalAssetId$.next(x[0].digitalAssetId)
+            }else {
+              this.digitalAssetId$.next(x[0])
+            }
+          }),
+          takeUntil(this._destroyed$)
+        )
+        .subscribe();
+    }
+  }
+
   registerOnChange(fn: any): void {
     this._digitalAssetIds$
     .pipe(takeUntil(this._destroyed$))
     .subscribe(fn);
+  }
+
+  public onDragOver(e: DragEvent): void {
+    e.stopPropagation();
+    e.preventDefault();
   }
 
   public handleFileInput(files: FileList) {

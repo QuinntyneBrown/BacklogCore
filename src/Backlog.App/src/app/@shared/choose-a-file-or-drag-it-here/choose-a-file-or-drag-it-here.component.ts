@@ -31,7 +31,7 @@ export class ChooseAFileOrDragItHereComponent extends BaseControlValueAccessor i
 
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
-    private readonly _elementRef: ElementRef
+    private readonly _elementRef: ElementRef<HTMLElement>
   ) {
     super()
   }

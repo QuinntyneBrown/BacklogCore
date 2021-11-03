@@ -1,12 +1,9 @@
+using Backlog.Api.Core;
+using Backlog.Api.Interfaces;
 using FluentValidation;
 using MediatR;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
-using Backlog.Api.Core;
 
 namespace Backlog.Api.Features
 {

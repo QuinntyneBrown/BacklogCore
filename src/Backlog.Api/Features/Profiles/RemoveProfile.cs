@@ -1,12 +1,10 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Backlog.Api.Features
 {

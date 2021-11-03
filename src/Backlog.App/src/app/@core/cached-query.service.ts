@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { shareReplay, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,14 @@ export class CachedQueryService {
       );
     }
     return this._cache.get(key);
+  }
+
+  protected _fromCacheOrServiceWithRefresh$(key:string, func:any, refresh$: BehaviorSubject<void>) {
+    return refresh$
+    .pipe(
+      tap(_ => this._cache.set(key,null)),
+      switchMap(_ => this._fromCacheOrService$(key, func))
+    );
   }
 
 }

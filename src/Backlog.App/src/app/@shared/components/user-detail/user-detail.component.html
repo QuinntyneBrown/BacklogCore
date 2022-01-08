@@ -1,0 +1,16 @@
+<h1 *ngIf="!user.userId" class="bl-panel-heading">Create User</h1>
+<h1 *ngIf="user.userId" class="bl-panel-heading">Edit User</h1>
+
+
+<form [formGroup]="form" class="bl-form">
+  <div class="bl-field">
+    <label class="bl-label">Name</label>
+    <input type="text" formControlName="name" autocomplete="off" class="bl-input">
+  </div>
+</form>
+
+<div class="bl-actions">
+  <button class="bl-button" (click)="save.emit(form.value)" [disabled]="!form.valid || form.pristine">
+    Save
+  </button>
+</div>

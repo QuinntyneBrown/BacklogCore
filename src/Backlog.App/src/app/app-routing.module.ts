@@ -7,9 +7,9 @@ const routes: Routes = [
   Route.withShell([
     { path: '', redirectTo: 'stories', pathMatch: 'full' },
     { path: 'stories', loadChildren: () => import('./stories/stories.module').then(m => m.StoriesModule) },    
-  ]),
-  
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }  
+    { path: 'sprints', loadChildren: () => import('./sprints/sprints.module').then(m => m.SprintsModule) },
+    { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) }  
+  ])
 ];
 
 @NgModule({

@@ -1,0 +1,4 @@
+<div blListDetail *ngIf="vm$ | async as vm">
+  <bl-user-list [users]="vm.users" [selected]="vm.selected" (delete)="onDelete($event)" (select)="onSelect($event)" (create)="onCreate()"></bl-user-list>
+  <bl-user-detail [user]="vm.selected" (save)="onSave($event)"></bl-user-detail>
+</div>

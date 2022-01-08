@@ -5,3 +5,7 @@ export * from './pills';
 export * from './search-stories-control';
 export * from './search-stories-results';
 export * from './sidenav';
+export * from './sprint-detail';
+export * from './sprint-list';
+export * from './user-detail';
+export * from './user-list';

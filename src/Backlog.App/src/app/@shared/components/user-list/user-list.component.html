@@ -1,0 +1,36 @@
+<div class="bl-heading-group">
+  <h1 class="bl-panel-heading">User List</h1>
+  <div class="bl-heading-group__actions-container">
+    <button class="bl-button" (click)="create.emit()">
+      Create
+    </button>
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="bl-table" style="--grid-template-columns: 1fr auto;">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let user"> {{ user.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let user">
+      <button mat-icon-button (click)="select.emit(user)" [disabled]="selected?.userId === user.userId">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="delete.emit(user)" [disabled]="selected?.userId === user.userId">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator class="bl-paginator"
+  [pageSizeOptions]="pageSizeOptions">
+</mat-paginator>

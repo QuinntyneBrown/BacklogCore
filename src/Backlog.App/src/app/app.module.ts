@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { baseUrl } from '@core/constants';
+import { baseUrl, BASE_URL } from '@core/constants';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,8 @@ import { ShellModule } from '@shared/shells/shell';
     ShellModule
   ],
   providers: [
-    { provide: baseUrl, useValue: "https://localhost:5001/"}
+    { provide: baseUrl, useValue: "https://localhost:5001/"},
+    { provide: BASE_URL, useValue: "https://localhost:5001/"}
   ],
   bootstrap: [AppComponent]
 })

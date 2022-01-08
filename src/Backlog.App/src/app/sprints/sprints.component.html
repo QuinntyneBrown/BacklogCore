@@ -1,0 +1,4 @@
+<div blListDetail *ngIf="vm$ | async as vm">
+  <bl-sprint-list [sprints]="vm.sprints" [selected]="vm.selected" (delete)="onDelete($event)" (select)="onSelect($event)" (create)="onCreate()"></bl-sprint-list>
+  <bl-sprint-detail [sprint]="vm.selected" (save)="onSave($event)"></bl-sprint-detail>
+</div>

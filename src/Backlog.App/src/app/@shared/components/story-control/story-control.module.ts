@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TitleFormFieldModule } from '../form-fields/title-form-field/title-form-field.module';
 import { PillModule } from '../pills/pill/pill.module';
 import { TitleModule } from '@shared/atoms/title/title.module';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TitleModule } from '@shared/atoms/title/title.module';
     MatInputModule,
     PillModule,
     MatIconModule,
-    TitleModule
+    TitleModule,
+    CKEditorModule
   ]
 })
 export class StoryControlModule { }

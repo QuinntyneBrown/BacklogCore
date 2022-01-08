@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShellModule } from '@shared/shells/shell';
-import { ItemShellModule } from '@shared/shells/item-shell/item-shell.module';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { ItemShellModule } from '@shared/shells/item-shell/item-shell.module';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ShellModule,
-    ItemShellModule
+    ShellModule
   ],
   providers: [
     { provide: baseUrl, useValue: "https://localhost:5001/"}

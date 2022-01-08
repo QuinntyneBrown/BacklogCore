@@ -11,7 +11,7 @@
   </div>
 
   <form [formGroup]="vm.form">
-    <mat-form-field class="g-form-field">
+    <mat-form-field class="bl-form-field">
       <mat-label>Technology</mat-label>
       <mat-select matInput type="text" formControlName="technology" placeholder="Technology">
         <mat-option *ngFor="let technology of technologies" [value]="technology">
@@ -20,7 +20,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="g-form-field">
+    <mat-form-field class="bl-form-field">
       <mat-label>Competency Level</mat-label>
       <mat-select matInput type="text" formControlName="competencyLevel" placeholder="Competency Level">
         <mat-option *ngFor="let competencyLevel of competencyLevels" [value]="competencyLevel">

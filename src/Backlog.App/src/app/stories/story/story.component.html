@@ -1,8 +1,8 @@
 <ng-container *ngIf="vm$ | async as vm">
 
-  <h1 bl-title *ngIf="!vm.storyControl.value.storyId"><span>Create Story</span></h1>
+  <h1 class="bl-title" *ngIf="!vm.storyControl.value.storyId"><span>Create Story</span></h1>
 
-  <h1 bl-title *ngIf="vm.storyControl.value.storyId"><span>Edit Story</span></h1>
+  <h1 class="bl-title" *ngIf="vm.storyControl.value.storyId"><span>Edit Story</span></h1>
 
   <bl-story-control [formControl]="vm.storyControl"
   (addSkillRequirementClick)="handleAddSkillRequirementClick(vm.storyControl.value)"

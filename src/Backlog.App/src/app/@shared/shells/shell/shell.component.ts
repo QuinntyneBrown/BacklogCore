@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { MatDrawer } from "@angular/material/sidenav";
-import { merge, of } from "rxjs";
+import { merge } from "rxjs";
 import { filter, map, takeUntil, tap } from "rxjs/operators";
 import { Destroyable } from "@core/destroyable";
 import { BreakpointService } from "@core";
-import { HeaderDirective } from "@shared/components/header/header.directive";
+import { routeChanged$ } from "@core/route-changed";
 
 
 @Component({
@@ -14,15 +14,6 @@ import { HeaderDirective } from "@shared/components/header/header.directive";
   styleUrls: ["./shell.component.scss"]
 })
 export class ShellComponent extends Destroyable implements OnInit {
-
-  readonly vm$ = of(true)
-  .pipe(
-    map(_ => {
-      return {
-
-      };
-    })
-  )
 
   private readonly _side$ = this._breakpointService.isGreaterThanMedium$.pipe(
     filter(matches => matches),
@@ -40,14 +31,11 @@ export class ShellComponent extends Destroyable implements OnInit {
 
   @ViewChild(MatDrawer, { static: true }) public drawer: MatDrawer | undefined;
 
-  @ViewChild(HeaderDirective, { static: true }) private _header: HeaderDirective | undefined;
-
   private get _matDrawerContentElement(): HTMLElement {
     return this._elementRef.nativeElement.querySelector("mat-drawer-content");
   }
 
   private _closeNavBarAndDrawer() {
-    //this._header?.close();
     this.drawer?.close();
   }
 
@@ -60,16 +48,15 @@ export class ShellComponent extends Destroyable implements OnInit {
   }
 
   ngOnInit() {
-    this._router.events
-      .pipe(
-        takeUntil(this._destroyed$),
-        tap(x => {
-          if (x instanceof NavigationEnd && this.drawer?.mode == "over") {
-            this._closeNavBarAndDrawer();
-          }
-          this._matDrawerContentElement.scrollTop = 0;
-        })
-      )
-      .subscribe();
+    routeChanged$(this._router)
+    .pipe(
+      takeUntil(this._destroyed$),
+      tap(_ => {
+        if(this.drawer?.mode == "over") {
+          this._closeNavBarAndDrawer();
+        }
+        this._matDrawerContentElement.scrollTop = 0;
+      })
+    ).subscribe();
   }
 }

@@ -11,7 +11,7 @@
     min-height: calc(100vh - 155px);
   }
 
-  div[bl-header] {
+  .bl-header {
     margin-bottom: 30px;
     h1 {
       border: 2px solid #000;
@@ -26,7 +26,7 @@
 
 @media only screen and (min-width: breakpoints.$screen-md-min) {
   :host {
-    div[bl-header] {
+    .bl-header {
       display: none;
     }
   }

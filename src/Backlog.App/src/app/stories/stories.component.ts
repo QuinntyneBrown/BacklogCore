@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StoryService } from '@api';
-import { BehaviorSubject, of } from 'rxjs';
+import { routeChanged$ } from '@core/route-changed';
+import { BehaviorSubject, combineLatest, merge, of, Subject } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -11,49 +13,44 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 })
 export class StoriesComponent  {
 
-  private readonly _searchEnabled$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private readonly _searchEnabledSubject: Subject<boolean> = new Subject();
 
-  private readonly _searchControl = new FormControl(null,[]);
+  private readonly _searchEnabled$ = this._searchEnabledSubject.asObservable();
 
   private readonly _refreshSubject: BehaviorSubject<void> = new BehaviorSubject(null);
 
-  public vm$ = this._refreshSubject
+  private readonly _refresh$ = this._refreshSubject.asObservable();
+
+  readonly searchControl = new FormControl(null,[])
+
+  readonly vm$ = merge(this._refresh$, routeChanged$(this._router))
   .pipe(
-    startWith(true),
-    switchMap(_ => this._searchEnabled$),
-    switchMap(searchEnabled => {
-      return searchEnabled
-      ? this._searchControl.valueChanges.pipe(
-        startWith(this._searchControl.value),
-        switchMap(query => query ? this._storyService.search({ query }).pipe(
-          map(stories => ([stories, searchEnabled]))
-        )
-        : of([[], searchEnabled]))
+    switchMap(_ => combineLatest([
+      this._storyService.get(),
+      this._searchEnabled$.pipe(
+        startWith(false)
       )
-      : this._storyService.get()
-      .pipe(
-        map(stories => ([stories, searchEnabled]))
-      )
-    }),
+    ])),
     map(([stories, searchEnabled]) => {
       return {
         stories,
         searchEnabled,
-        query: this._searchControl.value
+        query: this.searchControl.value
       };
     })
   )
 
   constructor(
-    private readonly _storyService: StoryService
+    private readonly _storyService: StoryService,
+    private readonly _router: Router
   ) { }
 
-    public handleSearchClick() {
-      this._searchEnabled$.next(true);
+    onSearchClick() {
+      this._searchEnabledSubject.next(true);
     }
 
-    public handleCloseClick() {
-      this._searchEnabled$.next(false);
+    onCloseClick() {
+      this._searchEnabledSubject.next(false);
     }
 
 }

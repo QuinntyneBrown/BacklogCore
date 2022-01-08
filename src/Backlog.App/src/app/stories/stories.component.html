@@ -1,22 +1,23 @@
 <ng-container *ngIf="vm$ | async as vm">
   <bl-two-column-layout>
-    <div bl-title-bar *ngIf="!vm.searchEnabled">
-      <h1 bl-title [routerLink]="['/','stories','create']">
+    
+    <div class="bl-title-bar" *ngIf="!vm.searchEnabled">
+      <h1 class="bl-title" [routerLink]="['/','stories','create']">
         <span>Create Story</span>
       </h1>
-      <button mat-icon-button tabindex="-1" (click)="handleSearchClick()">
+      <button mat-icon-button tabindex="-1" (click)="onSearchClick()">
         <mat-icon>
           search
         </mat-icon>
       </button>
     </div>
 
-    <bl-search-stories-control *ngIf="vm.searchEnabled" [formControl]="searchControl" (closeClick)="handleCloseClick()">
+    <bl-search-stories-control *ngIf="vm.searchEnabled" [formControl]="searchControl" (closeClick)="onCloseClick()">
 
     </bl-search-stories-control>
 
     <div class="stories__list">
-      <span *ngFor="let story of vm.stories" [routerLink]="['/','stories','edit',story.storyId]">{{ story.name }}: {{ story.title }}</span>
+      <span *ngFor="let story of vm.stories" [routerLink]="['/','stories','edit',story.storyId]">{{ story.title }}</span>
     </div>
 
     <div *ngIf="vm.stories.length == 0 && vm.searchEnabled && vm.query">

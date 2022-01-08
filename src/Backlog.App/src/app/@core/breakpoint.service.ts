@@ -8,11 +8,11 @@ import { map } from 'rxjs/operators';
 })
 export class BreakpointService {
 
-  public isGreaterThanMedium$: Observable<boolean> = this._breakpointObserver
+  readonly isGreaterThanMedium$: Observable<boolean> = this._breakpointObserver
   .observe("(min-width: 992px)")
   .pipe(map(breakpointState => breakpointState.matches));
 
-  public isLessThanMedium$: Observable<boolean> = this._breakpointObserver
+  readonly isLessThanMedium$: Observable<boolean> = this._breakpointObserver
   .observe("(max-width: 992px)")
   .pipe(map(breakpointState => breakpointState.matches));
 

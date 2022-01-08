@@ -1,6 +1,6 @@
 import { Component, EventEmitter, forwardRef, Output } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { BaseControl } from '@core';
 import { StoryService } from '@api';
 
@@ -18,9 +18,9 @@ import { StoryService } from '@api';
 })
 export class SearchStoriesControlComponent extends BaseControl  {
 
-  public formControl: FormControl = new FormControl(null,[]);
+  readonly formControl: FormControl = new FormControl(null,[]);
 
-  @Output() public closeClick: EventEmitter<any> = new EventEmitter();
+  @Output() readonly closeClick: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private readonly _storyService: StoryService

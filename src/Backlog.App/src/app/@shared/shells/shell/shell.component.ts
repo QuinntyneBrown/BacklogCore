@@ -15,7 +15,7 @@ import { HeaderDirective } from "@shared/components/header/header.directive";
 })
 export class ShellComponent extends Destroyable implements OnInit {
 
-  public vm$ = of(true)
+  readonly vm$ = of(true)
   .pipe(
     map(_ => {
       return {
@@ -36,7 +36,7 @@ export class ShellComponent extends Destroyable implements OnInit {
     map(_ => "over")
   );
 
-  public mode$ = merge(this._side$, this._over$);
+  readonly mode$ = merge(this._side$, this._over$);
 
   @ViewChild(MatDrawer, { static: true }) public drawer: MatDrawer | undefined;
 
@@ -47,19 +47,19 @@ export class ShellComponent extends Destroyable implements OnInit {
   }
 
   private _closeNavBarAndDrawer() {
-    this._header?.close();
+    //this._header?.close();
     this.drawer?.close();
   }
 
   constructor(
     private readonly _breakpointService: BreakpointService,
     private readonly _router: Router,
-    private readonly _elementRef: ElementRef
+    private readonly _elementRef: ElementRef<HTMLElement>
   ) {
     super();
   }
 
-  public ngOnInit() {
+  ngOnInit() {
     this._router.events
       .pipe(
         takeUntil(this._destroyed$),

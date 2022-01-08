@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { StoryService } from '@api';
-import { StoriesFeatureService } from '@core/feature-services/stories-feature.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 
@@ -14,17 +13,18 @@ export class StoriesComponent  {
 
   private readonly _searchEnabled$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private searchControl = new FormControl(null,[]);
+  private readonly _searchControl = new FormControl(null,[]);
 
+  private readonly _refreshSubject: BehaviorSubject<void> = new BehaviorSubject(null);
 
-  public vm$ = this._storiesFeatureService.storiesUpdated$
+  public vm$ = this._refreshSubject
   .pipe(
     startWith(true),
     switchMap(_ => this._searchEnabled$),
     switchMap(searchEnabled => {
       return searchEnabled
-      ? this.searchControl.valueChanges.pipe(
-        startWith(this.searchControl.value),
+      ? this._searchControl.valueChanges.pipe(
+        startWith(this._searchControl.value),
         switchMap(query => query ? this._storyService.search({ query }).pipe(
           map(stories => ([stories, searchEnabled]))
         )
@@ -39,14 +39,13 @@ export class StoriesComponent  {
       return {
         stories,
         searchEnabled,
-        query: this.searchControl.value
+        query: this._searchControl.value
       };
     })
   )
 
   constructor(
-    private readonly _storyService: StoryService,
-    private readonly _storiesFeatureService: StoriesFeatureService
+    private readonly _storyService: StoryService
   ) { }
 
     public handleSearchClick() {

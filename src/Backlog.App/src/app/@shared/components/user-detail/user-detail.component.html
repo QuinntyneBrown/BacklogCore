@@ -6,10 +6,16 @@
 </div>
 
 <form [formGroup]="form" class="bl-form">
-  <div class="bl-field">
-    <label class="bl-label">Name</label>
-    <input type="text" formControlName="name" autocomplete="off" class="bl-input">
-  </div>
+  <mat-form-field appearance="outline" class="bl-field">
+    <mat-label>Username</mat-label>
+    <input matInput type="text" formControlName="username" autocomplete="off" class="bl-input">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="bl-field">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" autocomplete="off" class="bl-input">
+  </mat-form-field>
+
 </form>
 
 <div class="bl-actions">

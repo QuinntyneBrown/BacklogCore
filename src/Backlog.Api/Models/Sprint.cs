@@ -8,6 +8,7 @@ namespace Backlog.Api.Models
     public class Sprint: AggregateRoot
     {
         public Guid SprintId { get; private set; }
+        public string Name { get; set; }
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
         public List<SprintStory> SprintStories { get; private set; }
@@ -32,6 +33,7 @@ namespace Backlog.Api.Models
         private void When(CreateSprint @event)
         {
             SprintId = @event.SprintId;
+            Name = @event.Name;
             Start = @event.Start;
             End = @event.End;   
             SprintStories = new List<SprintStory>();

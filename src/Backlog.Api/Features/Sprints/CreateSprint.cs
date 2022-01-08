@@ -39,7 +39,7 @@ namespace Backlog.Api.Features
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var @event = new DomainEvents.CreateSprint(request.Sprint.Start, request.Sprint.End);
+                var @event = new DomainEvents.CreateSprint(request.Sprint.Name, request.Sprint.Start, request.Sprint.End);
 
                 var sprint = new Sprint(@event);
                 

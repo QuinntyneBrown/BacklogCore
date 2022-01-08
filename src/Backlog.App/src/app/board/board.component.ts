@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { combine } from '@core';
+import { SprintService, StoryService } from '@api';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class BoardComponent {
   );
 
   constructor(
-
+    private readonly _sprintService: SprintService,
+    private readonly _storyService: StoryService
   ) {
 
   }

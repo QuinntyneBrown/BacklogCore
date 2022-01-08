@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { User } from '@api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'bl-user-detail',
@@ -13,7 +15,8 @@ export class UserDetailComponent {
 
   readonly form: FormGroup = new FormGroup({
     userId: new FormControl(null, []),
-    name: new FormControl(null, [Validators.required])
+    username: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required])
   });
 
   get user(): User { return this.form.value as User; }
@@ -42,7 +45,9 @@ export class UserDetailComponent {
   imports: [
     CommonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class UserDetailModule { }

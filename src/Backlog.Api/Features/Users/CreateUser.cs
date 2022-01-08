@@ -34,9 +34,12 @@ namespace Backlog.Api.Features
         {
             private readonly IBacklogDbContext _context;
             private readonly IPasswordHasher _passwordHasher;
-        
-            public Handler(IBacklogDbContext context)
-                => _context = context;
+
+            public Handler(IBacklogDbContext context, IPasswordHasher passwordHasher)
+            {
+                _context = context;
+                _passwordHasher = passwordHasher;
+            }
         
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {

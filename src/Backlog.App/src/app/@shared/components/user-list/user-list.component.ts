@@ -22,7 +22,7 @@ export class UserListComponent {
 
   readonly pageSizeOptions: typeof pageSizeOptions = pageSizeOptions;
 
-  readonly displayedColumns: string[] = ["name", "actions"];
+  readonly displayedColumns: string[] = ["username", "actions"];
 
   @ViewChild(MatPaginator, { static: true }) private _paginator: MatPaginator;
 

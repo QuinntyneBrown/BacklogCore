@@ -40,17 +40,17 @@ export class SprintsComponent {
   ) { }
 
   private _handleSelect(sprint: Sprint): Observable<boolean> {
-    return from(this._router.navigate(["/","app","sprints","edit", sprint.sprintId]));
+    return from(this._router.navigate(["/","sprints","edit", sprint.sprintId]));
   }
 
   private _handleCreate(): Observable<boolean> {
-    return from(this._router.navigate(["/","app","sprints","create"]));
+    return from(this._router.navigate(["/","sprints","create"]));
   }
 
   private _handleSave(sprint: Sprint): Observable<boolean> {
     return (sprint.sprintId ? this._sprintService.update({ sprint }) : this._sprintService.create({ sprint }))
     .pipe(      
-      switchMap(_ => this._router.navigate(["/","app","sprints"])),
+      switchMap(_ => this._router.navigate(["/","sprints"])),
       tap(_ => this._refreshSubject.next(null))
       );    
   }
@@ -58,7 +58,7 @@ export class SprintsComponent {
   private _handleDelete(sprint: Sprint): Observable<boolean> {
     return this._sprintService.remove({ sprint })
     .pipe(
-      switchMap(_ => this._router.navigate(["/","app","sprints"])),
+      switchMap(_ => this._router.navigate(["/","sprints"])),
       tap(_ => this._refreshSubject.next(null))
     );
   }

@@ -6,10 +6,24 @@
 </div>
 
 <form [formGroup]="form" class="bl-form">
-  <div class="bl-field">
-    <label class="bl-label">Name</label>
-    <input type="text" formControlName="name" autocomplete="off" class="bl-input">
-  </div>
+  <mat-form-field appearance="outline" class="bl-field">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" autocomplete="off" class="bl-input">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="bl-field">
+    <mat-label>Start</mat-label>
+    <input matInput type="text" [matDatepicker]="start" formControlName="start" autocomplete="off" class="bl-input">
+    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+    <mat-datepicker #start></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="bl-field">
+    <mat-label>End</mat-label>
+    <input matInput type="text" formControlName="end" [matDatepicker]="end" autocomplete="off" class="bl-input">
+    <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+    <mat-datepicker #end></mat-datepicker>
+  </mat-form-field>
 </form>
 
 <div class="bl-actions">

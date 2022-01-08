@@ -40,17 +40,17 @@ export class UsersComponent {
   ) { }
 
   private _handleSelect(user: User): Observable<boolean> {
-    return from(this._router.navigate(["/","app","users","edit", user.userId]));
+    return from(this._router.navigate(["/","users","edit", user.userId]));
   }
 
   private _handleCreate(): Observable<boolean> {
-    return from(this._router.navigate(["/","app","users","create"]));
+    return from(this._router.navigate(["/","users","create"]));
   }
 
   private _handleSave(user: User): Observable<boolean> {
     return (user.userId ? this._userService.update({ user }) : this._userService.create({ user }))
     .pipe(      
-      switchMap(_ => this._router.navigate(["/","app","users"])),
+      switchMap(_ => this._router.navigate(["/","users"])),
       tap(_ => this._refreshSubject.next(null))
       );    
   }
@@ -58,7 +58,7 @@ export class UsersComponent {
   private _handleDelete(user: User): Observable<boolean> {
     return this._userService.remove({ user })
     .pipe(
-      switchMap(_ => this._router.navigate(["/","app","users"])),
+      switchMap(_ => this._router.navigate(["/","users"])),
       tap(_ => this._refreshSubject.next(null))
     );
   }

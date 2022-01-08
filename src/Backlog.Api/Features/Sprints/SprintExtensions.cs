@@ -1,5 +1,5 @@
-using System;
 using Backlog.Api.Models;
+using System.Linq;
 
 namespace Backlog.Api.Features
 {
@@ -9,7 +9,11 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                SprintId = sprint.SprintId
+                SprintId = sprint.SprintId,
+                Name = sprint.Name,
+                Start = sprint.Start,
+                End = sprint.End,
+                StoryIds = sprint.SprintStories.Select(x => $"{x.StoryId}").ToList()
             };
         }
         

@@ -10,8 +10,8 @@ namespace Backlog.Api.Models
     public class Story : AggregateRoot
     {
         public Guid StoryId { get; private set; }
-        public string Name { get; set; }
-        public string Title { get; set; }
+        public string Name { get; private set; }
+        public string Title { get; private set; }
         public string Description { get; private set; }
         public string AcceptanceCriteria { get; private set; }
         public string JiraUrl { get; private set; }

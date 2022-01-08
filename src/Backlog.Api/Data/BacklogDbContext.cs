@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Backlog.Api.Data
 {
-    public class BacklogDbContext : DbContext, IBacklogDbContext
+    public class BacklogDbContext: DbContext, IBacklogDbContext
     {
         public DbSet<Story> Stories { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
@@ -18,6 +18,8 @@ namespace Backlog.Api.Data
         public DbSet<Technology> Technologies { get; private set; }
         public DbSet<CompetencyLevel> CompetencyLevels { get; private set; }
         public DbSet<DigitalAsset> DigitalAssets { get; private set; }
+        public DbSet<Sprint> Sprints { get; private set; }
+        public DbSet<User> Users { get; private set; }
         public BacklogDbContext(DbContextOptions options)
             : base(options)
         {

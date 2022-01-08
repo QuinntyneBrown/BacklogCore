@@ -1,6 +1,6 @@
 {
   "projects": null,
-  "path": "C:\\Projects\\Backlog",
+  "path": "C:\\projects\\Backlog",
   "solutionName": "Backlog.sln",
   "rootNamespace": "Backlog",
   "domainNamespace": "Backlog.Api",
@@ -35,6 +35,8 @@
     "TaskItem",
     "Technology",
     "CompetencyLevel",
-    "DigitalAsset"
+    "DigitalAsset",
+    "Sprint",
+    "User"
   ]
 }

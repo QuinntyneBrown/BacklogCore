@@ -3,6 +3,7 @@ using Backlog.Api.DomainEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Backlog.Api.Core.Constants;
 using static System.String;
 
 namespace Backlog.Api.Models
@@ -44,6 +45,7 @@ namespace Backlog.Api.Models
             Description = @event.Description;
             AcceptanceCriteria = @event.AcceptanceCriteria;
             JiraUrl = @event.JiraUrl;
+            Status = StoryStatus.Backlog;
             DependsOn = new List<DependencyRelationship>();
             SkillRequirements = new List<SkillRequirement>();
             Attachments = new List<Attachment>();
@@ -71,6 +73,11 @@ namespace Backlog.Api.Models
         private void When(UpdateDependsOn @event)
         {
             DependsOn = @event.DependsOn;
+        }
+
+        private void When(UpdateStoryStatus @event)
+        {
+            Status = @event.Status;
         }
 
     }

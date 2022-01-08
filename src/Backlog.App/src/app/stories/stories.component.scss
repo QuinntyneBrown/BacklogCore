@@ -1,6 +1,10 @@
 @use 'src/scss/breakpoints';
 
 :host {
+  .bl-title-bar {
+    margin-bottom: 40px;
+  }
+
   .stories__list {
     display: grid;
     row-gap: 20px;

@@ -69,6 +69,13 @@ namespace Backlog.Api.Controllers
         public async Task<ActionResult<UpdateStoryDependsOn.Response>> UpdateStoryDependsOn([FromBody] UpdateStoryDependsOn.Request request)
             => await _mediator.Send(request);
 
+        [HttpPut("status", Name = "UpdateStoryStatusRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateStoryStatus.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryStatus.Response>> UpdateStoryStatus([FromBody] UpdateStoryStatus.Request request)
+            => await _mediator.Send(request);
+
         [HttpGet("page/{pageSize}/{index}", Name = "GetStoriesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

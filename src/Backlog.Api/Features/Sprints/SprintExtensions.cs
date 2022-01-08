@@ -9,11 +9,11 @@ namespace Backlog.Api.Features
         {
             return new ()
             {
-                SprintId = sprint.SprintId,
-                Name = sprint.Name,
-                Start = sprint.Start,
-                End = sprint.End,
-                StoryIds = sprint.SprintStories.Select(x => $"{x.StoryId}").ToList()
+                SprintId = sprint?.SprintId,
+                Name = sprint?.Name,
+                Start = sprint?.Start ?? default,
+                End = sprint?.End ?? default,
+                StoryIds = sprint?.SprintStories?.Select(x => $"{x.StoryId}").ToList()
             };
         }
         

@@ -29,7 +29,21 @@ namespace Backlog.Api.Core
 
         }
 
+        public static class StoryStatus
+        {
+            public const string Backlog = nameof(Backlog);
+            public const string Assigned = nameof(Assigned);
+            public const string InProgress = nameof(InProgress);
+            public const string Done = nameof(Done);
 
+            public static List<string> All => new()
+            {
+                Backlog,
+                Assigned,
+                InProgress,
+                Done
+            };
+        }
         public static class ContentName
         {
             public static List<string> All => new() { };

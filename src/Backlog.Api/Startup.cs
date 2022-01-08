@@ -34,7 +34,7 @@ namespace Backlog.Api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backlog.Api.Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backlog.Api");
                 c.RoutePrefix = string.Empty;
             });
         }

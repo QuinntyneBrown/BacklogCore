@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemShellComponent } from './item-shell.component';
-import { RouterModule } from '@angular/router';
+import { SidenavComponent } from './sidenav.component';
 import { HeaderModule } from '@shared/components/header/header.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 @NgModule({
   declarations: [
-    ItemShellComponent
+    SidenavComponent
   ],
   exports: [
-    ItemShellComponent
+    SidenavComponent
   ],
   imports: [
     CommonModule,
-    RouterModule,
     HeaderModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ]
 })
-export class ItemShellModule { }
+export class SidenavModule { }

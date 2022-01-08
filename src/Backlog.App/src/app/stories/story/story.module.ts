@@ -2,16 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoryRoutingModule } from './story-routing.module';
 import { StoryComponent } from './story.component';
-import { StoryControlModule } from '@shared/story-control/story-control.module';
-import { StoryActionbarModule } from '@shared/story-actionbar/story-actionbar.module';
-import { ButtonModule } from '@shared/buttons/button';
+import { StoryControlModule } from '@shared/components/story-control/story-control.module';
+import { StoryActionbarModule } from '@shared/components/story-actionbar/story-actionbar.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TitleModule } from '@shared/title/title.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddSkillRequirementDialogModule } from '@shared/dialogs/add-skill-requirement-dialog';
-import { AddDependencyRelationshipDialogModule } from '@shared/dialogs/add-dependency-relationship-dialog';
+import { AddSkillRequirementDialogModule } from '@shared/components/dialogs/add-skill-requirement-dialog';
+import { AddDependencyRelationshipDialogModule } from '@shared/components/dialogs/add-dependency-relationship-dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FileUploadDialogModule } from '@shared';
+import { TitleModule } from '@shared/atoms/title/title.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { FileUploadDialogModule } from '@shared';
     StoryRoutingModule,
     StoryControlModule,
     StoryActionbarModule,
-    ButtonModule,
     ReactiveFormsModule,
     TitleModule,
     MatDialogModule,

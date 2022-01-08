@@ -1,0 +1,40 @@
+<form [formGroup]="form">
+
+  <div bl-title-form-field>
+    <input type="text" placeholder="Title" formControlName="title">
+  </div>
+
+  <mat-form-field class="bl-form-field">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field class="bl-form-field">
+    <mat-label>Jira</mat-label>
+    <input matInput type="text" formControlName="jiraUrl" placeholder="Jira">
+  </mat-form-field>
+
+  <div *ngIf="form.value.storyId" class="story-control__options">
+    <span blPill (click)="addSkillRequirementClick.emit()">
+      Add Skill Requirement
+    </span>
+
+    <span blPill (click)="addDependencyRelationshipClick.emit()">
+      Add Dependency Relationship
+    </span>
+
+    <span blPill (click)="fileUploadClick.emit()">
+      <mat-icon>
+        upload_file
+      </mat-icon>
+      <spa>
+        File Upload
+      </spa>
+    </span>
+  </div>
+
+  <textarea class="bl-textarea" placeholder="Description" formControlName="description"></textarea>
+
+  <textarea class="bl-textarea" placeholder="Acceptance Criteria"  formControlName="acceptanceCriteria"></textarea>
+
+</form>

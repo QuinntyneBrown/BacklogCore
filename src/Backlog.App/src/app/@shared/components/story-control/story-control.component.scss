@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  .bl-title-form-field {
+    margin-bottom: 30px;
+  }
+
+  .story-control__options {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  h1[blTitle] {
+    margin-bottom: 30px;
+    mat-icon {
+      color: #BBB;
+    }
+  }
+}

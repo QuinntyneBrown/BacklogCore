@@ -5,7 +5,7 @@ import { merge, of } from "rxjs";
 import { filter, map, takeUntil, tap } from "rxjs/operators";
 import { Destroyable } from "@core/destroyable";
 import { BreakpointService } from "@core";
-import { HeaderDirective } from "@shared/header/header.directive";
+import { HeaderDirective } from "@shared/components/header/header.directive";
 
 
 @Component({

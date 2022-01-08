@@ -1,4 +1,4 @@
-export * from './base-control-value-accessor';
+export * from './base-control';
 export * from './breakpoint.service';
 export * from './constants';
 export * from './destroyable';

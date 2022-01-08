@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Story, StoryService } from '@api';
 import { Destroyable } from '@core';
 import { StoriesFeatureService } from '@core/feature-services/stories-feature.service';
-import { FileUploadDialogComponent } from '@shared/dialogs';
-import { AddDependencyRelationshipDialogComponent } from '@shared/dialogs/add-dependency-relationship-dialog';
-import { AddSkillRequirementDialogComponent } from '@shared/dialogs/add-skill-requirement-dialog';
-import { BehaviorSubject, of, Subject } from 'rxjs';
-import { map, startWith, switchMap, takeUntil, tap, toArray } from 'rxjs/operators';
+import { FileUploadDialogComponent } from '@shared/components/dialogs';
+import { AddDependencyRelationshipDialogComponent } from '@shared/components/dialogs/add-dependency-relationship-dialog';
+import { AddSkillRequirementDialogComponent } from '@shared/components/dialogs/add-skill-requirement-dialog';
+import { BehaviorSubject, of } from 'rxjs';
+import { map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-story',

@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShellComponent } from './shell.component';
 import { RouterModule } from '@angular/router';
-import { HeaderModule } from '@shared/header/header.module';
 import { MatIconModule } from '@angular/material/icon';
-import { FooterModule } from '@shared/footer/footer.module';
-import { ActionsModule } from '@shared/actions/actions.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SidenavModule } from '@shared/sidenav';
+import { HeaderModule } from '@shared/components/header/header.module';
+import { FooterModule } from '@shared/components/footer/footer.module';
+import { SidenavModule } from '@shared/components/sidenav';
+
 
 
 @NgModule({
@@ -16,7 +16,6 @@ import { SidenavModule } from '@shared/sidenav';
   ],
   imports: [
     CommonModule,
-    ActionsModule,
     RouterModule,
     HeaderModule,
     MatIconModule,

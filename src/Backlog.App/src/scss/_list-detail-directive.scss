@@ -1,0 +1,35 @@
+@use 'src/scss/breakpoints';
+
+.bl-list-detail-container {
+  display: block;
+  & > *:nth-child(1) {
+    display: none;
+  }
+}
+
+.bl-list-detail-container--list-view.bl-list-detail-container {
+  & > *:nth-child(1) {
+    display: block;
+  }
+
+  & > *:nth-child(2) {
+    display: none;
+  }
+}
+
+@media screen and (min-width: breakpoints.$screen-lg-min) {
+  .bl-list-detail-container,
+  .bl-list-detail-container--list-view.bl-list-detail-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+
+    & > *:nth-child(1),
+    & > *:nth-child(2) {
+      display: block;
+      overflow: auto;
+      padding: 0px 20px 20px 0px;
+      box-sizing: border-box;
+    }
+  }
+}

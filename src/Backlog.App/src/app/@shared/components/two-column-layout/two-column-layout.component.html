@@ -1,0 +1,12 @@
+<ng-container *ngIf="vm$ | async vm">
+  
+  <bl-content-layout class="two-column-layout__content-column">
+    <ng-content></ng-content>
+  </bl-content-layout>
+
+  <div class="two-column-layout__router-outlet">
+
+    <router-outlet></router-outlet>
+
+  </div>
+</ng-container>

@@ -22,14 +22,18 @@
   .bl-list-detail-container--list-view.bl-list-detail-container{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 40px;
 
     & > *:nth-child(1),
     & > *:nth-child(2) {
       display: block;
       overflow: auto;
-      padding: 0px 20px 20px 0px;
+      padding: 40px;
       box-sizing: border-box;
+      min-height: 100vh;
+    }
+
+    & > *:nth-child(2) {
+      border-left: 1px solid #ccc;
     }
   }
 }

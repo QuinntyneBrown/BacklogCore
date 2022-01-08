@@ -1,6 +1,9 @@
-<h1 *ngIf="!sprint.sprintId" class="bl-panel-heading">Create Sprint</h1>
-<h1 *ngIf="sprint.sprintId" class="bl-panel-heading">Edit Sprint</h1>
-
+<div class="bl-title-bar">
+  <h1 class="bl-title">
+    <span *ngIf="!sprint.sprintId">Create Sprint</span>
+    <span *ngIf="sprint.sprintId">Edit Sprint</span>
+  </h1>
+</div>
 
 <form [formGroup]="form" class="bl-form">
   <div class="bl-field">

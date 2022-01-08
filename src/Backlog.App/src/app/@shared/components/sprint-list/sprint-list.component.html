@@ -1,10 +1,7 @@
-<div class="bl-heading-group">
-  <h1 class="bl-panel-heading">Sprint List</h1>
-  <div class="bl-heading-group__actions-container">
-    <button class="bl-button" (click)="create.emit()">
-      Create
-    </button>
-  </div>
+<div class="bl-title-bar">
+  <h1 class="bl-title" (click)="create.emit()">
+    <span>Create Sprint</span>
+  </h1>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="bl-table" style="--grid-template-columns: 1fr auto;">

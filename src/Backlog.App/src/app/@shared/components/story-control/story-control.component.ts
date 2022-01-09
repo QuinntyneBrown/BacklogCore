@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, forwardRef, Input, Output } from '
 import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
-import { BaseControl } from '@core';
+import { BaseControl, ckEditorConfig } from '@core';
 import { Sprint, Story } from '@api';
 
 
@@ -25,7 +25,9 @@ import { Sprint, Story } from '@api';
 })
 export class StoryControlComponent extends BaseControl implements Validator  {
 
-  public form = new FormGroup({
+  config: typeof ckEditorConfig = ckEditorConfig;
+  
+  form = new FormGroup({
     storyId: new FormControl(null,[]),
     title: new FormControl(null, [Validators.required]),
     name: new FormControl(null, [Validators.required]),

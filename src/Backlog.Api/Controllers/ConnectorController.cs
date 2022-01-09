@@ -17,8 +17,8 @@ namespace Backlog.Api.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<ActionResult<UploadDigitalAsset.Response>> Post()
-            => await _mediator.Send(new UploadDigitalAsset.Request());
+        public async Task<ActionResult<ConnectorUploadDigitalAsset.Response>> Post()
+            => await _mediator.Send(new ConnectorUploadDigitalAsset.Request());
 
     }
 }

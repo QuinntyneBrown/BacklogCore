@@ -17,6 +17,7 @@ namespace Backlog.Api.Models
         public string AcceptanceCriteria { get; private set; }
         public string JiraUrl { get; private set; }
         public string Status { get; private set; } = Empty;
+        public int Effort { get; private set; }
         public List<DependencyRelationship> DependsOn { get; private set; }
         public List<SkillRequirement> SkillRequirements { get; private set; }
         public List<Attachment> Attachments { get; private set; }

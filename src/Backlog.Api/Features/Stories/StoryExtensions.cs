@@ -13,7 +13,8 @@ namespace Backlog.Api.Features
                 story.Title,
                 story.Description,
                 story.AcceptanceCriteria,
-                story.Status)
+                story.Status,
+                story.Effort)
             {
                 JiraUrl = story.JiraUrl,
                 SkillRequirements = story?.SkillRequirements.Select(x => new SkillRequirementDto

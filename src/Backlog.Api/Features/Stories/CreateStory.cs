@@ -44,7 +44,8 @@ namespace Backlog.Api.Features
                     request.Story.Title,
                     request.Story.Description,
                     request.Story.AcceptanceCriteria,
-                    request.Story.JiraUrl));
+                    request.Story.JiraUrl,
+                    request.Story.Effort));
 
                 _context.Stories.Add(story);
 

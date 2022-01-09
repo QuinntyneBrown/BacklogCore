@@ -5,84 +5,59 @@
   display: grid;
   grid-template-rows: auto 1fr;
   height: 100%;
-  --layout-drawer-width: 368px;
-  --layout-gutter-desktop-x: 0px;
-  --layout-gutter-desktop-y: 0px;
-  --layout-gutter-mobile-x: 30px;
-  --layout-gutter-mobile-y: 40px;
-  --layout-gutter-x:0px;
-  --layout-footer-height: 70px;
-
-  mat-drawer {
-    display: block;
-    width: 368px;
-    border: none;
-    border-right: 1px solid #D7D3CB;
-    padding-left: var(--layout-gutter-mobile-x);
-    padding-right: var(--layout-gutter-mobile-x);
-    padding-top: var(--layout-gutter-mobile-y);
-  }
+  box-sizing: border-box;
 
   mat-drawer-container {
+    height: 100vh;
 
+    mat-drawer {
+      width: 90%;
+    }
 
-  }
+    mat-drawer-content {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
 
-  ::ng-deep .mat-drawer-inner-container {
-    overflow: hidden ;
-  }
-
-  app-footer {
-    height: var(--layout-footer-height);
-  }
-
-  app-footer,
-  main {
-    padding: 0 var(--layout-gutter-x);
-  }
-
-  main {
-    min-height: calc(100% - 52px);
-    display: block;
-    box-sizing: border-box;
-  }
-
-  div[bl-header] {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    box-sizing: border-box;
+      main {
+        display: block;
+        box-sizing: border-box;
+      }
+    }
   }
 }
 
 @media only screen and (min-width: breakpoints.$screen-md-min) {
   :host {
-
-    bl-navbar {
-      display: none;
-    }
     display: block;
-    div[bl-header] {
-      display: none;
-    }
-
-    mat-drawer {
-      width: var(--layout-drawer-width);
-    }
 
     mat-drawer-container {
-      height: 100vh;
-      margin-top: 0px;
+      
       box-sizing: border-box;
-    }
 
-    app-footer,
-    main {
-      padding: 0 var(--layout-gutter-desktop-x);
-    }
+      bl-navbar {
 
-    main {
-      padding-top: var(--layout-gutter-desktop-y);
+      }
+
+      mat-drawer {
+        width: 275px;
+        display: block;
+        border-right: 1px solid #D7D3CB;
+      }
+
+      mat-drawer-content {
+        grid-template-columns: 50px 1fr;
+        position: relative;
+
+        main {
+          display: block;
+          position: relative;
+          height: 100%;
+          box-sizing: border-box;
+          grid-column: 2;
+          width: 100%;
+        }
+      }
     }
   }
 }

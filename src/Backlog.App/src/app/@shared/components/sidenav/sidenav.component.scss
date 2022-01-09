@@ -1,7 +1,9 @@
 @use 'src/scss/variables';
 
 :host {
-
+  display: block;
+  box-sizing: border-box;
+  padding:40px;
   bl-days-until-sprint-is-over {
     padding: 40px 0px 0px;
   }

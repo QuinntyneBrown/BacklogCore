@@ -1,5 +1,14 @@
 @use 'src/scss/breakpoints';
 
+.bl-list-detail-container,
+.bl-list-detail-container--list-view.bl-list-detail-container{
+  & > *:nth-child(1),
+  & > *:nth-child(2) {
+    display: block;
+    padding: 40px;
+  }
+}
+
 .bl-list-detail-container {
   display: block;
   & > *:nth-child(1) {

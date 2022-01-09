@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, EventEmitter, NgModule, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,18 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NavbarComponent {
 
-  readonly vm$ = combine([
-    of("navbar")
-  ])
-  .pipe(
-    map(([name]) => ({ name }))
-  );
-
-  constructor(
-
-  ) {
-
-  }
+  @Output() menuClick: EventEmitter<void> = new EventEmitter();
+  
 }
 
 @NgModule({

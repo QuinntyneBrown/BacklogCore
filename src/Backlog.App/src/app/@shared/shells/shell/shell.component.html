@@ -3,7 +3,7 @@
     <bl-sidenav (menuClick)="handleMenuClick()"></bl-sidenav>
   </mat-drawer>    
   <mat-drawer-content>
-    <bl-navbar></bl-navbar>
+    <bl-navbar (menuClick)="handleMenuClick()" *ngIf="!(opened$ | async)"></bl-navbar>
     <main>
       <router-outlet></router-outlet>
     </main>

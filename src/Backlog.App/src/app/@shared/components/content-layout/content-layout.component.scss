@@ -1,33 +1,20 @@
 @use 'src/scss/breakpoints';
 
 :host {
-  height: 100vh;
   overflow-y: auto;
   padding:40px;
   box-sizing: border-box;
   position: relative;
+  height: 100%;
 
   .content-layout__main {
-    min-height: calc(100vh - 155px);
+    margin-bottom: 60px;
   }
-
-  .bl-header {
-    margin-bottom: 30px;
-    h1 {
-      border: 2px solid #000;
-      padding: 0px 10px;
-      letter-spacing: 3px;
-      user-select: none;
-    }
-  }
-
-
+  
 }
 
 @media only screen and (min-width: breakpoints.$screen-md-min) {
   :host {
-    .bl-header {
-      display: none;
-    }
+
   }
 }

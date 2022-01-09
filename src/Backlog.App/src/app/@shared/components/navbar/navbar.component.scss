@@ -1,6 +1,27 @@
+@use "src/scss/breakpoints";
+
 :host {
     display: block;    
     padding: 0 40px;
     box-sizing: border-box;
     height: 60px;
+
+    > button {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: breakpoints.$screen-md-min) {
+    :host {
+        padding:0;
+        margin: 0;
+        box-sizing: border-box;
+        .bl-header {
+            display: none;
+        }
+
+        > button {
+            display: block;
+        }
+    }
 }

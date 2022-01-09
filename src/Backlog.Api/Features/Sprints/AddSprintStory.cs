@@ -43,6 +43,10 @@ namespace Backlog.Api.Features
             {
                 var sprint = await _context.Sprints.SingleOrDefaultAsync(x => x.SprintId == request.SprintId);
 
+                var story = await _context.Stories.SingleOrDefaultAsync(_ => _.StoryId == request.StoryId);
+
+                story.Apply(new DomainEvents.UpdateStoryStatus(Constants.StoryStatus.Assigned));
+
                 sprint.Apply(new DomainEvents.AddSprintStory(request.StoryId));
                 
                 await _context.SaveChangesAsync(cancellationToken);

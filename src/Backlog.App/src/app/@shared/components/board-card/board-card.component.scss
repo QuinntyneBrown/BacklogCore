@@ -2,6 +2,20 @@
     cursor: pointer;
     display: block;
     background-color: #fff;
-    padding:40px;
-    margin: 20px;
+    display: grid;
+    width: 100%;
+    box-sizing: border-box;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr;
+    min-height: 80px;
+    place-items: center center;
+    margin: 10px 0px;
+
+    span {
+        line-height: 1em;
+        padding:10px 5px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+    
 }

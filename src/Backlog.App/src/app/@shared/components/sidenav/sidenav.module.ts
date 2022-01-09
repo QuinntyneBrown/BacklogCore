@@ -5,6 +5,7 @@ import { HeaderModule } from '@shared/components/header/header.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { DaysUntilSprintIsOverModule } from '../days-until-sprint-is-over/days-until-sprint-is-over.component';
 
 
 
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
     HeaderModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    DaysUntilSprintIsOverModule
   ]
 })
 export class SidenavModule { }

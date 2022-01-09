@@ -21,7 +21,8 @@
 
   <div class="bl-form-field">
     <label class="bl-label">Acceptance Criteria</label>
-    <ckeditor [config]="config" formControlName="acceptanceCriteria"></ckeditor>
+    <ckeditor [config]="config" (ready)="onReady($event, form, 'acceptanceCriteria')" formControlName="acceptanceCriteria"></ckeditor>
   </div>
+
 
 </form>

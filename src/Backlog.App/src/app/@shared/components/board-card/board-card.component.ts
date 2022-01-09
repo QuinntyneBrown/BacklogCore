@@ -1,8 +1,5 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { combine } from '@core';
 import { Story } from '@api';
 
 @Component({
@@ -11,9 +8,7 @@ import { Story } from '@api';
   styleUrls: ['./board-card.component.scss']
 })
 export class BoardCardComponent  {
-
   @Input() story!: Story;
-
 }
 
 @NgModule({

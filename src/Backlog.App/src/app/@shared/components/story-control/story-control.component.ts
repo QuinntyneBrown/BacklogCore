@@ -1,9 +1,10 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { BaseControl, ckEditorConfig } from '@core';
 import { Sprint, Story } from '@api';
+import { CKEditor4 } from 'ckeditor4-angular';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class StoryControlComponent extends BaseControl implements Validator  {
   });
 
   constructor(
-    private readonly _elementRef: ElementRef
+    private readonly _elementRef: ElementRef,
+    private readonly _changeDetectorRef: ChangeDetectorRef
   ) {
     super();
   }
@@ -86,5 +88,13 @@ export class StoryControlComponent extends BaseControl implements Validator  {
 
   setDisabledState?(isDisabled: boolean): void {
     isDisabled ? this.form.disable() : this.form.enable();
+  }
+
+  onReady($event : CKEditor4.EventInfo, form: FormGroup, formControlName: string) {
+    $event.editor.on("afterInsertHtml",() => {
+      form.patchValue({
+        [formControlName]: $event.editor.getData()          
+      });
+    })
   }
 }

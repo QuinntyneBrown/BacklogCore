@@ -33,14 +33,13 @@
     
   .board__column {
     background-color: rgba(0,0,0,0.04);
-    padding: 0 5px;
-    
-    text-align: center;
+    padding: 0 10px; 
     width: 100%;
     padding-bottom: 30px;  
     span {
         line-height: 30px;
     }
+    box-sizing: border-box;
   }
   
   .cdk-drag-preview {

@@ -1,6 +1,11 @@
 @use 'src/scss/variables';
 
 :host {
+
+  bl-days-until-sprint-is-over {
+    padding: 40px 0px 0px;
+  }
+
   nav {
     display: flex;
     flex-direction: column;

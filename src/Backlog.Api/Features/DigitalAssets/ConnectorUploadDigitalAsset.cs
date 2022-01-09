@@ -111,7 +111,7 @@ namespace Backlog.Api.Features
 
                 var uploaded = digitalAssets.First();
 
-                return new Response()
+                return new ()
                 {
                     File = uploaded.Name,
                     Uploaded = 1,

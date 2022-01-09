@@ -38,7 +38,7 @@ export class BoardComponent {
         storyId: options.storyId,
         status: options.status
         })),
-      startWith(null)
+      startWith(true)
     )
   ])
   .pipe(
@@ -46,17 +46,19 @@ export class BoardComponent {
       sprint.storyIds.map(storyId => this._storyService.getById({ storyId }))
     ).pipe(startWith([]))),
     map(stories => {
-      function storyByStatus(status:string) {
-        return stories.filter(story => story.status == status);
-      }
+
+      stories = stories.filter(x => storyStatus.indexOf(x.status) > -1);
+
+      const storiesGroupedByStatus = storyStatus.reduce((accumulatedValue,status) => {  
+        accumulatedValue[status] = stories.filter(story => story.status == status);
+        return accumulatedValue;
+      },{ });
 
       return {
         statuses: storyStatus,
-        storyByStatus,
         stories,
-        assigned: stories.filter(story => story.status == 'Assigned'),
-        inProgress: stories.filter(story => story.status == 'InProgress'),
-        done: stories.filter(story => story.status == 'Done')
+        storiesGroupedByStatus
+        
       }
     })
   );

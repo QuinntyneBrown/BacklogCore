@@ -50,6 +50,7 @@ namespace Backlog.Api.Models
             DependsOn = new List<DependencyRelationship>();
             SkillRequirements = new List<SkillRequirement>();
             Attachments = new List<Attachment>();
+            Effort = @event.Effort;
         }
 
         private void When(UpdateStory @event)
@@ -59,6 +60,7 @@ namespace Backlog.Api.Models
             Description = @event.Description;
             AcceptanceCriteria = @event.AcceptanceCriteria;
             JiraUrl = @event.JiraUrl;
+            Effort = @event.Effort;
         }
 
         private void When(UpdateStoryJiraUrl @event)

@@ -9,5 +9,6 @@ export type Story = {
     jiraUrl: string,
     dependsOn: string[],
     skillRequirements: SkillRequirement[],
-    status
+    status: string,
+    effort: number
 };

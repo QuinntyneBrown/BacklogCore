@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatDrawer } from "@angular/material/sidenav";
-import { merge } from "rxjs";
-import { filter, map, takeUntil, tap } from "rxjs/operators";
+import { BehaviorSubject, merge } from "rxjs";
+import { filter, map, switchMap, takeUntil, tap } from "rxjs/operators";
 import { Destroyable } from "@core/destroyable";
 import { BreakpointService } from "@core";
 import { routeChanged$ } from "@core/route-changed";
@@ -15,9 +14,15 @@ import { routeChanged$ } from "@core/route-changed";
 })
 export class ShellComponent extends Destroyable implements OnInit {
 
+  private readonly _menuClickSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  private readonly _menuClick$ = this._menuClickSubject.asObservable();
+
+  readonly opened$ = this._menuClick$;
+
   private readonly _side$ = this._breakpointService.isGreaterThanMedium$.pipe(
     filter(matches => matches),
-    tap(_ => this.drawer?.open()),
+    tap(_ => this._menuClickSubject.next(true)),
     map(_ => "side")
   );
 
@@ -29,14 +34,12 @@ export class ShellComponent extends Destroyable implements OnInit {
 
   readonly mode$ = merge(this._side$, this._over$);
 
-  @ViewChild(MatDrawer, { static: true }) public drawer: MatDrawer | undefined;
-
   private get _matDrawerContentElement(): HTMLElement {
     return this._elementRef.nativeElement.querySelector("mat-drawer-content");
   }
 
   private _closeNavBarAndDrawer() {
-    this.drawer?.close();
+    this._menuClickSubject.next(false);
   }
 
   constructor(
@@ -47,12 +50,17 @@ export class ShellComponent extends Destroyable implements OnInit {
     super();
   }
 
+  handleMenuClick() {
+    this._menuClickSubject.next(!this._menuClickSubject.value);
+  }
+
   ngOnInit() {
     routeChanged$(this._router)
     .pipe(
       takeUntil(this._destroyed$),
-      tap(_ => {
-        if(this.drawer?.mode == "over") {
+      switchMap(_ => this.mode$),
+      tap(mode => {
+        if(mode == "over") {
           this._closeNavBarAndDrawer();
         }
         this._matDrawerContentElement.scrollTop = 0;

@@ -34,7 +34,8 @@ export class StoryControlComponent extends BaseControl implements Validator  {
     name: new FormControl(null, [Validators.required]),
     jiraUrl: new FormControl(null,[]),
     description: new FormControl(null, [Validators.required]),
-    acceptanceCriteria: new FormControl(null, [Validators.required])
+    acceptanceCriteria: new FormControl(null, [Validators.required]),
+    effort: new FormControl(null,[Validators.required])
   });
 
   constructor(

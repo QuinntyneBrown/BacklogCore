@@ -57,6 +57,10 @@
 
 @media only screen and (min-width: breakpoints.$screen-md-min) {
   :host {
+
+    bl-navbar {
+      display: none;
+    }
     display: block;
     div[bl-header] {
       display: none;

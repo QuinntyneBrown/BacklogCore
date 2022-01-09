@@ -1,8 +1,9 @@
 <mat-drawer-container>
-  <mat-drawer #drawer [mode]="mode$ | async">
-    <bl-sidenav></bl-sidenav>
-  </mat-drawer>
+  <mat-drawer [mode]="mode$ | async" [opened]="opened$ | async">
+    <bl-sidenav (menuClick)="handleMenuClick()"></bl-sidenav>
+  </mat-drawer>    
   <mat-drawer-content>
+    <bl-navbar></bl-navbar>
     <main>
       <router-outlet></router-outlet>
     </main>

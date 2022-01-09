@@ -7,6 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HeaderModule } from '@shared/components/header/header.module';
 import { FooterModule } from '@shared/components/footer/footer.module';
 import { SidenavModule } from '@shared/components/sidenav';
+import { NavbarModule } from '@shared/components/navbar';
 
 
 
@@ -22,7 +23,8 @@ import { SidenavModule } from '@shared/components/sidenav';
     FooterModule,
     MatIconModule,
     MatSidenavModule,
-    SidenavModule
+    SidenavModule,
+    NavbarModule
   ]
 })
 export class ShellModule { }

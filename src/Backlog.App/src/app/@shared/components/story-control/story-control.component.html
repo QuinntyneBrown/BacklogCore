@@ -4,15 +4,20 @@
     <input type="text" placeholder="Title" formControlName="title">
   </div>
 
-  <div class="bl-form-field">
+  <div class="bl-form-field" *ngIf="form.value.storyId">
     <label class="bl-label">Sprints</label>
 
-    <ul>
+    <ul class="story-control__sprint-list">
       <li *ngFor="let sprint of sprints"><a>{{ sprint.name }}</a></li>
     </ul>
 
-    <span (click)="addSprint.emit()">Add Sprint</span>
+    <span *ngIf="sprints.length == 0" (click)="addSprint.emit()">Add Sprint</span>
   </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Effort</mat-label>
+    <input type="text" matInput class="bl-input" formControlName="effort">
+  </mat-form-field>
 
   <div class="bl-form-field">
     <label class="bl-label">Description</label>

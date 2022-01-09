@@ -1,0 +1,8 @@
+<ng-container *ngIf="vm$ | async as vm">
+	<div class="bl-header">
+		<h1 class="bl-header-title">Backlog</h1>
+		<button mat-icon-button (click)="menuClick.emit()">
+		  <mat-icon>menu</mat-icon>
+		</button>
+	  </div>
+</ng-container>

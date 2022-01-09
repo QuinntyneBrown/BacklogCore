@@ -4,10 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SprintService, Story, StoryService } from '@api';
 import { Destroyable } from '@core';
-import { FileUploadDialogComponent } from '@shared/components/dialogs';
+import { AddSprintDialogComponent, FileUploadDialogComponent } from '@shared/components/dialogs';
 import { AddDependencyRelationshipDialogComponent } from '@shared/components/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/components/dialogs/add-skill-requirement-dialog';
-import { combineLatest, of, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
 import { map, startWith, switchAll, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
@@ -18,30 +18,38 @@ import { map, startWith, switchAll, switchMap, takeUntil, tap } from 'rxjs/opera
 export class StoryComponent extends Destroyable  {
   readonly createAnotherControl = new FormControl(null, []);
 
-
   private readonly _addSprintSubject: Subject<string> = new Subject();
 
   private readonly _addSprint$ = this._addSprintSubject.asObservable();
+
+  private readonly _refreshSubject: BehaviorSubject<void> = new BehaviorSubject(null);
+
+  private readonly _refresh$ = this._refreshSubject;
+
 
   vm$ = combineLatest([
     this._activatedRoute.paramMap,
     this._addSprint$.pipe(
       switchMap(storyId => {
-
-        // open dialog , erc...
-        return of(null)
+        return this._dialog
+        .open(AddSprintDialogComponent, { 
+          data: storyId
+        })
+        .afterClosed()
+        .pipe(
+          tap(_ => this._refreshSubject.next())
+        )
       }),
       startWith(null)
-    )
+    ),
+    this._refresh$
   ])
   .pipe(
     map(([paramMap]) => paramMap.get("storyId")),
     switchMap(storyId => combineLatest(
       [ 
-        storyId 
-        ? this._storyService.getById({ storyId })
-        : of({ }),
-        this._sprintService.getByStoryId({ storyId })
+        storyId ? this._storyService.getById({ storyId }) : of({ }),
+        storyId ? this._sprintService.getByStoryId({ storyId }): of([])
       ])),
     map(([story, sprints ]) => {
       const storyControl = new FormControl(story,[Validators.required]);

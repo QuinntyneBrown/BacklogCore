@@ -1,28 +1,19 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { combine } from '@core';
+import { Story } from '@api';
 
 @Component({
   selector: 'bl-board-card',
   templateUrl: './board-card.component.html',
   styleUrls: ['./board-card.component.scss']
 })
-export class BoardCardComponent {
+export class BoardCardComponent  {
 
-  readonly vm$ = combine([
-    of("board-card")
-  ])
-  .pipe(
-    map(([name]) => ({ name }))
-  );
+  @Input() story!: Story;
 
-  constructor(
-
-  ) {
-
-  }
 }
 
 @NgModule({
@@ -33,7 +24,7 @@ export class BoardCardComponent {
     BoardCardComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ]
 })
 export class BoardCardModule { }

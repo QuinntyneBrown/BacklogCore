@@ -15,6 +15,10 @@ export class SprintService {
     private readonly _client: HttpClient
   ) { }
 
+  addStory(options: { storyId: string, sprintId: string}) {
+    return this._client.post<{ sprint: Sprint }>(`${this._baseUrl}api/sprint/story`, { sprintId: options.sprintId, storyId: options.storyId });
+  }
+
   public get(): Observable<Sprint[]> {
     return this._client.get<{ sprints: Sprint[] }>(`${this._baseUrl}api/sprint`)
       .pipe(

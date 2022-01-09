@@ -31,7 +31,7 @@ namespace Backlog.Api.Core
 
         public static class StoryStatus
         {
-            public const string Backlog = nameof(Backlog);
+            public const string Backlog = nameof(Assigned);
             public const string Assigned = nameof(Assigned);
             public const string InProgress = nameof(InProgress);
             public const string Done = nameof(Done);

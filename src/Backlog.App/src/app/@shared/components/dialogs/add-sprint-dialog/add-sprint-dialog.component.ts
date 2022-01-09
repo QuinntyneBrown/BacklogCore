@@ -1,8 +1,12 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Inject, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, of, Subject } from 'rxjs';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
 import { combine } from '@core';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SprintService, StoryService } from '@api';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'bl-add-sprint-dialog',
@@ -11,17 +15,37 @@ import { combine } from '@core';
 })
 export class AddSprintDialogComponent {
 
-  readonly vm$ = combine([
-    of("add-sprint-dialog")
+  private readonly _addStorySubject: Subject<{
+    storyId: string,
+    sprintId: string
+  }> = new Subject();
+
+  private readonly _addStory$ = this._addStorySubject.asObservable();
+
+  readonly vm$ = combineLatest([
+    of(this._storyId),
+    this._sprintService.get(),
+    this._addStory$.pipe(
+      switchMap(params => this._sprintService.addStory(params)),
+      tap(_ => this._dialogRef.close()),
+      startWith(null)
+    )
   ])
   .pipe(
-    map(([name]) => ({ name }))
+    map(([storyId, sprints]) => ({ storyId, sprints }))
   );
 
   constructor(
-
+    private readonly _dialogRef: MatDialogRef<AddSprintDialogComponent>,
+    private readonly _storyService: StoryService,
+    private readonly _sprintService: SprintService,
+    @Inject(MAT_DIALOG_DATA) private readonly _storyId: string,
   ) {
 
+  }
+
+  onClick(storyId,sprintId) {
+    this._addStorySubject.next({ sprintId, storyId });
   }
 }
 
@@ -34,6 +58,9 @@ export class AddSprintDialogComponent {
   ],
   imports: [
     CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class AddSprintDialogModule { }

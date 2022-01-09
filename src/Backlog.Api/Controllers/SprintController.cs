@@ -80,6 +80,6 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(RemoveSprint.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<RemoveSprint.Response>> Remove([FromRoute]RemoveSprint.Request request)
             => await _mediator.Send(request);
-        
+
     }
 }

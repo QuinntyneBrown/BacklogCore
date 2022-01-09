@@ -1,3 +1,20 @@
 <ng-container *ngIf="vm$ | async as vm">
-	<p>{{ vm.name }} works!</p>	
+	<div class="bl-title-bar">
+		<h1 class="bl-title">
+		  <span>Add Sprint</span>
+		</h1>
+		<button mat-icon-button [mat-dialog-close] tabindex="-1">
+		  <mat-icon>
+			close
+		  </mat-icon>
+		</button>
+	  </div>
+
+	  <ul>
+		  <li *ngFor="let sprint of vm.sprints">
+			  <a (click)="onClick(vm.storyId, sprint.sprintId)">
+				  {{ sprint.name }}
+			  </a>
+		  </li>
+	  </ul>
 </ng-container>

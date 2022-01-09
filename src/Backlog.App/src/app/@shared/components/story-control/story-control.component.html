@@ -5,6 +5,16 @@
   </div>
 
   <div class="bl-form-field">
+    <label class="bl-label">Sprints</label>
+
+    <ul>
+      <li *ngFor="let sprint of sprints"><a>{{ sprint.name }}</a></li>
+    </ul>
+
+    <span (click)="addSprint.emit()">Add Sprint</span>
+  </div>
+
+  <div class="bl-form-field">
     <label class="bl-label">Description</label>
     <textarea class="bl-textarea" placeholder="Description" formControlName="description"></textarea>
   </div>

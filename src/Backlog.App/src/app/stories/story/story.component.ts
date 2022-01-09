@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Story, StoryService } from '@api';
+import { SprintService, Story, StoryService } from '@api';
 import { Destroyable } from '@core';
-//import { StoriesFeatureService } from '@core/feature-services/stories-feature.service';
 import { FileUploadDialogComponent } from '@shared/components/dialogs';
 import { AddDependencyRelationshipDialogComponent } from '@shared/components/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/components/dialogs/add-skill-requirement-dialog';
-import { BehaviorSubject, of } from 'rxjs';
-import { map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { combineLatest, of, Subject } from 'rxjs';
+import { map, startWith, switchAll, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-story',
@@ -17,41 +16,56 @@ import { map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
   styleUrls: ['./story.component.scss']
 })
 export class StoryComponent extends Destroyable  {
+  readonly createAnotherControl = new FormControl(null, []);
 
-  private readonly _refresh$ = new BehaviorSubject(null);
 
-  public readonly createAnotherControl = new FormControl(null, []);
+  private readonly _addSprintSubject: Subject<string> = new Subject();
 
-  public vm$ = this._activatedRoute
-  .paramMap
+  private readonly _addSprint$ = this._addSprintSubject.asObservable();
+
+  vm$ = combineLatest([
+    this._activatedRoute.paramMap,
+    this._addSprint$.pipe(
+      switchMap(storyId => {
+
+        // open dialog , erc...
+        return of(null)
+      }),
+      startWith(null)
+    )
+  ])
   .pipe(
-    map(paramMap => paramMap.get("storyId")),
-    //switchMap(storyId => this._storiesFeatureService.storiesUpdated$.pipe(map(_ => storyId), startWith(storyId))),
-    switchMap(storyId => {
-      return storyId
-      ? this._storyService.getById({ storyId })
-      : of({ })
-    }),
-    map((story: Story) => {
+    map(([paramMap]) => paramMap.get("storyId")),
+    switchMap(storyId => combineLatest(
+      [ 
+        storyId 
+        ? this._storyService.getById({ storyId })
+        : of({ }),
+        this._sprintService.getByStoryId({ storyId })
+      ])),
+    map(([story, sprints ]) => {
       const storyControl = new FormControl(story,[Validators.required]);
+
       return {
-        storyControl
+        story,
+        storyControl,
+        sprints
       };
     })
   )
+
   constructor(
     private readonly _storyService: StoryService,
+    private readonly _sprintService: SprintService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
-    //private readonly _storiesFeatureService: StoriesFeatureService,
     private readonly _dialog: MatDialog
   ) {
     super();
 
   }
 
-  public save(story: Story) {
-
+  save(story: Story) {
     const obs$ = story.storyId
     ? this._storyService.update({ story })
     : this._storyService.create({ story });
@@ -60,8 +74,6 @@ export class StoryComponent extends Destroyable  {
     .pipe(
       takeUntil(this._destroyed$),
       tap(x => {
-        //this._storiesFeatureService.storiesUpdated$.next();
-
         if(!this.createAnotherControl.value) {
           this._router.navigate(['/','stories'])
         }
@@ -70,7 +82,7 @@ export class StoryComponent extends Destroyable  {
     ).subscribe();
   }
 
-  public handleAddDependencyRelationshipClick(story: Story) {
+  handleAddDependencyRelationshipClick(story: Story) {
     this._dialog
     .open(AddDependencyRelationshipDialogComponent, {
       panelClass: 'g-dialog-panel',
@@ -78,17 +90,12 @@ export class StoryComponent extends Destroyable  {
     })
     .afterClosed()
     .pipe(
-      takeUntil(this._destroyed$),
-      tap(result => {
-        if(result) {
-          //this._storiesFeatureService.storiesUpdated$.next();
-        }
-      })
+      takeUntil(this._destroyed$)
     )
     .subscribe();
   }
 
-  public handleAddSkillRequirementClick(story: Story) {
+  handleAddSkillRequirementClick(story: Story) {
     this._dialog
     .open(AddSkillRequirementDialogComponent, {
       panelClass: 'g-dialog-panel',
@@ -101,7 +108,7 @@ export class StoryComponent extends Destroyable  {
     .subscribe();
   }
 
-  public handleFileUploadClick(story: Story) {
+  handleFileUploadClick(story: Story) {
     this._dialog.open(FileUploadDialogComponent, {
       panelClass: 'g-dialog-panel',
       width:'100%',
@@ -111,5 +118,9 @@ export class StoryComponent extends Destroyable  {
     .pipe(
       takeUntil(this._destroyed$)
     ).subscribe();
+  }
+
+  onAddSprint(storyId: string) {
+    this._addSprintSubject.next(storyId);
   }
 }

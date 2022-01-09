@@ -1,3 +1,4 @@
+export * from './board-card';
 export * from './content-layout';
 export * from './dialogs';
 export * from './form-fields';

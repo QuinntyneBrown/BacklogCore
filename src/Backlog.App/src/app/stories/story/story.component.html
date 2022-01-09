@@ -8,6 +8,8 @@
   (addSkillRequirementClick)="handleAddSkillRequirementClick(vm.storyControl.value)"
   (addDependencyRelationshipClick)="handleAddDependencyRelationshipClick(vm.storyControl.value)"
   (fileUploadClick)="handleFileUploadClick(vm.storyControl.value)"
+  (addSprint)="onAddSprint(vm.story.storyId)"
+  [sprints]="vm.sprints"
   ></bl-story-control>
 
   <div class="g-actions">

@@ -22,10 +22,24 @@ export class SprintService {
       );
   }
 
+  public current(): Observable<Sprint> {
+    return this._client.get<{ sprint: Sprint }>(`${this._baseUrl}api/sprint/current`)
+      .pipe(
+        map(x => x.sprint)
+      );
+  }
+
   public getById(options: { sprintId: string }): Observable<Sprint> {
     return this._client.get<{ sprint: Sprint }>(`${this._baseUrl}api/sprint/${options.sprintId}`)
       .pipe(
         map(x => x.sprint)
+      );
+  }
+
+  public getByStoryId(options: { storyId: string }): Observable<Sprint[]> {
+    return this._client.get<{ sprints: Sprint[] }>(`${this._baseUrl}api/sprint/story/${options.storyId}`)
+      .pipe(
+        map(x => x.sprints)
       );
   }
 

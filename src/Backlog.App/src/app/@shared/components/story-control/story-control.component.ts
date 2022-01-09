@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { BaseControl } from '@core';
+import { Sprint, Story } from '@api';
 
 
 @Component({
@@ -39,11 +40,15 @@ export class StoryControlComponent extends BaseControl implements Validator  {
     super();
   }
 
+  @Input() sprints: Sprint[];
+
   @Output() public addSkillRequirementClick = new EventEmitter();
 
   @Output() public addDependencyRelationshipClick = new EventEmitter();
 
   @Output() public fileUploadClick = new EventEmitter();
+
+  @Output() addSprint: EventEmitter<Story> = new EventEmitter();
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.errors;

@@ -10,6 +10,6 @@ export const fullscreenDialogOptions = {
   height:'100vh'
 }
 export const storyStatus = [
-  "Assigned","In Progress", "Done"
+  "Assigned","InProgress", "Done"
 ];
 

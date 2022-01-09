@@ -1,3 +1,13 @@
 <ng-container *ngIf="vm$ | async as vm">
-
+    <div class="board__header">
+        <span class="board__column-heading" *ngFor='let status of vm.statuses'>
+            <span>{{ status | translateStatus }}</span>
+            <span>{{ vm.storyByStatus(status).length }} / {{ vm.stories.length }}</span>
+        </span>
+    </div>
+    <div class='board__container' cdkDropListGroup>    
+        <div class='board__column' cdkDropList [cdkDropListData]="vm.storyByStatus(status)" (cdkDropListDropped)="drop($event, status)" *ngFor='let status of vm.statuses'>            
+            <bl-board-card *ngFor='let story of vm.storyByStatus(status)' [story]='story' cdkDrag></bl-board-card>
+        </div>
+      </div>
 </ng-container>

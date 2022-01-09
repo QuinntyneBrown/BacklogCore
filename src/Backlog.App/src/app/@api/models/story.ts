@@ -8,5 +8,6 @@ export type Story = {
     acceptanceCriteria: string,
     jiraUrl: string,
     dependsOn: string[],
-    skillRequirements: SkillRequirement[]
+    skillRequirements: SkillRequirement[],
+    status
 };

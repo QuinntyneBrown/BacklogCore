@@ -1,17 +1,59 @@
-@use 'src/scss/breakpoints';
+:host {
+  display: grid;
+  width: 100%;  
+  min-height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  box-sizing: border-box;
+  padding: 40px 10px;
 
-@media screen and (min-width: breakpoints.$screen-sm) { 
+  .board__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center; 
+    gap: 10px;
 
+    .board__column-heading {
+      line-height: 2em;
+      display: flex;
+      gap: 10px;
+      flex-direction: row;
+    }
+  }
+
+  .board__container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    width: 100%;
+    justify-content: space-evenly;    
+    gap: 10px;
+  }
+    
+  .board__column {
+    background-color: rgba(0,0,0,0.04);
+    padding: 0 5px;
+    
+    text-align: center;
+    width: 100%;
+    padding-bottom: 30px;  
+    span {
+        line-height: 30px;
+    }
+  }
+  
+  .cdk-drag-preview {
+    display: block;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .cdk-drag-preview {
+    opacity: 0.5;
+  }
+  
 }
-
-@media screen and (min-width: breakpoints.$screen-md) { 
-
-}
-
-@media screen and (min-width: breakpoints.$screen-lg) { 
-
-}
-
-@media screen and (min-width: breakpoints.$screen-md) { 
-
-}
+    
+  
+    

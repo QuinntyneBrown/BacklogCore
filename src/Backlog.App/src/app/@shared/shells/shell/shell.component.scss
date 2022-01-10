@@ -1,6 +1,5 @@
 @use "src/scss/breakpoints";
 
-
 :host {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -31,14 +30,8 @@
   :host {
     display: block;
 
-    mat-drawer-container {
-      
+    mat-drawer-container {      
       box-sizing: border-box;
-
-      bl-navbar {
-
-      }
-
       mat-drawer {
         width: 275px;
         display: block;
@@ -46,7 +39,8 @@
       }
 
       mat-drawer-content {
-        grid-template-columns: 50px 1fr;
+        grid-template-columns: minmax(0, auto) 1fr;
+        grid-template-rows: 1fr;
         position: relative;
 
         main {

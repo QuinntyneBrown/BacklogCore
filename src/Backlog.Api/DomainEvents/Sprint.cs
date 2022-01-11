@@ -18,6 +18,20 @@ namespace Backlog.Api.DomainEvents
         }        
     }
 
+    public class UpdateSprint : BaseDomainEvent
+    {
+        public string Name { get; private set; }
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
+
+        public UpdateSprint(string name, DateTime start, DateTime end)
+        {
+            Name = name;
+            Start = start;
+            End = end;
+        }
+    }
+
     public class AddSprintStory: BaseDomainEvent
     {
         public Guid StoryId { get; private set; }

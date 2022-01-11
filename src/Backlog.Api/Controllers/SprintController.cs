@@ -31,7 +31,14 @@ namespace Backlog.Api.Controllers
         
             return response;
         }
-        
+
+        [HttpPut(Name = "UpdateSprintRoute")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpdateSprint.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateSprint.Response>> Update([FromBody] UpdateSprint.Request request)
+            => await _mediator.Send(request);
+
         [HttpGet(Name = "GetSprintsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

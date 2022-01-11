@@ -39,6 +39,13 @@ namespace Backlog.Api.Models
             SprintStories = new List<SprintStory>();
         }
 
+        private void When(UpdateSprint @event)
+        {
+            Name = @event.Name;
+            Start = @event.Start;
+            End = @event.End;
+        }
+
         private void When(AddSprintStory @event)
         {
             SprintStories.Add(new SprintStory { StoryId = @event.StoryId });

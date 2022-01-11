@@ -1,8 +1,7 @@
-import { Component, Input, NgModule, Pipe, PipeTransform } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { combineLatest, of, Subject } from 'rxjs';
-import { map, shareReplay, startWith, switchMap } from 'rxjs/operators';
-import { combine, storyStatus } from '@core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { combineLatest, Subject } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { storyStatus } from '@core';
 import { SprintService, Story, StoryService } from '@api';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
@@ -15,7 +14,6 @@ export class TranslateStatusPipe implements PipeTransform {
       "Done": "Done",
       "InProgress":"In Progress"
     }
-
     return lookUp[value];
   }
 }
@@ -58,7 +56,6 @@ export class BoardComponent {
         statuses: storyStatus,
         stories,
         storiesGroupedByStatus
-        
       }
     })
   );
@@ -68,9 +65,7 @@ export class BoardComponent {
   constructor(
     private readonly _sprintService: SprintService,
     private readonly _storyService: StoryService
-  ) {
-
-  }
+  ) { }
 
   onDrop(event: CdkDragDrop<Story[]>, status: string) {
 

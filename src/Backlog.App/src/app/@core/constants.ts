@@ -19,3 +19,7 @@ export const ckEditorConfig = {
   filebrowserImageUploadUrl: `https://localhost:5001/api/connector?command=upload`
 };
 
+export const accessTokenKey = "accessTokenKey";
+export const usernameKey = "usernameKey";
+export const storageKey = "backlog:storageKey";
+

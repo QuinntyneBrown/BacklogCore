@@ -15,6 +15,13 @@ export class UserService {
     private readonly _client: HttpClient
   ) { }
 
+  public getCurrent(): Observable<User> {
+    return this._client.get<{ user: User }>(`${this._baseUrl}api/user/current`)
+      .pipe(
+        map(x => x.user)
+      );
+  }
+
   public get(): Observable<User[]> {
     return this._client.get<{ users: User[] }>(`${this._baseUrl}api/user`)
       .pipe(

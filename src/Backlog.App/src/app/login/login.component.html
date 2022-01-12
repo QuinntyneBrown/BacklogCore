@@ -1,3 +1,28 @@
 <ng-container *ngIf="vm$ | async as vm">
-	<p>{{ vm.name }} works!</p>	
+	<div class="login__container">
+		<h1 class="bl-brand">Backlog</h1>
+
+		<h1>Sign In</h1>
+
+		<div>
+			<form >
+
+				<mat-form-field appearance="outline" class="bl-form-field"> 
+					<mat-label>Username</mat-label>
+					<input matInput type="text">
+				</mat-form-field>
+
+				<mat-form-field class="bl-form-field" appearance="outline">
+					<mat-label>Password</mat-label>
+					<input matInput type="password">
+				</mat-form-field>
+			</form>
+
+			<div class="login__actions">
+				<button class="bl-button">
+					Sign In
+				</button>
+			</div>
+		</div>
+	</div>
 </ng-container>

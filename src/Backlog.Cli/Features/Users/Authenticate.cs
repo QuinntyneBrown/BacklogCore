@@ -1,5 +1,6 @@
 using CommandLine;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@ namespace Backlog.Cli.Features.Users
 {
     internal class Authenticate
     {
-        [Verb("authenticate")]
+        [Verb("default")]
         internal class Request : IRequest<Unit> {
 
         }
@@ -22,9 +23,17 @@ namespace Backlog.Cli.Features.Users
             }
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                var response = await _mediator.Send(new Backlog.Api.Features.Authenticate.Request("admin", "admin"));
+                try
+                {
+                    var response = await _mediator.Send(new Backlog.Api.Features.GetStories.Request());
 
-                return new();
+                    return new();
+                }
+                catch(Exception e)
+                {
+                    throw e;
+                }
+
             }
         }
     }

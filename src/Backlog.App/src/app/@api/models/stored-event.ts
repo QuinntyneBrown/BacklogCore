@@ -9,4 +9,11 @@ export type StoredEvent = {
     dotNetType: string,
     version: number,
     correlationId: string,
+    
 };
+
+export type DomainEvent = {
+    items: {
+        type: string
+    }
+}

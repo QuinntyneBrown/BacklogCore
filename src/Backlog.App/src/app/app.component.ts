@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { EventService } from '@api/services/event.service';
+import { BASE_URL } from '@core';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +11,9 @@ import { Component } from '@angular/core';
   }
 })
 export class AppComponent {
+  constructor(
+    private readonly _eventService: EventService
+  ) {
 
+  }
 }

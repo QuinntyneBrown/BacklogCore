@@ -1,5 +1,7 @@
 ﻿using Backlog.Api.Interfaces;
 using Backlog.Api.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,18 +28,28 @@ namespace Backlog.Api.Core
 
         public void StoreEvent(IEvent @event)
         {
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
             var type = GetType();
 
             var eventType = @event.GetType();
 
             var resolvedEventType = eventType.Name == "Request" ? eventType.BaseType : eventType;
 
+            @event.Items.Add(nameof(Type), resolvedEventType.Name);
+
             var storedEvent = new StoredEvent
             {
                 StoredEventId = Guid.NewGuid(),
                 Aggregate = GetType().Name,
                 AggregateDotNetType = GetType().AssemblyQualifiedName,
-                Data = SerializeObject(@event),
+                Data = SerializeObject(@event, new JsonSerializerSettings
+                {
+                    ContractResolver = contractResolver
+                }),
                 StreamId = (Guid)type.GetProperty($"{type.Name}Id").GetValue(this, null),
                 DotNetType = resolvedEventType.AssemblyQualifiedName,
                 Type = resolvedEventType.Name,

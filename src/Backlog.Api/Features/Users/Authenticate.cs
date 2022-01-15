@@ -42,25 +42,33 @@ namespace Backlog.Api.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users
-                    .SingleOrDefaultAsync(x => x.Username == request.Username);
+                try
+                {
+                    var user = await _context.Users
+    .SingleOrDefaultAsync(x => x.Username == request.Username);
 
-                if (user == null)
-                    throw new Exception();
+                    if (user == null)
+                        throw new Exception();
 
-                if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-                    throw new Exception();
+                    if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
+                        throw new Exception();
 
-                return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
-                 {
-                     switch (message)
-                     {
-                         case BuiltToken builtToken:
-                             await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
-                             tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
-                             break;
-                     }
-                 });
+                    return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
+                    {
+                        switch (message)
+                        {
+                            case BuiltToken builtToken:
+                                await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
+                                tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
+                                break;
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
             }
 
             public bool ValidateUser(User user, string transformedPassword)

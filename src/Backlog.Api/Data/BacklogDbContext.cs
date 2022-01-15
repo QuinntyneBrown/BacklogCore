@@ -4,11 +4,15 @@ using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
+using Newtonsoft.Json;
+using System;
 
 namespace Backlog.Api.Data
 {
     public class BacklogDbContext: DbContext, IBacklogDbContext
     {
+        private readonly INotificationService _notificationService;
+
         public DbSet<Story> Stories { get; private set; }
         public DbSet<StoredEvent> StoredEvents { get; private set; }
         public DbSet<Bug> Bugs { get; private set; }
@@ -20,10 +24,12 @@ namespace Backlog.Api.Data
         public DbSet<DigitalAsset> DigitalAssets { get; private set; }
         public DbSet<Sprint> Sprints { get; private set; }
         public DbSet<User> Users { get; private set; }
-        public BacklogDbContext(DbContextOptions options)
+        public BacklogDbContext(DbContextOptions options, INotificationService notificationService)
             : base(options)
         {
             SavingChanges += DbContext_SavingChanges;
+            SavedChanges += DbContext_SavedChanges;
+            _notificationService = notificationService;
         }
 
         private void DbContext_SavingChanges(object sender, SavingChangesEventArgs e)
@@ -34,12 +40,29 @@ namespace Backlog.Api.Data
                     e.State == EntityState.Modified)
                 .Select(e => e.Entity)
                 .ToList();
-
+            
             foreach (var aggregate in entries)
             {
                 foreach (var storedEvent in aggregate.StoredEvents)
                 {
                     StoredEvents.Add(storedEvent);
+                }
+            }
+        }
+
+        private void DbContext_SavedChanges(object sender, SavedChangesEventArgs e)
+        {
+            var entries = ChangeTracker.Entries<AggregateRoot>()
+                .Select(e => e.Entity)
+                .ToList();
+
+            foreach (var aggregate in entries)
+            {
+                foreach (var storedEvent in aggregate.StoredEvents)
+                {
+                    var @event = JsonConvert.DeserializeObject(storedEvent.Data, Type.GetType(storedEvent.DotNetType));
+
+                    _notificationService.OnNext(@event);
                 }
             }
         }

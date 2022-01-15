@@ -74,6 +74,13 @@ namespace Backlog.Api
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });
+/*
+            services.AddHostedService<NotificationBackgroundService>();
+
+            services.AddSingleton<IBackgroundQueue, BackgroundQueue>();*/
+
+            services.AddSingleton<INotificationService, NotificationService>();
+
 
             services.AddControllers();
         }

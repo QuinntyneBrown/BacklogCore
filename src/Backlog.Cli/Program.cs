@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 
@@ -10,18 +11,19 @@ namespace Backlog.Cli
     {
         static void Main(string[] args)
         {
-            var mediator = BuildContainer().GetService<IMediator>();
+            var mediator = BuildContainer().Services.GetService<IMediator>();
 
             ProcessArgs(mediator, args);
         }
 
-        public static ServiceProvider BuildContainer()
+        public static IHost BuildContainer()
         {
-            var services = new ServiceCollection();
-
-            Dependencies.Configure(services);
-
-            return services.BuildServiceProvider();
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices(x =>
+                {
+                    Dependencies.Configure(x);
+                
+                }).Build();
         }
 
         public static void ProcessArgs(IMediator mediator, string[] args)

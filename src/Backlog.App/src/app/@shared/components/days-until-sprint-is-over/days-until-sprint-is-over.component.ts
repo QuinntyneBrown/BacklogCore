@@ -1,9 +1,7 @@
 import { Component, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { combine } from '@core';
-import { Sprint, SprintService } from '@api';
+import { SprintStore } from '@core/stores/sprint.store';
 
 @Component({
   selector: 'bl-days-until-sprint-is-over',
@@ -12,7 +10,7 @@ import { Sprint, SprintService } from '@api';
 })
 export class DaysUntilSprintIsOverComponent {
 
-  readonly vm$ = this._sprintService
+  readonly vm$ = this._sprintStore
   .current()
   .pipe(
     map(sprint => {
@@ -28,7 +26,7 @@ export class DaysUntilSprintIsOverComponent {
   )
   
   constructor(
-    private readonly _sprintService: SprintService
+    private readonly _sprintStore: SprintStore
   ) {
 
   }

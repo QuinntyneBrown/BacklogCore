@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { DaysUntilSprintIsOverModule } from '../days-until-sprint-is-over/days-until-sprint-is-over.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -22,7 +23,8 @@ import { DaysUntilSprintIsOverModule } from '../days-until-sprint-is-over/days-u
     MatIconModule,
     MatButtonModule,
     RouterModule,
-    DaysUntilSprintIsOverModule
+    DaysUntilSprintIsOverModule,
+    TranslateModule
   ]
 })
 export class SidenavModule { }

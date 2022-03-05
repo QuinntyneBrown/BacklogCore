@@ -8,6 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShellModule } from '@shared/shells/shell';
 import { HeadersInterceptor } from '@core/headers.interceptor';
 import { JwtInterceptor } from '@core/jwt.interceptor';
+import { HttpClient } from '@angular/common/http';
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule  } from '@ngx-translate/core';
+import { TranslateHttpLoader  } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient);
+}
 
 
 @NgModule({
@@ -15,6 +22,13 @@ import { JwtInterceptor } from '@core/jwt.interceptor';
     AppComponent
   ],
   imports: [
+    TranslateModule.forRoot({
+       loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

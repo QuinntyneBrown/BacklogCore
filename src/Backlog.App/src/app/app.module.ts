@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateModule  } from '@ngx-translate/core';
 import { TranslateHttpLoader  } from '@ngx-translate/http-loader';
+
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
 }

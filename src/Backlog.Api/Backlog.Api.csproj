@@ -22,10 +22,5 @@
     <ProjectReference Include="..\Backlog.Infrastructure\Backlog.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 
 </Project>

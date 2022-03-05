@@ -70,7 +70,7 @@ namespace Backlog.Api
             services.AddDbContext<BacklogDbContext>(options =>
             {
                 options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
-                    builder => builder.MigrationsAssembly("Backlog.Api").EnableRetryOnFailure())
+                    builder => builder.MigrationsAssembly("Backlog.Infrastructure").EnableRetryOnFailure())
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging();
             });

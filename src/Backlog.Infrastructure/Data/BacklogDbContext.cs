@@ -1,11 +1,8 @@
-using Backlog.Api.Models;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.Api.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Linq;
 using Newtonsoft.Json;
-using System;
 
 namespace Backlog.Api.Data
 {

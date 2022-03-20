@@ -1,5 +1,4 @@
 using Backlog.Api.Core;
-using System;
 
 namespace Backlog.Api.DomainEvents
 {

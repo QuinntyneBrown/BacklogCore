@@ -1,6 +1,5 @@
 using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
-using System;
 
 namespace Backlog.Api.Models
 {

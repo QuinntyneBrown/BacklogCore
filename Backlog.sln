@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlog.Infrastructure", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlog.Core", "src\Backlog.Core\Backlog.Core.csproj", "{923BCF83-B65C-4408-8C11-1A8655550231}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backlog.IntegrationTests", "test\Backlog.IntegrationTests\Backlog.IntegrationTests.csproj", "{03C8753F-C510-4164-BDD3-2DE94EDE0529}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,18 @@ Global
 		{923BCF83-B65C-4408-8C11-1A8655550231}.Release|x64.Build.0 = Release|Any CPU
 		{923BCF83-B65C-4408-8C11-1A8655550231}.Release|x86.ActiveCfg = Release|Any CPU
 		{923BCF83-B65C-4408-8C11-1A8655550231}.Release|x86.Build.0 = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|x64.Build.0 = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Debug|x86.Build.0 = Debug|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|x64.ActiveCfg = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|x64.Build.0 = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|x86.ActiveCfg = Release|Any CPU
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +146,7 @@ Global
 		{D1D9CA18-DD5B-4055-BC41-92FBFEF8BAAA} = {4BD50D5A-74E9-487F-832C-E0AC9B1CA7B8}
 		{89932A16-4247-42A7-AC2C-ED84BF7563F0} = {4BD50D5A-74E9-487F-832C-E0AC9B1CA7B8}
 		{923BCF83-B65C-4408-8C11-1A8655550231} = {4BD50D5A-74E9-487F-832C-E0AC9B1CA7B8}
+		{03C8753F-C510-4164-BDD3-2DE94EDE0529} = {C76E2D5C-0359-42C3-9EA0-D2E3FC5449CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29958EA2-8B51-4C69-A54F-CB4151B619CA}

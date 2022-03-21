@@ -1,6 +1,6 @@
-using Backlog.Api.Models;
+using Backlog.Core;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public static class DigitalAssetExtensions
     {

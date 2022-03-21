@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class SprintDto
     {

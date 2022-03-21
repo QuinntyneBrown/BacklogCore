@@ -3,7 +3,7 @@ using Backlog.Api.DomainEvents;
 using System;
 using static System.String;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class Bug : AggregateRoot
     {

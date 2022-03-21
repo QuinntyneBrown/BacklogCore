@@ -8,7 +8,7 @@ using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class GetSprints
     {

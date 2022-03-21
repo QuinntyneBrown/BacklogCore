@@ -2,7 +2,7 @@ using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
 using System;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class TaskItem : AggregateRoot
     {

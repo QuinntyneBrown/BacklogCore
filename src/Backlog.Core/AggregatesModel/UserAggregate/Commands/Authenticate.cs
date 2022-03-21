@@ -1,6 +1,6 @@
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Backlog.Api.DomainEvents;
 using FluentValidation;
 using MediatR;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class Authenticate
     {

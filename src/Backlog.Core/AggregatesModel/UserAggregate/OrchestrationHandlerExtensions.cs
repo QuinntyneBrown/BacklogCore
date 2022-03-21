@@ -3,7 +3,7 @@ using Backlog.Api.DomainEvents;
 using System;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Features.Users
+namespace Backlog.Core.Users
 {
     public static class OrchestrationHandlerExtensions
     {

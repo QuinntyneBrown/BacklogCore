@@ -1,6 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
-using Backlog.Api.Features;
+using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

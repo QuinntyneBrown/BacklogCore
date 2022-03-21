@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class SearchStories
     {

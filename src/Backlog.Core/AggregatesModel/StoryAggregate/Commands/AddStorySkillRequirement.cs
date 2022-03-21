@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Backlog.Api.Core;
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class AddStorySkillRequirement
     {

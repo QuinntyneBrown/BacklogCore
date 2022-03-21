@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class ProfileItem
     {

@@ -2,11 +2,11 @@ using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class CreateTaskItem
     {

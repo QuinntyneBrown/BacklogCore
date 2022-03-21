@@ -1,4 +1,4 @@
-using Backlog.Api.Features;
+using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

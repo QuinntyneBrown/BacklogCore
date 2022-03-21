@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     [Owned]
     public class DependencyRelationship

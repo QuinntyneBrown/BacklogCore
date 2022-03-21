@@ -1,5 +1,5 @@
 using Backlog.Api.Core;
-using Backlog.Api.Models;
+using Backlog.Core;
 using System;
 using System.Collections.Generic;
 

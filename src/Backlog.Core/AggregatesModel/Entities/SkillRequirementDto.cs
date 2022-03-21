@@ -1,4 +1,4 @@
-﻿namespace Backlog.Api.Features
+﻿namespace Backlog.Core
 {
     public class SkillRequirementDto
     {

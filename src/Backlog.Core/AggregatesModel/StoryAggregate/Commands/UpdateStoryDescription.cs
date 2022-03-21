@@ -7,7 +7,7 @@ using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class UpdateStoryDescription
     {

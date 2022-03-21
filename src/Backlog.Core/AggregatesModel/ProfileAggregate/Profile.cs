@@ -1,7 +1,7 @@
 using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class Profile : AggregateRoot
     {

@@ -4,11 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class RemoveUser
     {

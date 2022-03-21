@@ -1,7 +1,7 @@
-using Backlog.Api.Models;
+using Backlog.Core;
 using System.Linq;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public static class SprintExtensions
     {

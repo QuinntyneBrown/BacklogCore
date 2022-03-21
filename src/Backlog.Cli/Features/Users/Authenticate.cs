@@ -25,7 +25,7 @@ namespace Backlog.Cli.Features.Users
             {
                 try
                 {
-                    var response = await _mediator.Send(new Backlog.Api.Features.GetStories.Request());
+                    var response = await _mediator.Send(new Backlog.Core.GetStories.Request());
 
                     return new();
                 }

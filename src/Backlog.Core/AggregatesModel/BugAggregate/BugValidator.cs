@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class BugValidator : AbstractValidator<BugDto> { }
 }

@@ -1,5 +1,5 @@
 ﻿using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;

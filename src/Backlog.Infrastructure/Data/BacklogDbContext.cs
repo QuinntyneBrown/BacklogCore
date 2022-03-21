@@ -1,6 +1,6 @@
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 

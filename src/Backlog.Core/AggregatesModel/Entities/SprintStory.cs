@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     [Owned]
     public class SprintStory

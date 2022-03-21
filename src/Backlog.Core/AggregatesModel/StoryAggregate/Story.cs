@@ -6,7 +6,7 @@ using System.Linq;
 using static Backlog.Api.Core.Constants;
 using static System.String;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class Story : AggregateRoot
     {

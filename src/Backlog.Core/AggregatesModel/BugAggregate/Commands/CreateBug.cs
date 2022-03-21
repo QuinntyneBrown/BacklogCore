@@ -1,12 +1,12 @@
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class CreateBug
     {

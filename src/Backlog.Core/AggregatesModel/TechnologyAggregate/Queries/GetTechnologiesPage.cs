@@ -10,7 +10,7 @@ using Backlog.Api.Interfaces;
 using Backlog.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Api.Features
+namespace Backlog.Core
 {
     public class GetTechnologiesPage
     {

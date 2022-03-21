@@ -3,7 +3,7 @@ using Backlog.Api.DomainEvents;
 using Backlog.Api.Interfaces;
 using System;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class User: AggregateRoot
     {

@@ -3,7 +3,7 @@ using Backlog.Api.DomainEvents;
 using System;
 using System.Collections.Generic;
 
-namespace Backlog.Api.Models
+namespace Backlog.Core
 {
     public class Sprint: AggregateRoot
     {

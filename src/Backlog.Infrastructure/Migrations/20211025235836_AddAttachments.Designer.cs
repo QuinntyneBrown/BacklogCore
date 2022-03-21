@@ -21,7 +21,7 @@ namespace Backlog.Api.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Backlog.Api.Models.Bug", b =>
+            modelBuilder.Entity("Backlog.Core.Bug", b =>
                 {
                     b.Property<Guid>("BugId")
                         .ValueGeneratedOnAdd()
@@ -35,7 +35,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Bugs");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.CompetencyLevel", b =>
+            modelBuilder.Entity("Backlog.Core.CompetencyLevel", b =>
                 {
                     b.Property<Guid>("CompetencyLevelId")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("CompetencyLevels");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.DigitalAsset", b =>
+            modelBuilder.Entity("Backlog.Core.DigitalAsset", b =>
                 {
                     b.Property<Guid>("DigitalAssetId")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("DigitalAssets");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.Profile", b =>
+            modelBuilder.Entity("Backlog.Core.Profile", b =>
                 {
                     b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.Status", b =>
+            modelBuilder.Entity("Backlog.Core.Status", b =>
                 {
                     b.Property<Guid>("StatusId")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Statuses");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.StoredEvent", b =>
+            modelBuilder.Entity("Backlog.Core.StoredEvent", b =>
                 {
                     b.Property<Guid>("StoredEventId")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("StoredEvents");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.Story", b =>
+            modelBuilder.Entity("Backlog.Core.Story", b =>
                 {
                     b.Property<Guid>("StoryId")
                         .ValueGeneratedOnAdd()
@@ -182,7 +182,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Stories");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.TaskItem", b =>
+            modelBuilder.Entity("Backlog.Core.TaskItem", b =>
                 {
                     b.Property<Guid>("TaskItemId")
                         .ValueGeneratedOnAdd()
@@ -193,7 +193,7 @@ namespace Backlog.Api.Migrations
                     b.ToTable("TaskItems");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.Technology", b =>
+            modelBuilder.Entity("Backlog.Core.Technology", b =>
                 {
                     b.Property<Guid>("TechnologyId")
                         .ValueGeneratedOnAdd()
@@ -210,9 +210,9 @@ namespace Backlog.Api.Migrations
                     b.ToTable("Technologies");
                 });
 
-            modelBuilder.Entity("Backlog.Api.Models.Story", b =>
+            modelBuilder.Entity("Backlog.Core.Story", b =>
                 {
-                    b.OwnsMany("Backlog.Api.Models.Attachment", "Attachments", b1 =>
+                    b.OwnsMany("Backlog.Core.Attachment", "Attachments", b1 =>
                         {
                             b1.Property<Guid>("StoryId")
                                 .HasColumnType("uniqueidentifier");
@@ -233,7 +233,7 @@ namespace Backlog.Api.Migrations
                                 .HasForeignKey("StoryId");
                         });
 
-                    b.OwnsMany("Backlog.Api.Models.DependencyRelationship", "DependsOn", b1 =>
+                    b.OwnsMany("Backlog.Core.DependencyRelationship", "DependsOn", b1 =>
                         {
                             b1.Property<Guid>("StoryId")
                                 .HasColumnType("uniqueidentifier");
@@ -254,7 +254,7 @@ namespace Backlog.Api.Migrations
                                 .HasForeignKey("StoryId");
                         });
 
-                    b.OwnsMany("Backlog.Api.Models.SkillRequirement", "SkillRequirements", b1 =>
+                    b.OwnsMany("Backlog.Core.SkillRequirement", "SkillRequirements", b1 =>
                         {
                             b1.Property<Guid>("StoryId")
                                 .HasColumnType("uniqueidentifier");

@@ -1,8 +1,8 @@
 ﻿using Backlog.Api.Core;
 using Backlog.Api.DomainEvents;
-using Backlog.Api.Features.Users;
+using Backlog.Core.Users;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Models;
+using Backlog.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;

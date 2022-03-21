@@ -1,4 +1,4 @@
-using Backlog.Api.Models;
+using Backlog.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Api.Interfaces

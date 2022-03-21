@@ -1,4 +1,4 @@
-﻿namespace Backlog.Api.Models
+﻿namespace Backlog.Core
 {
     public enum ItemType
     {

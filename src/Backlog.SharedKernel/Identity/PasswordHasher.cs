@@ -1,9 +1,8 @@
-﻿using Backlog.Api.Interfaces;
-using System;
+﻿using Backlog.SharedKernel;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class PasswordHasher : IPasswordHasher
     {
@@ -12,7 +11,7 @@ namespace Backlog.Api.Core
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
             password: password,
             salt: salt,
-            prf: KeyDerivationPrf.HMACSHA1,
+            prf: KeyDerivationPrf.HMACSHA256,
             iterationCount: 10000,
             numBytesRequested: 256 / 8));
         }

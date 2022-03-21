@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
-    public static class Constants
+    public static class SharedKernelConstants
     {
         public static class ClaimTypes
         {

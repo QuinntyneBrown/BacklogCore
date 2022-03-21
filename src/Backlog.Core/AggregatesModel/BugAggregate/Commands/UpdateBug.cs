@@ -1,54 +1,49 @@
+using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class UpdateBug
+
+    public class UpdateBugValidator : AbstractValidator<UpdateBugRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public UpdateBugValidator()
         {
-            public Validator()
-            {
-                RuleFor(request => request.Bug).NotNull();
-                RuleFor(request => request.Bug).SetValidator(new BugValidator());
-            }
-
+            RuleFor(request => request.Bug).NotNull();
+            RuleFor(request => request.Bug).SetValidator(new BugValidator());
         }
+    }
 
-        public class Request : IRequest<Response>
+    public class UpdateBugRequest : IRequest<UpdateBugResponse>
+    {
+        public BugDto? Bug { get; set; }
+    }
+
+    public class UpdateBugResponse : ResponseBase
+    {
+        public BugDto Bug { get; init; }
+        public UpdateBugResponse(BugDto bug)
         {
-            public BugDto Bug { get; set; }
+            Bug = bug;
         }
+    }
 
-        public class Response : ResponseBase
+    public class UpdateBugHandler : IRequestHandler<UpdateBugRequest, UpdateBugResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public UpdateBugHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<UpdateBugResponse> Handle(UpdateBugRequest request, CancellationToken cancellationToken)
         {
-            public BugDto Bug { get; set; }
-        }
+            var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.Bug.BugId);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.Bug.BugId);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Bug = bug.ToDto()
-                };
-            }
-
+            return new (bug.ToDto());
         }
     }
 }

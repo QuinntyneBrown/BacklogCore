@@ -1,8 +1,8 @@
-﻿using Backlog.Api.Interfaces;
+﻿using Backlog.SharedKernel;
 using System;
 using System.Reactive.Subjects;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class NotificationService : INotificationService
     {

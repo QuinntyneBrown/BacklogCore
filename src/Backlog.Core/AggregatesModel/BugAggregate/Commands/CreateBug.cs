@@ -1,55 +1,49 @@
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Core;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class CreateBug
+    public class CreateBugValidator : AbstractValidator<CreateBugRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public CreateBugValidator()
         {
-            public Validator()
+            RuleFor(request => request.Bug).NotNull();
+            RuleFor(request => request.Bug).SetValidator(new BugValidator());
+        }
+    }
+
+    public class CreateBugRequest : IRequest<CreateBugResponse>
+    {
+        public BugDto Bug { get; set; }
+    }
+
+    public class CreateBugResponse : ResponseBase
+    {
+        public BugDto Bug { get; set; }
+    }
+
+    public class CreateBugHandler : IRequestHandler<CreateBugRequest, CreateBugResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public CreateBugHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<CreateBugResponse> Handle(CreateBugRequest request, CancellationToken cancellationToken)
+        {
+            var bug = new Bug(new());
+
+            _context.Bugs.Add(bug);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new()
             {
-                RuleFor(request => request.Bug).NotNull();
-                RuleFor(request => request.Bug).SetValidator(new BugValidator());
-            }
+                Bug = bug.ToDto()
+            };
         }
 
-        public class Request : IRequest<Response>
-        {
-            public BugDto Bug { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public BugDto Bug { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var bug = new Bug(new());
-
-                _context.Bugs.Add(bug);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new()
-                {
-                    Bug = bug.ToDto()
-                };
-            }
-
-        }
     }
 }

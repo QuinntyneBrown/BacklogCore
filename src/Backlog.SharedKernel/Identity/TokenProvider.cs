@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
 
     public class TokenProvider : ITokenProvider

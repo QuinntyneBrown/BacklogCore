@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
 
-namespace Backlog.Api.Interfaces
+namespace Backlog.SharedKernel
 {
     public interface IEvent : INotification
     {

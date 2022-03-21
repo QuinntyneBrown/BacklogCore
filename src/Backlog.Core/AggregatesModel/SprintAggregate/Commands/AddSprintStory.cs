@@ -1,11 +1,8 @@
-using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
@@ -45,9 +42,9 @@ namespace Backlog.Core
 
                 var story = await _context.Stories.SingleOrDefaultAsync(_ => _.StoryId == request.StoryId);
 
-                story.Apply(new DomainEvents.UpdateStoryStatus(Constants.StoryStatus.Assigned));
+                story.Apply(new UpdateStoryStatus(SharedKernelConstants.StoryStatus.Assigned));
 
-                sprint.Apply(new DomainEvents.AddSprintStory(request.StoryId));
+                sprint.Apply(new AddSprintStory(request.StoryId));
                 
                 await _context.SaveChangesAsync(cancellationToken);
                 

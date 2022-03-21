@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class OrchestrationItemsCache : Dictionary<string, object>
     {

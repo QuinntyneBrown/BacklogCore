@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class TokenBuilder : ITokenBuilder
     {

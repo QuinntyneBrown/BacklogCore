@@ -1,8 +1,4 @@
-﻿using Backlog.Api.Interfaces;
-using System;
-using System.Collections.Generic;
-
-namespace Backlog.Api.Core
+﻿namespace Backlog.SharedKernel
 {
     public class BaseDomainEvent : IEvent
     {

@@ -1,11 +1,11 @@
-﻿using Backlog.Api.Interfaces;
+﻿using Backlog.SharedKernel;
 using MediatR;
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
 
     public class OrchestrationHandler : IOrchestrationHandler

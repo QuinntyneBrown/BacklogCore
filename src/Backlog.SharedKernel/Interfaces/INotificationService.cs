@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Backlog.Api.Interfaces
+namespace Backlog.SharedKernel
 {
     public interface INotificationService
     {

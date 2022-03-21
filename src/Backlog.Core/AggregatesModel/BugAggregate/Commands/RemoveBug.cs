@@ -1,48 +1,41 @@
-using FluentValidation;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.Core;
 using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class RemoveBug
+    public class RemoveBugRequest : IRequest<RemoveBugResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid BugId { get; set; }
+    }
+
+    public class RemoveBugResponse : ResponseBase
+    {
+        public BugDto Bug { get; set; }
+
+        public RemoveBugResponse(BugDto bug)
         {
-            public Guid BugId { get; set; }
+            Bug = bug;
         }
+    }
 
-        public class Response : ResponseBase
+    public class RemoveBugHandler : IRequestHandler<RemoveBugRequest, RemoveBugResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveBugHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveBugResponse> Handle(RemoveBugRequest request, CancellationToken cancellationToken)
         {
-            public BugDto Bug { get; set; }
-        }
+            var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.BugId, cancellationToken);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            _context.Bugs.Remove(bug);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.BugId);
-
-                _context.Bugs.Remove(bug);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Bug = bug.ToDto()
-                };
-            }
-
+            return new (bug.ToDto());
         }
     }
 }

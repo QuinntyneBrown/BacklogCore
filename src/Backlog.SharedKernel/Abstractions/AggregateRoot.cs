@@ -1,13 +1,9 @@
-﻿using Backlog.Api.Interfaces;
-using Backlog.Core;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using static Newtonsoft.Json.JsonConvert;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public abstract class AggregateRoot : IAggregateRoot
     {

@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class ResponseBase
     {
-        public List<string> Errors { get; set; }
+        public List<string> Errors { get; set; } = new();
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*using Microsoft.AspNetCore.Authorization;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     [System.AttributeUsage(System.AttributeTargets.Class |
                        System.AttributeTargets.Struct)]

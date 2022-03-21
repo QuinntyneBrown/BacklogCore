@@ -1,11 +1,11 @@
-﻿/*using Backlog.Api.Core;
+﻿/*using Backlog.SharedKernel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public class ResourceOperationAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, object>
     {

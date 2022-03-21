@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Backlog.Api.Interfaces
+namespace Backlog.SharedKernel
 {
     public interface IOrchestrationHandler
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Backlog.Api.Core
+namespace Backlog.SharedKernel
 {
     public interface ITokenProvider
     {

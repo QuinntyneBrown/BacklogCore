@@ -1,5 +1,4 @@
 using Backlog.SharedKernel;
-using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

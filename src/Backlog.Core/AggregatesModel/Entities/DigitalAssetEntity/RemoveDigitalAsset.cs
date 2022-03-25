@@ -1,47 +1,40 @@
-﻿
-using Backlog.SharedKernel;
-using Backlog.SharedKernel;
+﻿using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class RemoveDigitalAsset
+    public class RemoveDigitalAssetRequest : IRequest<RemoveDigitalAssetResponse>
     {
-        public class Request : IRequest<Response>
-        {
-            public System.Guid DigitalAssetId { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public DigitalAssetDto DigitalAsset { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var digitalAsset = await _context.DigitalAssets.SingleAsync(x => x.DigitalAssetId == request.DigitalAssetId);
-
-                _context.DigitalAssets.Remove(digitalAsset);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new()
-                {
-                    DigitalAsset = digitalAsset.ToDto()
-                };
-            }
-
-        }
+        public Guid DigitalAssetId { get; set; }
     }
+
+    public class RemoveDigitalAssetResponse : ResponseBase
+    {
+        public DigitalAssetDto? DigitalAsset { get; set; }
+    }
+
+    public class RemoveDigitalAssetHandler : IRequestHandler<RemoveDigitalAssetRequest, RemoveDigitalAssetResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveDigitalAssetHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveDigitalAssetResponse> Handle(RemoveDigitalAssetRequest request, CancellationToken cancellationToken)
+        {
+            var digitalAsset = await _context.DigitalAssets.SingleAsync(x => x.DigitalAssetId == request.DigitalAssetId);
+
+            _context.DigitalAssets.Remove(digitalAsset);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new()
+            {
+                DigitalAsset = digitalAsset.ToDto()
+            };
+        }
+
+    }
+
 }

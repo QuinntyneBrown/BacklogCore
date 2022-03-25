@@ -1,39 +1,30 @@
-
 using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class GetCurrentSprint
+    public class GetCurrentSprintRequest : IRequest<GetCurrentSprintResponse> { }
+
+    public class GetCurrentSprintResponse : ResponseBase
     {
-        public class Request: IRequest<Response>
-        { }
+        public SprintDto? Sprint { get; set; }
+    }
 
-        public class Response: ResponseBase
-        {
-            public SprintDto Sprint { get; set; }
-        }
-
-        public class Handler: IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+    public class GetCurrentSprintHandler : IRequestHandler<GetCurrentSprintRequest, GetCurrentSprintResponse>
+    {
+        private readonly IBacklogDbContext _context;
         
-            public Handler(IBacklogDbContext context)
-                => _context = context;
+        public GetCurrentSprintHandler(IBacklogDbContext context)
+            => _context = context;
         
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return new () {
-                    Sprint = (await _context.Sprints
-                    .Include(x => x.SprintStories)
-                    .FirstOrDefaultAsync(x => x.Start < DateTime.Now && x.End > DateTime.Now)).ToDto()
-                };
-            }
-            
-        }
+        public async Task<GetCurrentSprintResponse> Handle(GetCurrentSprintRequest request, CancellationToken cancellationToken)
+        {
+            return new () {
+                Sprint = (await _context.Sprints
+                .Include(x => x.SprintStories)
+                .FirstOrDefaultAsync(x => x.Start < DateTime.Now && x.End > DateTime.Now, cancellationToken))?.ToDto()
+            };
+        }    
     }
 }

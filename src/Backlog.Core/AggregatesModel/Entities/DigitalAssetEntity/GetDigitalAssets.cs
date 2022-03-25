@@ -1,38 +1,30 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetDigitalAssets
+    public class GetDigitalAssetsRequest : IRequest<GetDigitalAssetsResponse> { }
+
+    public class GetDigitalAssetsResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
-
-        public class Response : ResponseBase
-        {
-            public List<DigitalAssetDto> DigitalAssets { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return new()
-                {
-                    DigitalAssets = await _context.DigitalAssets.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
-        }
+        public List<DigitalAssetDto>? DigitalAssets { get; set; }
     }
+
+    public class GetDigitalAssetsHandler : IRequestHandler<GetDigitalAssetsRequest, GetDigitalAssetsResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetDigitalAssetsHandler(IBacklogDbContext context)
+            => _context = context;
+        public async Task<GetDigitalAssetsResponse> Handle(GetDigitalAssetsRequest request, CancellationToken cancellationToken)
+        {
+            return new()
+            {
+                DigitalAssets = await _context.DigitalAssets.Select(x => x.ToDto()).ToListAsync(cancellationToken)
+            };
+        }
+
+    }
+
 }

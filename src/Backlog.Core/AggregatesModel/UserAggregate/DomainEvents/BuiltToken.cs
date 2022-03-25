@@ -1,6 +1,6 @@
-﻿using Backlog.Api.Core;
+﻿using Backlog.SharedKernel;
 
-namespace Backlog.Api.DomainEvents
+namespace Backlog.Core
 {
 
     public class BuiltToken : BaseDomainEvent

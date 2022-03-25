@@ -1,38 +1,30 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetUsers
+    public class GetUsersRequest : IRequest<GetUsersResponse> { }
+
+    public class GetUsersResponse : ResponseBase
     {
-        public class Request: IRequest<Response> { }
+        public List<UserDto>? Users { get; set; }
+    }
 
-        public class Response: ResponseBase
-        {
-            public List<UserDto> Users { get; set; }
-        }
+    public class Handler : IRequestHandler<GetUsersRequest, GetUsersResponse>
+    {
+        private readonly IBacklogDbContext _context;
 
-        public class Handler: IRequestHandler<Request, Response>
+        public Handler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)
         {
-            private readonly IBacklogDbContext _context;
-        
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-        
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new () {
-                    Users = await _context.Users.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-            
+                Users = await _context.Users.Select(x => x.ToDto()).ToListAsync(cancellationToken)
+            };
         }
     }
 }

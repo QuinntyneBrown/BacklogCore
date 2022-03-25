@@ -1,55 +1,46 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using Backlog.Api.Extensions;
-using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Api.Extensions;
+using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetUsersPage
+    public class GetUsersPageRequest : IRequest<GetUsersPageResponse>
     {
-        public class Request: IRequest<Response>
-        {
-            public int PageSize { get; set; }
-            public int Index { get; set; }
-        }
+        public int PageSize { get; set; }
+        public int Index { get; set; }
+    }
 
-        public class Response: ResponseBase
-        {
-            public int Length { get; set; }
-            public List<UserDto> Entities { get; set; }
-        }
+    public class GetUsersPageResponse : ResponseBase
+    {
+        public int Length { get; set; }
+        public List<UserDto>? Entities { get; set; }
+    }
 
-        public class Handler: IRequestHandler<Request, Response>
+    public class GetUsersPageHandler : IRequestHandler<GetUsersPageRequest, GetUsersPageResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetUsersPageHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetUsersPageResponse> Handle(GetUsersPageRequest request, CancellationToken cancellationToken)
         {
-            private readonly IBacklogDbContext _context;
-        
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-        
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            var query = from user in _context.Users
+                        select user;
+
+            var length = await _context.Users.CountAsync();
+
+            var users = await query.Page(request.Index, request.PageSize)
+                .Select(x => x.ToDto()).ToListAsync();
+
+            return new()
             {
-                var query = from user in _context.Users
-                    select user;
-                
-                var length = await _context.Users.CountAsync();
-                
-                var users = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
-                
-                return new()
-                {
-                    Length = length,
-                    Entities = users
-                };
-            }
-            
+                Length = length,
+                Entities = users
+            };
         }
+
     }
 }

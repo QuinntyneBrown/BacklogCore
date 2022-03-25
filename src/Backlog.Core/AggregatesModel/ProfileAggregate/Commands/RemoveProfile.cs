@@ -1,5 +1,5 @@
-using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,39 +8,37 @@ using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class RemoveProfile
+    public class RemoveProfileRequest : IRequest<RemoveProfileResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid ProfileId { get; set; }
+    }
+
+    public class RemoveProfileResponse : ResponseBase
+    {
+        public ProfileDto Profile { get; set; }
+
+        public RemoveProfileResponse(ProfileDto profile)
         {
-            public Guid ProfileId { get; set; }
+            Profile = profile;
         }
+    }
 
-        public class Response : ResponseBase
+    public class RemoveProfileHandler : IRequestHandler<RemoveProfileRequest, RemoveProfileResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveProfileHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveProfileResponse> Handle(RemoveProfileRequest request, CancellationToken cancellationToken)
         {
-            public ProfileDto Profile { get; set; }
-        }
+            var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.ProfileId);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            _context.Profiles.Remove(profile);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.ProfileId);
-
-                _context.Profiles.Remove(profile);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Profile = profile.ToDto()
-                };
-            }
-
+            return new (profile.ToDto());
         }
     }
 }

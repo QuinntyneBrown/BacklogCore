@@ -1,7 +1,7 @@
-using Backlog.Api.Core;
 using System;
+using Backlog.SharedKernel;
 
-namespace Backlog.Api.DomainEvents
+namespace Backlog.Core
 {
     public class CreateProfile : BaseDomainEvent
     {

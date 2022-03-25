@@ -1,20 +1,17 @@
-using Backlog.Api.Core;
-using Backlog.Api.DomainEvents;
-using Backlog.Api.Interfaces;
-using System;
+using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class User: AggregateRoot
+    public class User
     {
         public Guid UserId { get; private set; }
-        public string Username { get; private set; }
-        public string Password { get; private set; }
-        public byte[] Salt { get; private set; }
+        public string Username { get; private set; } = string.Empty;
+        public string Password { get; private set; } = string.Empty;
+        public byte[] Salt { get; private set; } = Array.Empty<byte>();
         public bool IsDeleted { get; private set; }
         public User(CreateUser @event)
         {
-            Apply(@event);
+            
 
         }
 

@@ -1,54 +1,47 @@
+using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class UpdateUser
+    public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
     {
-        public class Validator: AbstractValidator<Request>
+        public UpdateUserValidator()
         {
-            public Validator()
+            RuleFor(request => request.User).NotNull();
+            RuleFor(request => request.User).SetValidator(new UserValidator());
+        }
+    }
+
+    public class UpdateUserRequest : IRequest<UpdateUserResponse>
+    {
+        public UserDto? User { get; set; }
+    }
+
+    public class UpdateUserResponse : ResponseBase
+    {
+        public UserDto? User { get; set; }
+    }
+
+    public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public UpdateUserHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
+        {
+            var user = await _context.Users.SingleAsync(x => x.UserId == request.User.UserId);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new UpdateUserResponse()
             {
-                RuleFor(request => request.User).NotNull();
-                RuleFor(request => request.User).SetValidator(new UserValidator());
-            }
-        
-        }
-
-        public class Request: IRequest<Response>
-        {
-            public UserDto User { get; set; }
-        }
-
-        public class Response: ResponseBase
-        {
-            public UserDto User { get; set; }
-        }
-
-        public class Handler: IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-        
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-        
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var user = await _context.Users.SingleAsync(x => x.UserId == request.User.UserId);
-                
-                await _context.SaveChangesAsync(cancellationToken);
-                
-                return new Response()
-                {
-                    User = user.ToDto()
-                };
-            }
-            
+                User = user.ToDto()
+            };
         }
     }
 }

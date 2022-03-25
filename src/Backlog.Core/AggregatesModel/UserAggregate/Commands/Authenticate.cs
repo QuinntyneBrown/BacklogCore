@@ -1,83 +1,74 @@
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
-using Backlog.Core;
 using Backlog.Api.DomainEvents;
+using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace Backlog.Core
 {
-    public class Authenticate
+    public class AuthenticateValidator : AbstractValidator<AuthenticateRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public AuthenticateValidator()
         {
-            public Validator()
-            {
-                RuleFor(x => x.Username).NotNull();
-                RuleFor(x => x.Password).NotNull();
-            }
+            RuleFor(x => x.Username).NotNull();
+            RuleFor(x => x.Password).NotNull();
+        }
+    }
+
+    public record AuthenticateRequest(string Username, string Password) : IRequest<AuthenticateResponse>;
+
+    public record AuthenticateResponse(string AccessToken, Guid UserId);
+
+    public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, AuthenticateResponse>
+    {
+        private readonly IBacklogDbContext _context;
+        private readonly IPasswordHasher _passwordHasher;
+        private readonly IOrchestrationHandler _orchestrationHandler;
+
+        public AuthenticateHandler(IBacklogDbContext context, IPasswordHasher passwordHasher, IOrchestrationHandler orchestrationHandler)
+        {
+            _context = context;
+            _passwordHasher = passwordHasher;
+            _orchestrationHandler = orchestrationHandler;
         }
 
-        public record Request(string Username, string Password) : IRequest<Response>;
-
-        public record Response(string AccessToken, Guid UserId);
-
-        public class Handler : IRequestHandler<Request, Response>
+        public async Task<AuthenticateResponse> Handle(AuthenticateRequest request, CancellationToken cancellationToken)
         {
-            private readonly IBacklogDbContext _context;
-            private readonly IPasswordHasher _passwordHasher;
-            private readonly IOrchestrationHandler _orchestrationHandler;
-
-            public Handler(IBacklogDbContext context, IPasswordHasher passwordHasher, IOrchestrationHandler orchestrationHandler)
+            try
             {
-                _context = context;
-                _passwordHasher = passwordHasher;
-                _orchestrationHandler = orchestrationHandler;
-            }
+                var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == request.Username);
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                try
+                if (user == null)
+                    throw new Exception();
+
+                if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
+                    throw new Exception();
+
+                return await _orchestrationHandler.Handle<AuthenticateResponse>(new BuildToken(user.Username), (tcs) => async message =>
                 {
-                    var user = await _context.Users
-    .SingleOrDefaultAsync(x => x.Username == request.Username);
-
-                    if (user == null)
-                        throw new Exception();
-
-                    if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-                        throw new Exception();
-
-                    return await _orchestrationHandler.Handle<Response>(new BuildToken(user.Username), (tcs) => async message =>
+                    switch (message)
                     {
-                        switch (message)
-                        {
-                            case BuiltToken builtToken:
-                                await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
-                                tcs.SetResult(new Response(builtToken.AccessToken, builtToken.UserId));
-                                break;
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-
+                        case BuiltToken builtToken:
+                            await _orchestrationHandler.Publish(new AuthenticatedUser(user.Username));
+                            tcs.SetResult(new AuthenticateResponse(builtToken.AccessToken, builtToken.UserId));
+                            break;
+                    }
+                });
             }
-
-            public bool ValidateUser(User user, string transformedPassword)
+            catch (Exception ex)
             {
-                if (user == null || transformedPassword == null)
-                    return false;
-
-                return user.Password == transformedPassword;
+                throw;
             }
+
+        }
+
+        public bool ValidateUser(User user, string transformedPassword)
+        {
+            if (user == null || transformedPassword == null)
+                return false;
+
+            return user.Password == transformedPassword;
         }
     }
 }

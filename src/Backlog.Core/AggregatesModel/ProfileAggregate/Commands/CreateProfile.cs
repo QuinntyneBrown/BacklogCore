@@ -1,42 +1,43 @@
-using Backlog.Api.Core;
 using Backlog.Api.Interfaces;
-using Backlog.Core;
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace Backlog.Core
 {
-    public class CreateProfile
-    {
-        public class Validator : AbstractValidator<Request>
+        public class CreateProfileValidator : AbstractValidator<CreateProfileRequest>
         {
-            public Validator()
+            public CreateProfileValidator()
             {
                 RuleFor(request => request.Profile).NotNull();
                 RuleFor(request => request.Profile).SetValidator(new ProfileValidator());
             }
         }
 
-        public class Request : IRequest<Response>
+        public class CreateProfileRequest : IRequest<CreateProfileResponse>
         {
             public ProfileDto Profile { get; set; }
         }
 
-        public class Response : ResponseBase
+        public class CreateProfileResponse : ResponseBase
         {
             public ProfileDto Profile { get; set; }
+
+            public CreateProfileResponse(ProfileDto profile)
+            {
+                Profile = profile;
+            }
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class CreateProfileHandler : IRequestHandler<CreateProfileRequest, CreateProfileResponse>
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context)
+            public CreateProfileHandler(IBacklogDbContext context)
                 => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<CreateProfileResponse> Handle(CreateProfileRequest request, CancellationToken cancellationToken)
             {
                 var profile = new Profile(new(request.Profile.Firstname, request.Profile.Lastname));
 
@@ -44,12 +45,7 @@ namespace Backlog.Core
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new()
-                {
-                    Profile = profile.ToDto()
-                };
+                return new(profile.ToDto());
             }
-
         }
-    }
 }

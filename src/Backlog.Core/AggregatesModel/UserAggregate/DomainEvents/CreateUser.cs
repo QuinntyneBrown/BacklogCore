@@ -1,15 +1,21 @@
-﻿using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
+﻿using Backlog.SharedKernel;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 
-namespace Backlog.Api.DomainEvents
+namespace Backlog.Core
 {
     public class CreateUser : BaseDomainEvent
     {
         public Guid UserId { get; private set; } = Guid.NewGuid();
-        public string Username { get; private set; }
-        public string Password { get; private set; }
-        public Byte[] Salt { get; private set; }
+        public string? Username { get; private set; }
+        public string? Password { get; private set; }
+        public Byte[]? Salt { get; private set; }
+
+        [JsonConstructor]
+        public CreateUser()
+        {
+
+        }
 
         public CreateUser(string username, string password, IPasswordHasher passwordHasher)
         {

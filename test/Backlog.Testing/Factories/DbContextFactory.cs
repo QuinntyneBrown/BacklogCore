@@ -1,5 +1,5 @@
 ﻿using Backlog.Api.Data;
-using Backlog.Api.Interfaces;
+using Backlog.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;

@@ -1,39 +1,31 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetCompetencyLevels
+    public class GetCompetencyLevelsRequest : IRequest<GetCompetencyLevelsResponse> { }
+
+    public class GetCompetencyLevelsResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
-
-        public class Response : ResponseBase
-        {
-            public List<CompetencyLevelDto> CompetencyLevels { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return new()
-                {
-                    CompetencyLevels = await _context.CompetencyLevels.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
-        }
+        public List<CompetencyLevelDto>? CompetencyLevels { get; set; }
     }
+
+    public class GetCompetencyLevelsHandler : IRequestHandler<GetCompetencyLevelsRequest, GetCompetencyLevelsResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetCompetencyLevelsHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetCompetencyLevelsResponse> Handle(GetCompetencyLevelsRequest request, CancellationToken cancellationToken)
+        {
+            return new()
+            {
+                CompetencyLevels = await _context.CompetencyLevels.Select(x => x.ToDto()).ToListAsync(cancellationToken)
+            };
+        }
+
+    }
+    
 }

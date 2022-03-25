@@ -4,7 +4,6 @@ using MediatR;
 
 namespace Backlog.Core
 {
-
     public class CreateSprintValidator : AbstractValidator<CreateSprintRequest>
     {
         public CreateSprintValidator()
@@ -12,7 +11,6 @@ namespace Backlog.Core
             RuleFor(request => request.Sprint).NotNull();
             RuleFor(request => request.Sprint).SetValidator(new SprintValidator());
         }
-        
     }
 
     public class CreateSprintRequest : IRequest<CreateSprintResponse>
@@ -46,8 +44,6 @@ namespace Backlog.Core
             {
                 Sprint = sprint.ToDto()
             };
-        }
-            
+        }     
     }
-
 }

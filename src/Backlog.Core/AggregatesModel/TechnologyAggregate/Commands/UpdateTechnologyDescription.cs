@@ -1,15 +1,12 @@
-
 using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
     public class UpdateTechnologyDescription
     {
-        public class Validator : AbstractValidator<Request>
+        public class Validator : AbstractValidator<UpdateTechnologyDescriptionRequest>
         {
             public Validator()
             {
@@ -18,26 +15,26 @@ namespace Backlog.Core
             }
         }
 
-        public class Request : IRequest<Response>
+        public class UpdateTechnologyDescriptionRequest : IRequest<UpdateTechnologyDescriptionResponse>
         {
-            public TechnologyDto Technology { get; set; }
+            public TechnologyDto? Technology { get; set; }
         }
 
-        public class Response : ResponseBase
+        public class UpdateTechnologyDescriptionResponse : ResponseBase
         {
-            public TechnologyDto Technology { get; set; }
+            public TechnologyDto? Technology { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class UpdateTechnologyDescriptionHandler : IRequestHandler<UpdateTechnologyDescriptionRequest, UpdateTechnologyDescriptionResponse>
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context)
+            public UpdateTechnologyDescriptionHandler(IBacklogDbContext context)
             {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<UpdateTechnologyDescriptionResponse> Handle(UpdateTechnologyDescriptionRequest request, CancellationToken cancellationToken)
             {
 
                 var technology = await _context.Technologies.FindAsync(request.Technology.TechnologyId);

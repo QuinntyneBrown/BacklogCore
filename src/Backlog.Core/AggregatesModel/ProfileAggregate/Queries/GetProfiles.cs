@@ -1,39 +1,29 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetProfiles
+    public class GetProfilesRequest : IRequest<GetProfilesResponse> { }
+
+    public class GetProfilesResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
+        public List<ProfileDto>? Profiles { get; set; }
+    }
 
-        public class Response : ResponseBase
+    public class GetProfilesHandler : IRequestHandler<GetProfilesRequest, GetProfilesResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetProfilesHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetProfilesResponse> Handle(GetProfilesRequest request, CancellationToken cancellationToken)
         {
-            public List<ProfileDto> Profiles { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    Profiles = await _context.Profiles.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
+                Profiles = await _context.Profiles.Select(x => x.ToDto()).ToListAsync()
+            };
         }
     }
 }

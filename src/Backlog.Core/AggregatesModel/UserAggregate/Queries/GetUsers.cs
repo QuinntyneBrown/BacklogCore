@@ -1,5 +1,4 @@
 using Backlog.SharedKernel;
-using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,11 +11,11 @@ namespace Backlog.Core
         public List<UserDto>? Users { get; set; }
     }
 
-    public class Handler : IRequestHandler<GetUsersRequest, GetUsersResponse>
+    public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse>
     {
         private readonly IBacklogDbContext _context;
 
-        public Handler(IBacklogDbContext context)
+        public GetUsersHandler(IBacklogDbContext context)
             => _context = context;
 
         public async Task<GetUsersResponse> Handle(GetUsersRequest request, CancellationToken cancellationToken)

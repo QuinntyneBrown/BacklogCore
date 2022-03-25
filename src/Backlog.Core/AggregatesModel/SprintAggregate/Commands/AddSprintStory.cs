@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-
     public class AddSprintStoryValidator : AbstractValidator<AddSprintStoryRequest>
     {
         public AddSprintStoryValidator()
@@ -13,7 +12,6 @@ namespace Backlog.Core
             RuleFor(request => request.SprintId).NotNull();
             RuleFor(request => request.StoryId).NotNull();
         }
-        
     }
 
     public class AddSprintStoryRequest : IRequest<AddSprintStoryResponse>
@@ -51,7 +49,5 @@ namespace Backlog.Core
                 Sprint = sprint?.ToDto()
             };
         }
-            
     }
-
 }

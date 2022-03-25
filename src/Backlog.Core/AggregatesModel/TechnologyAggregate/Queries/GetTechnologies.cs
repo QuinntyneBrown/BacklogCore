@@ -1,39 +1,30 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
-{
-    public class GetTechnologies
+{   
+    public class GetTechnologiesRequest : IRequest<GetTechnologiesResponse> { }
+
+    public class GetTechnologiesResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
+        public List<TechnologyDto>? Technologies { get; set; }
+    }
 
-        public class Response : ResponseBase
+    public class GetTechnologiesHandler : IRequestHandler<GetTechnologiesRequest, GetTechnologiesResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetTechnologiesHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetTechnologiesResponse> Handle(GetTechnologiesRequest request, CancellationToken cancellationToken)
         {
-            public List<TechnologyDto> Technologies { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    Technologies = await _context.Technologies.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
+                Technologies = await _context.Technologies.Select(x => x.ToDto()).ToListAsync(cancellationToken)
+            };
         }
+
     }
 }

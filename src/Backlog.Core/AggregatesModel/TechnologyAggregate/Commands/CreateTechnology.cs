@@ -1,56 +1,50 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.SharedKernel;
-
-using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class CreateTechnology
+    public class CreateTechnologyValidator : AbstractValidator<CreateTechnologyRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public CreateTechnologyValidator()
         {
-            public Validator()
-            {
-                RuleFor(request => request.Technology).NotNull();
-                RuleFor(request => request.Technology).SetValidator(new TechnologyValidator());
-            }
-
+            RuleFor(request => request.Technology).NotNull();
+            RuleFor(request => request.Technology).SetValidator(new TechnologyValidator());
         }
 
-        public class Request : IRequest<Response>
-        {
-            public TechnologyDto Technology { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public TechnologyDto Technology { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var technology = new Technology(request.Technology.Name, request.Technology.Description);
-
-                _context.Technologies.Add(technology);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new()
-                {
-                    Technology = technology.ToDto()
-                };
-            }
-
-        }
     }
+
+    public class CreateTechnologyRequest : IRequest<CreateTechnologyResponse>
+    {
+        public TechnologyDto? Technology { get; set; }
+    }
+
+    public class CreateTechnologyResponse : ResponseBase
+    {
+        public TechnologyDto? Technology { get; set; }
+    }
+
+    public class CreateTechnologyHandler : IRequestHandler<CreateTechnologyRequest, CreateTechnologyResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public CreateTechnologyHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<CreateTechnologyResponse> Handle(CreateTechnologyRequest request, CancellationToken cancellationToken)
+        {
+            var technology = new Technology(request.Technology.Name, request.Technology.Description);
+
+            _context.Technologies.Add(technology);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new()
+            {
+                Technology = technology.ToDto()
+            };
+        }
+
+    }
+
 }

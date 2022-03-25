@@ -1,48 +1,39 @@
-using FluentValidation;
+using Backlog.SharedKernel;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.SharedKernel;
-
-using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class RemoveTaskItem
+    public class RemoveTaskItemRequest : IRequest<RemoveTaskItemResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid TaskItemId { get; set; }
+    }
+
+    public class RemoveTaskItemResponse : ResponseBase
+    {
+        public TaskItemDto? TaskItem { get; set; }
+    }
+
+    public class RemoveTaskItemHandler : IRequestHandler<RemoveTaskItemRequest, RemoveTaskItemResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveTaskItemHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveTaskItemResponse> Handle(RemoveTaskItemRequest request, CancellationToken cancellationToken)
         {
-            public Guid TaskItemId { get; set; }
-        }
+            var taskItem = await _context.TaskItems.SingleAsync(x => x.TaskItemId == request.TaskItemId, cancellationToken);
 
-        public class Response : ResponseBase
-        {
-            public TaskItemDto TaskItem { get; set; }
-        }
+            _context.TaskItems.Remove(taskItem);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new ()
             {
-                var taskItem = await _context.TaskItems.SingleAsync(x => x.TaskItemId == request.TaskItemId);
-
-                _context.TaskItems.Remove(taskItem);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    TaskItem = taskItem.ToDto()
-                };
-            }
-
+                TaskItem = taskItem.ToDto()
+            };
         }
+
     }
 }

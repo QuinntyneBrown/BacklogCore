@@ -1,12 +1,11 @@
 using Backlog.SharedKernel;
-using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
 
 
 namespace Backlog.Core
 {
-        public class CreateProfileValidator : AbstractValidator<CreateProfileRequest>
+    public class CreateProfileValidator : AbstractValidator<CreateProfileRequest>
         {
             public CreateProfileValidator()
             {

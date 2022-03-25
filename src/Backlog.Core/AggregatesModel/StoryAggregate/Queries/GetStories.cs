@@ -1,42 +1,33 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetStories
+    public class GetStoriesRequest : IRequest<GetStoriesResponse> { }
+
+    public class GetStoriesResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
+        public List<StoryDto>? Stories { get; set; }
+    }
 
-        public class Response : ResponseBase
+    public class GetStoriesHandler : IRequestHandler<GetStoriesRequest, GetStoriesResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetStoriesHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetStoriesResponse> Handle(GetStoriesRequest request, CancellationToken cancellationToken)
         {
-            public List<StoryDto> Stories { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    Stories = await _context.Stories
-                    .Include(x => x.SkillRequirements)
-                    .Include(x => x.DependsOn)
-                    .Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
+                Stories = await _context.Stories
+                .Include(x => x.SkillRequirements)
+                .Include(x => x.DependsOn)
+                .Select(x => x.ToDto()).ToListAsync()
+            };
         }
+
     }
 }

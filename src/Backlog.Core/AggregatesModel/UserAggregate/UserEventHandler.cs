@@ -1,31 +1,23 @@
-﻿
-using Backlog.SharedKernel;
+﻿using Backlog.Core;
 using Backlog.Core.Users;
-using Backlog.SharedKernel;
 using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Coop.Api.Features
 {
-    using Messages = Backlog.Core;
-
     public class UserEventHandler :
-        INotificationHandler<Messages.CreateUser>,
+        INotificationHandler<CreateUser>,
         INotificationHandler<BuildToken>
     {
         private readonly IBacklogDbContext _context;
         private readonly IOrchestrationHandler _orchestrationHandler;
-        private readonly IPasswordHasher _passwordHasher;
         private readonly ITokenBuilder _tokenBuilder;
 
-        public UserEventHandler(IBacklogDbContext context, IOrchestrationHandler messageHandlerContext, IPasswordHasher passwordHasher, ITokenBuilder tokenBuilder)
+        public UserEventHandler(IBacklogDbContext context, IOrchestrationHandler messageHandlerContext, ITokenBuilder tokenBuilder)
         {
             _context = context;
             _orchestrationHandler = messageHandlerContext;
-            _passwordHasher = passwordHasher;
             _tokenBuilder = tokenBuilder;
         }
 
@@ -48,8 +40,8 @@ namespace Coop.Api.Features
 
             _tokenBuilder
                 .AddUsername(user.Username)
-                .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.UserId, $"{user.UserId}"))
-                .AddClaim(new System.Security.Claims.Claim(Constants.ClaimTypes.Username, $"{user.Username}"));
+                .AddClaim(new System.Security.Claims.Claim(SharedKernelConstants.ClaimTypes.UserId, $"{user.UserId}"))
+                .AddClaim(new System.Security.Claims.Claim(SharedKernelConstants.ClaimTypes.Username, $"{user.Username}"));
 
             await _orchestrationHandler.PublishBuiltTokenEvent(user.UserId, _tokenBuilder.Build());
         }

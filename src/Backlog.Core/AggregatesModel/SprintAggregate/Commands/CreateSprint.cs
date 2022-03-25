@@ -1,58 +1,53 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.SharedKernel;
-
-using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class CreateSprint
+
+    public class CreateSprintValidator : AbstractValidator<CreateSprintRequest>
     {
-        public class Validator: AbstractValidator<Request>
+        public CreateSprintValidator()
         {
-            public Validator()
-            {
-                RuleFor(request => request.Sprint).NotNull();
-                RuleFor(request => request.Sprint).SetValidator(new SprintValidator());
-            }
+            RuleFor(request => request.Sprint).NotNull();
+            RuleFor(request => request.Sprint).SetValidator(new SprintValidator());
+        }
         
-        }
-
-        public class Request: IRequest<Response>
-        {
-            public SprintDto Sprint { get; set; }
-        }
-
-        public class Response: ResponseBase
-        {
-            public SprintDto Sprint { get; set; }
-        }
-
-        public class Handler: IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-        
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-        
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var @event = new DomainEvents.CreateSprint(request.Sprint.Name, request.Sprint.Start, request.Sprint.End);
-
-                var sprint = new Sprint(@event);
-                
-                _context.Sprints.Add(sprint);
-                
-                await _context.SaveChangesAsync(cancellationToken);
-                
-                return new Response()
-                {
-                    Sprint = sprint.ToDto()
-                };
-            }
-            
-        }
     }
+
+    public class CreateSprintRequest : IRequest<CreateSprintResponse>
+    {
+        public SprintDto? Sprint { get; set; }
+    }
+
+    public class CreateSprintResponse : ResponseBase
+    {
+        public SprintDto? Sprint { get; set; }
+    }
+
+    public class CreateSprintHandler : IRequestHandler<CreateSprintRequest, CreateSprintResponse>
+    {
+        private readonly IBacklogDbContext _context;
+        
+        public CreateSprintHandler(IBacklogDbContext context)
+            => _context = context;
+        
+        public async Task<CreateSprintResponse> Handle(CreateSprintRequest request, CancellationToken cancellationToken)
+        {
+            var @event = new CreateSprint(request.Sprint.Name, request.Sprint.Start, request.Sprint.End);
+
+            var sprint = new Sprint(@event);
+                
+            _context.Sprints.Add(sprint);
+                
+            await _context.SaveChangesAsync(cancellationToken);
+                
+            return new CreateSprintResponse()
+            {
+                Sprint = sprint.ToDto()
+            };
+        }
+            
+    }
+
 }

@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Backlog.SharedKernel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;

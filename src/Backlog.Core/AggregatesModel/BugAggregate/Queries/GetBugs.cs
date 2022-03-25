@@ -1,39 +1,30 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetBugs
+    public class GetBugsRequest : IRequest<GetBugsResponse> { }
+
+    public class GetBugsResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
+        public List<BugDto>? Bugs { get; set; }
+    }
 
-        public class Response : ResponseBase
+    public class GetBugsHandler : IRequestHandler<GetBugsRequest, GetBugsResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetBugsHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetBugsResponse> Handle(GetBugsRequest request, CancellationToken cancellationToken)
         {
-            public List<BugDto> Bugs { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    Bugs = await _context.Bugs.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
+                Bugs = await _context.Bugs.Select(x => x.ToDto()).ToListAsync()
+            };
         }
+
     }
 }

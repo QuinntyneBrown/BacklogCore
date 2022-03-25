@@ -1,40 +1,35 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetCompetencyLevelById
+
+    public class GetCompetencyLevelByIdRequest : IRequest<GetCompetencyLevelByIdResponse>
     {
-        public class Request : IRequest<Response>
-        {
-            public Guid CompetencyLevelId { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public CompetencyLevelDto CompetencyLevel { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return new()
-                {
-                    CompetencyLevel = (await _context.CompetencyLevels.SingleOrDefaultAsync(x => x.CompetencyLevelId == request.CompetencyLevelId)).ToDto()
-                };
-            }
-
-        }
+        public Guid CompetencyLevelId { get; set; }
     }
+
+    public class GetCompetencyLevelByIdResponse : ResponseBase
+    {
+        public CompetencyLevelDto? CompetencyLevel { get; set; }
+    }
+
+    public class GetCompetencyLevelByIdHandler : IRequestHandler<GetCompetencyLevelByIdRequest, GetCompetencyLevelByIdResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetCompetencyLevelByIdHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetCompetencyLevelByIdResponse> Handle(GetCompetencyLevelByIdRequest request, CancellationToken cancellationToken)
+        {
+            return new()
+            {
+                CompetencyLevel = (await _context.CompetencyLevels.SingleOrDefaultAsync(x => x.CompetencyLevelId == request.CompetencyLevelId)).ToDto()
+            };
+        }
+
+    }
+
 }

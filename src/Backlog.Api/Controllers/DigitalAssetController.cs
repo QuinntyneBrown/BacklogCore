@@ -20,16 +20,16 @@ namespace Backlog.Api.Controllers
         [HttpGet("page/{pageSize}/{index}", Name = "GetDigitalAssetsPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetDigitalAssetsPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetDigitalAssetsPage.Response>> Page([FromRoute] GetDigitalAssetsPage.Request request)
+        [ProducesResponseType(typeof(GetDigitalAssetsPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetDigitalAssetsPageResponse>> Page([FromRoute] GetDigitalAssetsPageRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("{digitalAssetId}", Name = "GetDigitalAssetByIdRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetDigitalAssetById.Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetDigitalAssetByIdResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<GetDigitalAssetById.Response>> GetById([FromRoute] GetDigitalAssetById.Request request)
+        public async Task<ActionResult<GetDigitalAssetByIdResponse>> GetById([FromRoute] GetDigitalAssetByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -42,19 +42,19 @@ namespace Backlog.Api.Controllers
         }
 
         [HttpGet("range")]
-        public async Task<ActionResult<GetDigitalAssetsByIds.Response>> GetByIds([FromQuery] GetDigitalAssetsByIds.Request request)
+        public async Task<ActionResult<GetDigitalAssetsByIdsResponse>> GetByIds([FromQuery] GetDigitalAssetsByIdsRequest request)
             => await _mediator.Send(request);
 
         [HttpPost("upload"), DisableRequestSizeLimit]
-        public async Task<ActionResult<UploadDigitalAsset.Response>> Save()
-            => await _mediator.Send(new UploadDigitalAsset.Request());
+        public async Task<ActionResult<UploadDigitalAssetResponse>> Save()
+            => await _mediator.Send(new UploadDigitalAssetRequest());
 
         [AllowAnonymous]
         [HttpGet("serve/{digitalAssetId}")]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(FileContentResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> Serve([FromRoute] GetDigitalAssetById.Request request)
+        public async Task<IActionResult> Serve([FromRoute] GetDigitalAssetByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -69,7 +69,7 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(FileContentResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> ServeByName([FromRoute] GetDigitalAssetByFilename.Request request)
+        public async Task<IActionResult> ServeByName([FromRoute] GetDigitalAssetByFilenameRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -82,8 +82,8 @@ namespace Backlog.Api.Controllers
         [HttpDelete("{digitalAssetId}", Name = "RemoveDigitalAssetRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveDigitalAsset.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveDigitalAsset.Response>> Remove([FromRoute] RemoveDigitalAsset.Request request)
+        [ProducesResponseType(typeof(RemoveDigitalAssetResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveDigitalAssetResponse>> Remove([FromRoute] RemoveDigitalAssetRequest request)
             => await _mediator.Send(request);
     }
 }

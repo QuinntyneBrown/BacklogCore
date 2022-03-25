@@ -1,7 +1,7 @@
-using Backlog.Api.Core;
 using Backlog.Api.Data;
 using Backlog.Api.Extensions;
-using Backlog.Api.Interfaces;
+using Backlog.Core;
+using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
@@ -107,7 +107,7 @@ namespace Backlog.Api
                 })
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata = false;
+                    optionsRequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
@@ -116,7 +116,7 @@ namespace Backlog.Api
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Request.Query.TryGetValue("access_token", out StringValues token);
+                            contextRequest.Query.TryGetValue("access_token", out StringValues token);
 
                             if (!string.IsNullOrEmpty(token)) context.Token = token;
 

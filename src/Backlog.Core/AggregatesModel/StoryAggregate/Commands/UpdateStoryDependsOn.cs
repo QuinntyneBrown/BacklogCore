@@ -40,7 +40,7 @@ namespace Backlog.Core
                 var story = await _context.Stories.Include(x => x.DependsOn)
                     .SingleAsync(x => x.StoryId == request.StoryId);
 
-                story.Apply(new DomainEvents.UpdateDependsOn(request.DependsOn.Select(x => new DependencyRelationship(x)).ToList()));
+                story.Apply(new UpdateDependsOn(request.DependsOn.Select(x => new DependencyRelationship(x)).ToList()));
 
                 await _context.SaveChangesAsync(cancellationToken);
 

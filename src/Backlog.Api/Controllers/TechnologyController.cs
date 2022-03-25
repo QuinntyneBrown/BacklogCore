@@ -19,8 +19,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTechnologyById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTechnologyById.Response>> GetById([FromRoute] GetTechnologyById.Request request)
+        [ProducesResponseType(typeof(GetTechnologyByIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTechnologyByIdResponse>> GetById([FromRoute] GetTechnologyByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -35,36 +35,36 @@ namespace Backlog.Api.Controllers
         [HttpGet(Name = "GetTechnologiesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTechnologies.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTechnologies.Response>> Get()
-            => await _mediator.Send(new GetTechnologies.Request());
+        [ProducesResponseType(typeof(GetTechnologiesResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTechnologiesResponse>> Get()
+            => await _mediator.Send(new GetTechnologiesRequest());
 
         [HttpPost(Name = "CreateTechnologyRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateTechnology.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateTechnology.Response>> Create([FromBody] CreateTechnology.Request request)
+        [ProducesResponseType(typeof(CreateTechnologyResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateTechnologyResponse>> Create([FromBody] CreateTechnologyRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetTechnologiesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTechnologiesPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTechnologiesPage.Response>> Page([FromRoute] GetTechnologiesPage.Request request)
+        [ProducesResponseType(typeof(GetTechnologiesPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTechnologiesPageResponse>> Page([FromRoute] GetTechnologiesPageRequest request)
             => await _mediator.Send(request);
 
         [HttpPut(Name = "UpdateTechnologyRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateTechnology.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateTechnology.Response>> Update([FromBody] UpdateTechnology.Request request)
+        [ProducesResponseType(typeof(UpdateTechnologyResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateTechnologyResponse>> Update([FromBody] UpdateTechnologyRequest request)
             => await _mediator.Send(request);
 
         [HttpDelete("{technologyId}", Name = "RemoveTechnologyRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveTechnology.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveTechnology.Response>> Remove([FromRoute] RemoveTechnology.Request request)
+        [ProducesResponseType(typeof(RemoveTechnologyResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveTechnologyResponse>> Remove([FromRoute] RemoveTechnologyRequest request)
             => await _mediator.Send(request);
 
     }

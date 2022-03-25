@@ -19,8 +19,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetSprintById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprintById.Response>> GetById([FromRoute]GetSprintById.Request request)
+        [ProducesResponseType(typeof(GetSprintByIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetSprintByIdResponse>> GetById([FromRoute]GetSprintByIdRequest request)
         {
             var response = await _mediator.Send(request);
         
@@ -35,57 +35,57 @@ namespace Backlog.Api.Controllers
         [HttpPut(Name = "UpdateSprintRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateSprint.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateSprint.Response>> Update([FromBody] UpdateSprint.Request request)
+        [ProducesResponseType(typeof(UpdateSprintResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateSprintResponse>> Update([FromBody] UpdateSprintRequest request)
             => await _mediator.Send(request);
 
         [HttpGet(Name = "GetSprintsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetSprints.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprints.Response>> Get()
-            => await _mediator.Send(new GetSprints.Request());
+        [ProducesResponseType(typeof(GetSprintsResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetSprintsResponse>> Get()
+            => await _mediator.Send(new GetSprintsRequest());
 
         [HttpGet("story/{storyId}", Name = "GetSprintsByStoryIdRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetSprintsByStoryId.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprintsByStoryId.Response>> GetSprintsByStoryId([FromRoute] GetSprintsByStoryId.Request request)
+        [ProducesResponseType(typeof(GetSprintsByStoryIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetSprintsByStoryIdResponse>> GetSprintsByStoryId([FromRoute] GetSprintsByStoryIdRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("current", Name = "GetCurrentSprintRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetCurrentSprint.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetCurrentSprint.Response>> GetCurrent()
-            => await _mediator.Send(new GetCurrentSprint.Request());
+        [ProducesResponseType(typeof(GetCurrentSprintResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentSprintResponse>> GetCurrent()
+            => await _mediator.Send(new GetCurrentSprintRequest());
 
         [HttpPost(Name = "CreateSprintRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateSprint.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateSprint.Response>> Create([FromBody]CreateSprint.Request request)
+        [ProducesResponseType(typeof(CreateSprintResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateSprintResponse>> Create([FromBody]CreateSprintRequest request)
             => await _mediator.Send(request);
 
         [HttpPost("story", Name = "AddSprintStoryRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(AddSprintStory.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<AddSprintStory.Response>> Create([FromBody] AddSprintStory.Request request)
+        [ProducesResponseType(typeof(AddSprintStoryResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<AddSprintStoryResponse>> Create([FromBody] AddSprintStoryRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetSprintsPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetSprintsPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprintsPage.Response>> Page([FromRoute]GetSprintsPage.Request request)
+        [ProducesResponseType(typeof(GetSprintsPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetSprintsPageResponse>> Page([FromRoute]GetSprintsPageRequest request)
             => await _mediator.Send(request);
         
         [HttpDelete("{sprintId}", Name = "RemoveSprintRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveSprint.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveSprint.Response>> Remove([FromRoute]RemoveSprint.Request request)
+        [ProducesResponseType(typeof(RemoveSprintResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveSprintResponse>> Remove([FromRoute]RemoveSprintRequest request)
             => await _mediator.Send(request);
 
     }

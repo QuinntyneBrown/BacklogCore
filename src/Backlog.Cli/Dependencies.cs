@@ -1,5 +1,4 @@
-﻿using Backlog.Api;
-using Backlog.Api.Interfaces;
+﻿using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

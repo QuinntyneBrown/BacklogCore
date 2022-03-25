@@ -19,8 +19,8 @@ namespace Backlog.Api.Controllers
         [HttpGet("search/{query}", Name = "SearchStoriesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(SearchStories.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<SearchStories.Response>> SearchStories([FromRoute] SearchStories.Request request)
+        [ProducesResponseType(typeof(SearchStoriesResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<SearchStoriesResponse>> SearchStories([FromRoute] SearchStoriesRequest request)
             => await _mediator.Send(request);
 
 
@@ -28,8 +28,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetStoryById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStoryById.Response>> GetById([FromRoute] GetStoryById.Request request)
+        [ProducesResponseType(typeof(GetStoryByIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetStoryByIdResponse>> GetById([FromRoute] GetStoryByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -44,43 +44,43 @@ namespace Backlog.Api.Controllers
         [HttpGet(Name = "GetStoriesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetStories.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStories.Response>> Get()
-            => await _mediator.Send(new GetStories.Request());
+        [ProducesResponseType(typeof(GetStoriesResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetStoriesResponse>> Get()
+            => await _mediator.Send(new GetStoriesRequest());
 
         [HttpPost(Name = "CreateStoryRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateStory.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateStory.Response>> Create([FromBody] CreateStory.Request request)
+        [ProducesResponseType(typeof(CreateStoryResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateStoryResponse>> Create([FromBody] CreateStoryRequest request)
             => await _mediator.Send(request);
 
         [HttpPost("skill-requirement", Name = "AddStorySkillRequirementRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(AddStorySkillRequirement.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<AddStorySkillRequirement.Response>> AddStorySkillRequirement([FromBody] AddStorySkillRequirement.Request request)
+        [ProducesResponseType(typeof(AddStorySkillRequirementResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<AddStorySkillRequirementResponse>> AddStorySkillRequirement([FromBody] AddStorySkillRequirementRequest request)
             => await _mediator.Send(request);
 
         [HttpPut("depends-on", Name = "UpdateStoryDependsOnRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateStoryDependsOn.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateStoryDependsOn.Response>> UpdateStoryDependsOn([FromBody] UpdateStoryDependsOn.Request request)
+        [ProducesResponseType(typeof(UpdateStoryDependsOnResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryDependsOnResponse>> UpdateStoryDependsOn([FromBody] UpdateStoryDependsOnRequest request)
             => await _mediator.Send(request);
 
         [HttpPut("status", Name = "UpdateStoryStatusRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateStoryStatus.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateStoryStatus.Response>> UpdateStoryStatus([FromBody] UpdateStoryStatus.Request request)
+        [ProducesResponseType(typeof(UpdateStoryStatusResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryStatusResponse>> UpdateStoryStatus([FromBody] UpdateStoryStatusRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetStoriesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetStoriesPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStoriesPage.Response>> Page([FromRoute] GetStoriesPage.Request request)
+        [ProducesResponseType(typeof(GetStoriesPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetStoriesPageResponse>> Page([FromRoute] GetStoriesPageRequest request)
             => await _mediator.Send(request);
 
 
@@ -88,22 +88,22 @@ namespace Backlog.Api.Controllers
         [HttpPut(Name = "UpdateStoryRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateStoryDescription.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateStory.Response>> Update([FromBody] UpdateStory.Request request)
+        [ProducesResponseType(typeof(UpdateStoryDescriptionResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryResponse>> Update([FromBody] UpdateStoryRequest request)
             => await _mediator.Send(request);
 
         [HttpPut("jira", Name = "UpdateStoryJiraUrlRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateStoryJiraUrl.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateStoryJiraUrl.Response>> UpdateJiraUrl([FromBody] UpdateStoryJiraUrl.Request request)
+        [ProducesResponseType(typeof(UpdateStoryJiraUrlResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateStoryJiraUrlResponse>> UpdateJiraUrl([FromBody] UpdateStoryJiraUrlRequest request)
             => await _mediator.Send(request);
 
         [HttpDelete("{storyId}", Name = "RemoveStoryRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveStory.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveStory.Response>> Remove([FromRoute] RemoveStory.Request request)
+        [ProducesResponseType(typeof(RemoveStoryResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveStoryResponse>> Remove([FromRoute] RemoveStoryRequest request)
             => await _mediator.Send(request);
 
     }

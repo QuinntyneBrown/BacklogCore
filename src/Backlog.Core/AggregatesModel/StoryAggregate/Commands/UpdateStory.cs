@@ -1,62 +1,57 @@
-
 using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class UpdateStory
+    public class UpdateStoryValidator : AbstractValidator<UpdateStoryRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public UpdateStoryValidator()
         {
-            public Validator()
-            {
-                RuleFor(request => request.Story).NotNull();
-                RuleFor(request => request.Story).SetValidator(new StoryValidator());
-            }
-        }
-
-        public class Request : IRequest<Response>
-        {
-            public StoryDto Story { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public StoryDto Story { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-            {
-                _context = context;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-
-                var story = await _context.Stories.FindAsync(request.Story.StoryId);
-
-                story.Apply(new DomainEvents.UpdateStory(
-                    request.Story.Name,
-                    request.Story.Title,
-                    request.Story.Description,
-                    request.Story.AcceptanceCriteria,
-                    request.Story.JiraUrl,
-                    request.Story.Effort));
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new()
-                {
-                    Story = story.ToDto()
-                };
-            }
+            RuleFor(request => request.Story).NotNull();
+            RuleFor(request => request.Story).SetValidator(new StoryValidator());
         }
     }
+
+    public class UpdateStoryRequest : IRequest<UpdateStoryResponse>
+    {
+        public StoryDto? Story { get; set; }
+    }
+
+    public class UpdateStoryResponse : ResponseBase
+    {
+        public StoryDto? Story { get; set; }
+    }
+
+    public class UpdateStoryHandler : IRequestHandler<UpdateStoryRequest, UpdateStoryResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public UpdateStoryHandler(IBacklogDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<UpdateStoryResponse> Handle(UpdateStoryRequest request, CancellationToken cancellationToken)
+        {
+
+            var story = await _context.Stories.FindAsync(request.Story.StoryId);
+
+            story.Apply(new UpdateStory(
+                request.Story.Name,
+                request.Story.Title,
+                request.Story.Description,
+                request.Story.AcceptanceCriteria,
+                request.Story.JiraUrl,
+                request.Story.Effort));
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new()
+            {
+                Story = story.ToDto()
+            };
+        }
+    }
+
 }

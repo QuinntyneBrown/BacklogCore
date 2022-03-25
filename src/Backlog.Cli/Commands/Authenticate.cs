@@ -1,15 +1,15 @@
+using Backlog.Core;
 using CommandLine;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Backlog.Cli.Features.Users
+namespace Backlog.Cli
 {
-    internal class Authenticate
+    public class Authenticate
     {
         [Verb("default")]
-        internal class Request : IRequest<Unit> {
+        public class Request : IRequest<Unit> {
 
         }
 
@@ -23,17 +23,9 @@ namespace Backlog.Cli.Features.Users
             }
             public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
             {
-                try
-                {
-                    var response = await _mediator.Send(new Backlog.Core.GetStories.Request());
+                await _mediator.Send(new GetStoriesRequest());
 
-                    return new();
-                }
-                catch(Exception e)
-                {
-                    throw e;
-                }
-
+                return new();
             }
         }
     }

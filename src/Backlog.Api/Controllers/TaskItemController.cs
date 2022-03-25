@@ -19,8 +19,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTaskItemById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTaskItemById.Response>> GetById([FromRoute] GetTaskItemById.Request request)
+        [ProducesResponseType(typeof(GetTaskItemByIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTaskItemByIdResponse>> GetById([FromRoute] GetTaskItemByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -35,36 +35,36 @@ namespace Backlog.Api.Controllers
         [HttpGet(Name = "GetTaskItemsRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTaskItems.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTaskItems.Response>> Get()
-            => await _mediator.Send(new GetTaskItems.Request());
+        [ProducesResponseType(typeof(GetTaskItemsResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTaskItemsResponse>> Get()
+            => await _mediator.Send(new GetTaskItemsRequest());
 
         [HttpPost(Name = "CreateTaskItemRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateTaskItem.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateTaskItem.Response>> Create([FromBody] CreateTaskItem.Request request)
+        [ProducesResponseType(typeof(CreateTaskItemResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateTaskItemResponse>> Create([FromBody] CreateTaskItemRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetTaskItemsPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetTaskItemsPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTaskItemsPage.Response>> Page([FromRoute] GetTaskItemsPage.Request request)
+        [ProducesResponseType(typeof(GetTaskItemsPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetTaskItemsPageResponse>> Page([FromRoute] GetTaskItemsPageRequest request)
             => await _mediator.Send(request);
 
         [HttpPut(Name = "UpdateTaskItemRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateTaskItem.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateTaskItem.Response>> Update([FromBody] UpdateTaskItem.Request request)
+        [ProducesResponseType(typeof(UpdateTaskItemResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateTaskItemResponse>> Update([FromBody] UpdateTaskItemRequest request)
             => await _mediator.Send(request);
 
         [HttpDelete("{taskItemId}", Name = "RemoveTaskItemRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveTaskItem.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveTaskItem.Response>> Remove([FromRoute] RemoveTaskItem.Request request)
+        [ProducesResponseType(typeof(RemoveTaskItemResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveTaskItemResponse>> Remove([FromRoute] RemoveTaskItemRequest request)
             => await _mediator.Send(request);
 
     }

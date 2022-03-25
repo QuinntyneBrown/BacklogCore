@@ -1,25 +1,20 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Backlog.Core
 {
-    public class UpdateStoryStatus
-    {
-        public class Validator : AbstractValidator<Request>
+
+        public class UpdateStoryStatusValidator : AbstractValidator<UpdateStoryStatusRequest>
         {
-            public Validator()
+            public UpdateStoryStatusValidator()
             {
                 RuleFor(request => request.StoryId).NotNull();
                 RuleFor(request => request.Status).NotNull()
                     .Custom((status,validationContext) =>
                     {
-                        if(!Constants.StoryStatus.All.Contains(status))
+                        if(!SharedKernelConstants.StoryStatus.All.Contains(status))
                         {
                             validationContext.AddFailure("Invalid Status");
                         }
@@ -27,29 +22,29 @@ namespace Backlog.Core
             }
         }
 
-        public class Request : IRequest<Response>
+        public class UpdateStoryStatusRequest : IRequest<UpdateStoryStatusResponse>
         {
             public Guid StoryId { get; set; }
-            public string Status { get; set; }
+            public string? Status { get; set; }
         }
 
-        public class Response : ResponseBase
+        public class UpdateStoryStatusResponse : ResponseBase
         {
-            public StoryDto Story { get; set; }
+            public StoryDto? Story { get; set; }
         }
 
-        public class Handler : IRequestHandler<Request, Response>
+        public class UpdateStoryStatusHandler : IRequestHandler<UpdateStoryStatusRequest, UpdateStoryStatusResponse>
         {
             private readonly IBacklogDbContext _context;
 
-            public Handler(IBacklogDbContext context)
+            public UpdateStoryStatusHandler(IBacklogDbContext context)
                 => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<UpdateStoryStatusResponse> Handle(UpdateStoryStatusRequest request, CancellationToken cancellationToken)
             {
                 var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
 
-                story.Apply(new DomainEvents.UpdateStoryStatus(request.Status));
+                story.Apply(new UpdateStoryStatus(request.Status));
 
                 await _context.SaveChangesAsync(cancellationToken);
 
@@ -60,5 +55,4 @@ namespace Backlog.Core
             }
 
         }
-    }
 }

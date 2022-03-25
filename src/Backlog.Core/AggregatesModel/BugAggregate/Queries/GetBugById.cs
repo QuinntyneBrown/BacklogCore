@@ -1,40 +1,34 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetBugById
+
+    public class GetBugByIdRequest : IRequest<GetBugByIdResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid BugId { get; set; }
+    }
+
+    public class GetBugByIdResponse : ResponseBase
+    {
+        public BugDto? Bug { get; set; }
+    }
+
+    public class GetBugByIdHandler : IRequestHandler<GetBugByIdRequest, GetBugByIdResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetBugByIdHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetBugByIdResponse> Handle(GetBugByIdRequest request, CancellationToken cancellationToken)
         {
-            public Guid BugId { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public BugDto Bug { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    Bug = (await _context.Bugs.SingleOrDefaultAsync(x => x.BugId == request.BugId)).ToDto()
-                };
-            }
-
+                Bug = (await _context.Bugs.SingleOrDefaultAsync(x => x.BugId == request.BugId))?.ToDto()
+            };
         }
+
     }
 }

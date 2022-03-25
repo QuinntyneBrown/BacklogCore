@@ -1,6 +1,4 @@
 using Backlog.SharedKernel;
-using System;
-using System.Collections.Generic;
 
 namespace Backlog.Core
 {

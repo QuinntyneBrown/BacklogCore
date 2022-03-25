@@ -4,49 +4,45 @@ using MediatR;
 
 namespace Backlog.Core
 {
-    public class CreateTaskItem
+    public class CreateTaskItemValidator : AbstractValidator<CreateTaskItemRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public CreateTaskItemValidator()
         {
-            public Validator()
+            RuleFor(request => request.TaskItem).NotNull();
+            RuleFor(request => request.TaskItem).SetValidator(new TaskItemValidator());
+        }
+
+    }
+
+    public class CreateTaskItemRequest : IRequest<CreateTaskItemResponse>
+    {
+        public TaskItemDto? TaskItem { get; set; }
+    }
+
+    public class CreateTaskItemResponse : ResponseBase
+    {
+        public TaskItemDto? TaskItem { get; set; }
+    }
+
+    public class CreateTaskItemHandler : IRequestHandler<CreateTaskItemRequest, CreateTaskItemResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public CreateTaskItemHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<CreateTaskItemResponse> Handle(CreateTaskItemRequest request, CancellationToken cancellationToken)
+        {
+            var taskItem = new TaskItem(new());
+
+            _context.TaskItems.Add(taskItem);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new CreateTaskItemResponse()
             {
-                RuleFor(request => request.TaskItem).NotNull();
-                RuleFor(request => request.TaskItem).SetValidator(new TaskItemValidator());
-            }
-
-        }
-
-        public class Request : IRequest<Response>
-        {
-            public TaskItemDto TaskItem { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public TaskItemDto TaskItem { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var taskItem = new TaskItem(new());
-
-                _context.TaskItems.Add(taskItem);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    TaskItem = taskItem.ToDto()
-                };
-            }
-
+                TaskItem = taskItem.ToDto()
+            };
         }
     }
 }

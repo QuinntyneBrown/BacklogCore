@@ -2,7 +2,7 @@ using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class User
+    public class User: AggregateRoot
     {
         public Guid UserId { get; private set; }
         public string Username { get; private set; } = string.Empty;

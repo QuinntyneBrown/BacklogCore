@@ -1,55 +1,45 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using Backlog.Api.Extensions;
-
 using Backlog.SharedKernel;
-using Backlog.Api.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetBugsPage
+    public class GetBugsPageRequest : IRequest<GetBugsPageResponse>
     {
-        public class Request : IRequest<Response>
+        public int PageSize { get; set; }
+        public int Index { get; set; }
+    }
+
+    public class GetBugsPageResponse : ResponseBase
+    {
+        public int Length { get; set; }
+        public List<BugDto>? Entities { get; set; }
+    }
+
+    public class GetBugsPageHandler : IRequestHandler<GetBugsPageRequest, GetBugsPageResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetBugsPageHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetBugsPageResponse> Handle(GetBugsPageRequest request, CancellationToken cancellationToken)
         {
-            public int PageSize { get; set; }
-            public int Index { get; set; }
-        }
+            var query = from bug in _context.Bugs
+                        select bug;
 
-        public class Response : ResponseBase
-        {
-            public int Length { get; set; }
-            public List<BugDto> Entities { get; set; }
-        }
+            var length = await _context.Bugs.CountAsync();
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            var bugs = await query.Page(request.Index, request.PageSize)
+                .Select(x => x.ToDto()).ToListAsync();
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                var query = from bug in _context.Bugs
-                            select bug;
-
-                var length = await _context.Bugs.CountAsync();
-
-                var bugs = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
-
-                return new()
-                {
-                    Length = length,
-                    Entities = bugs
-                };
-            }
-
+                Length = length,
+                Entities = bugs
+            };
         }
+
     }
 }

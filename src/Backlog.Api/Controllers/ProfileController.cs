@@ -19,8 +19,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetProfileById.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetProfileById.Response>> GetById([FromRoute] GetProfileById.Request request)
+        [ProducesResponseType(typeof(GetProfileByIdResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetProfileByIdResponse>> GetById([FromRoute] GetProfileByIdRequest request)
         {
             var response = await _mediator.Send(request);
 
@@ -35,36 +35,36 @@ namespace Backlog.Api.Controllers
         [HttpGet(Name = "GetProfilesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetProfiles.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetProfiles.Response>> Get()
-            => await _mediator.Send(new GetProfiles.Request());
+        [ProducesResponseType(typeof(GetProfilesResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetProfilesResponse>> Get()
+            => await _mediator.Send(new GetProfilesRequest());
 
         [HttpPost(Name = "CreateProfileRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(CreateProfile.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<CreateProfile.Response>> Create([FromBody] CreateProfile.Request request)
+        [ProducesResponseType(typeof(CreateProfileResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<CreateProfileResponse>> Create([FromBody] CreateProfileRequest request)
             => await _mediator.Send(request);
 
         [HttpGet("page/{pageSize}/{index}", Name = "GetProfilesPageRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetProfilesPage.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetProfilesPage.Response>> Page([FromRoute] GetProfilesPage.Request request)
+        [ProducesResponseType(typeof(GetProfilesPageResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetProfilesPageResponse>> Page([FromRoute] GetProfilesPageRequest request)
             => await _mediator.Send(request);
 
         [HttpPut(Name = "UpdateProfileRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(UpdateProfile.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpdateProfile.Response>> Update([FromBody] UpdateProfile.Request request)
+        [ProducesResponseType(typeof(UpdateProfileResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpdateProfileResponse>> Update([FromBody] UpdateProfileRequest request)
             => await _mediator.Send(request);
 
         [HttpDelete("{profileId}", Name = "RemoveProfileRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(RemoveProfile.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveProfile.Response>> Remove([FromRoute] RemoveProfile.Request request)
+        [ProducesResponseType(typeof(RemoveProfileResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RemoveProfileResponse>> Remove([FromRoute] RemoveProfileRequest request)
             => await _mediator.Send(request);
 
     }

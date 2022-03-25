@@ -1,49 +1,272 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CompetencyLevel } from '@api';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { baseUrl, EntityPage, IPagableService } from '@core';
+/* tslint:disable */
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { BaseService as __BaseService } from '../base-service';
+import { ApiConfiguration as __Configuration } from '../api-configuration';
+import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
+import { Observable as __Observable } from 'rxjs';
+import { map as __map, filter as __filter } from 'rxjs/operators';
 
+import { GetCompetencyLevelByIdResponse } from '../models/get-competency-level-by-id-response';
+import { RemoveCompetencyLevelResponse } from '../models/remove-competency-level-response';
+import { GetCompetencyLevelsResponse } from '../models/get-competency-levels-response';
+import { CreateCompetencyLevelResponse } from '../models/create-competency-level-response';
+import { CreateCompetencyLevelRequest } from '../models/create-competency-level-request';
+import { UpdateCompetencyLevelResponse } from '../models/update-competency-level-response';
+import { UpdateCompetencyLevelRequest } from '../models/update-competency-level-request';
+import { GetCompetencyLevelsPageResponse } from '../models/get-competency-levels-page-response';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CompetencyLevelService implements IPagableService<CompetencyLevel> {
-
-  uniqueIdentifierName: string = "competencyLevelId";
+class CompetencyLevelService extends __BaseService {
+  static readonly GetCompetencyLevelByIdPath = '/api/CompetencyLevel/{competencyLevelId}';
+  static readonly RemoveCompetencyLevelPath = '/api/CompetencyLevel/{competencyLevelId}';
+  static readonly GetCompetencyLevelsPath = '/api/CompetencyLevel';
+  static readonly CreateCompetencyLevelPath = '/api/CompetencyLevel';
+  static readonly UpdateCompetencyLevelPath = '/api/CompetencyLevel';
+  static readonly GetCompetencyLevelsPagePath = '/api/CompetencyLevel/page/{pageSize}/{index}';
 
   constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _client: HttpClient
-  ) { }
-
-  getPage(options: { pageIndex: number; pageSize: number; }): Observable<EntityPage<CompetencyLevel>> {
-    return this._client.get<EntityPage<CompetencyLevel>>(`${this._baseUrl}api/competencyLevel/page/${options.pageSize}/${options.pageIndex}`)
+    config: __Configuration,
+    http: HttpClient
+  ) {
+    super(config, http);
   }
 
-  public get(): Observable<CompetencyLevel[]> {
-    return this._client.get<{ competencyLevels: CompetencyLevel[] }>(`${this._baseUrl}api/competencyLevel`)
-      .pipe(
-        map(x => x.competencyLevels)
-      );
+  /**
+   * @param CompetencyLevelId undefined
+   * @return Success
+   */
+  GetCompetencyLevelByIdResponse(CompetencyLevelId: string): __Observable<__StrictHttpResponse<GetCompetencyLevelByIdResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/CompetencyLevel/${encodeURIComponent(String(competencyLevelId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetCompetencyLevelByIdResponse>;
+      })
+    );
+  }
+  /**
+   * @param CompetencyLevelId undefined
+   * @return Success
+   */
+  GetCompetencyLevelById(CompetencyLevelId: string): __Observable<GetCompetencyLevelByIdResponse> {
+    return this.GetCompetencyLevelByIdResponse(CompetencyLevelId).pipe(
+      __map(_r => _r.body as GetCompetencyLevelByIdResponse)
+    );
   }
 
-  public getById(options: { competencyLevelId: string }): Observable<CompetencyLevel> {
-    return this._client.get<{ competencyLevel: CompetencyLevel }>(`${this._baseUrl}api/competencyLevel/${options.competencyLevelId}`)
-      .pipe(
-        map(x => x.competencyLevel)
-      );
+  /**
+   * @param CompetencyLevelId undefined
+   * @return Success
+   */
+  RemoveCompetencyLevelResponse(CompetencyLevelId: string): __Observable<__StrictHttpResponse<RemoveCompetencyLevelResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/CompetencyLevel/${encodeURIComponent(String(competencyLevelId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<RemoveCompetencyLevelResponse>;
+      })
+    );
+  }
+  /**
+   * @param CompetencyLevelId undefined
+   * @return Success
+   */
+  RemoveCompetencyLevel(CompetencyLevelId: string): __Observable<RemoveCompetencyLevelResponse> {
+    return this.RemoveCompetencyLevelResponse(CompetencyLevelId).pipe(
+      __map(_r => _r.body as RemoveCompetencyLevelResponse)
+    );
   }
 
-  public remove(options: { competencyLevel: CompetencyLevel }): Observable<void> {
-    return this._client.delete<void>(`${this._baseUrl}api/competencyLevel/${options.competencyLevel.competencyLevelId}`);
+  /**
+   * @return Success
+   */
+  GetCompetencyLevelsResponse(): __Observable<__StrictHttpResponse<GetCompetencyLevelsResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/CompetencyLevel`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetCompetencyLevelsResponse>;
+      })
+    );
+  }
+  /**
+   * @return Success
+   */
+  GetCompetencyLevels(): __Observable<GetCompetencyLevelsResponse> {
+    return this.GetCompetencyLevelsResponse().pipe(
+      __map(_r => _r.body as GetCompetencyLevelsResponse)
+    );
   }
 
-  public create(options: { competencyLevel: CompetencyLevel }): Observable<{ competencyLevel: CompetencyLevel }> {
-    return this._client.post<{ competencyLevel: CompetencyLevel }>(`${this._baseUrl}api/competencyLevel`, { competencyLevel: options.competencyLevel });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateCompetencyLevelResponse(body?: CreateCompetencyLevelRequest): __Observable<__StrictHttpResponse<CreateCompetencyLevelResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/CompetencyLevel`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CreateCompetencyLevelResponse>;
+      })
+    );
   }
-  
-  public update(options: { competencyLevel: CompetencyLevel }): Observable<{ competencyLevel: CompetencyLevel }> {
-    return this._client.put<{ competencyLevel: CompetencyLevel }>(`${this._baseUrl}api/competencyLevel`, { competencyLevel: options.competencyLevel });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateCompetencyLevel(body?: CreateCompetencyLevelRequest): __Observable<CreateCompetencyLevelResponse> {
+    return this.CreateCompetencyLevelResponse(body).pipe(
+      __map(_r => _r.body as CreateCompetencyLevelResponse)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateCompetencyLevelResponse(body?: UpdateCompetencyLevelRequest): __Observable<__StrictHttpResponse<UpdateCompetencyLevelResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/api/CompetencyLevel`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<UpdateCompetencyLevelResponse>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateCompetencyLevel(body?: UpdateCompetencyLevelRequest): __Observable<UpdateCompetencyLevelResponse> {
+    return this.UpdateCompetencyLevelResponse(body).pipe(
+      __map(_r => _r.body as UpdateCompetencyLevelResponse)
+    );
+  }
+
+  /**
+   * @param params The `CompetencyLevelService.GetCompetencyLevelsPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetCompetencyLevelsPageResponse(params: CompetencyLevelService.GetCompetencyLevelsPageParams): __Observable<__StrictHttpResponse<GetCompetencyLevelsPageResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/CompetencyLevel/page/${encodeURIComponent(String(params.pageSize))}/${encodeURIComponent(String(params.index))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetCompetencyLevelsPageResponse>;
+      })
+    );
+  }
+  /**
+   * @param params The `CompetencyLevelService.GetCompetencyLevelsPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetCompetencyLevelsPage(params: CompetencyLevelService.GetCompetencyLevelsPageParams): __Observable<GetCompetencyLevelsPageResponse> {
+    return this.GetCompetencyLevelsPageResponse(params).pipe(
+      __map(_r => _r.body as GetCompetencyLevelsPageResponse)
+    );
   }
 }
+
+module CompetencyLevelService {
+
+  /**
+   * Parameters for GetCompetencyLevelsPage
+   */
+  export interface GetCompetencyLevelsPageParams {
+    PageSize: number;
+    Index: number;
+  }
+}
+
+export { CompetencyLevelService }

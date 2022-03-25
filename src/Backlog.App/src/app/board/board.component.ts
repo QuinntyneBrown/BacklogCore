@@ -1,8 +1,8 @@
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, pluck, startWith, switchMap } from 'rxjs/operators';
 import { storyStatus } from '@core';
-import { SprintService, Story, StoryService } from '@api';
+import { SprintService, StoryService } from '@api';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Pipe({name: 'translateStatus', pure: true })
@@ -30,9 +30,9 @@ export class BoardComponent {
   private readonly _drop$ = this._dropSubject.asObservable();
 
   readonly vm$ = combineLatest([
-    this._sprintService.current(),
+    this._sprintService.GetCurrentSprint().pipe(pluck("sprint")),
     this._drop$.pipe(
-      switchMap(options => this._storyService.updateStatus({
+      switchMap(options => this._storyService.UpdateStoryStatus({
         storyId: options.storyId,
         status: options.status
         })),
@@ -41,7 +41,7 @@ export class BoardComponent {
   ])
   .pipe(
     switchMap(([sprint]) =>  combineLatest(        
-      sprint.storyIds.map(storyId => this._storyService.getById({ storyId }))
+      sprint.storyIds.map(storyId => this._storyService.GetStoryById(storyId).pipe(pluck("story")))
     ).pipe(startWith([]))),
     map(stories => {
 

@@ -1,10 +1,8 @@
-import { Component, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { combineLatest, defer, of, Subject } from 'rxjs';
+import { Component } from '@angular/core';
+import { combineLatest, defer, Subject } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { combine } from '@core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '@api';
+
 
 type Credentials = {
   username: string,
@@ -41,12 +39,6 @@ export class LoginComponent {
       }
     })
   );
-
-  constructor(
-    private readonly _userService: UserService
-  ) {
-
-  }
 
   onLogin(credentials: Credentials) {
     this._loginSubject.next(credentials);

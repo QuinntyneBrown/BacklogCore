@@ -1,49 +1,272 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Status } from '@api';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { baseUrl, EntityPage, IPagableService } from '@core';
+/* tslint:disable */
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { BaseService as __BaseService } from '../base-service';
+import { ApiConfiguration as __Configuration } from '../api-configuration';
+import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
+import { Observable as __Observable } from 'rxjs';
+import { map as __map, filter as __filter } from 'rxjs/operators';
 
+import { GetStatusByIdResponse } from '../models/get-status-by-id-response';
+import { RemoveStatusResponse } from '../models/remove-status-response';
+import { GetStatusesResponse } from '../models/get-statuses-response';
+import { CreateStatusResponse } from '../models/create-status-response';
+import { CreateStatusRequest } from '../models/create-status-request';
+import { UpdateStatusResponse } from '../models/update-status-response';
+import { UpdateStatusRequest } from '../models/update-status-request';
+import { GetStatusesPageResponse } from '../models/get-statuses-page-response';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class StatusService implements IPagableService<Status> {
-
-  uniqueIdentifierName: string = "statusId";
+class StatusService extends __BaseService {
+  static readonly GetStatusByIdPath = '/api/Status/{statusId}';
+  static readonly RemoveStatusPath = '/api/Status/{statusId}';
+  static readonly GetStatusesPath = '/api/Status';
+  static readonly CreateStatusPath = '/api/Status';
+  static readonly UpdateStatusPath = '/api/Status';
+  static readonly GetStatusesPagePath = '/api/Status/page/{pageSize}/{index}';
 
   constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _client: HttpClient
-  ) { }
-
-  getPage(options: { pageIndex: number; pageSize: number; }): Observable<EntityPage<Status>> {
-    return this._client.get<EntityPage<Status>>(`${this._baseUrl}api/status/page/${options.pageSize}/${options.pageIndex}`)
+    config: __Configuration,
+    http: HttpClient
+  ) {
+    super(config, http);
   }
 
-  public get(): Observable<Status[]> {
-    return this._client.get<{ statuses: Status[] }>(`${this._baseUrl}api/status`)
-      .pipe(
-        map(x => x.statuses)
-      );
+  /**
+   * @param StatusId undefined
+   * @return Success
+   */
+  GetStatusByIdResponse(StatusId: string): __Observable<__StrictHttpResponse<GetStatusByIdResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/Status/${encodeURIComponent(String(statusId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetStatusByIdResponse>;
+      })
+    );
+  }
+  /**
+   * @param StatusId undefined
+   * @return Success
+   */
+  GetStatusById(StatusId: string): __Observable<GetStatusByIdResponse> {
+    return this.GetStatusByIdResponse(StatusId).pipe(
+      __map(_r => _r.body as GetStatusByIdResponse)
+    );
   }
 
-  public getById(options: { statusId: string }): Observable<Status> {
-    return this._client.get<{ status: Status }>(`${this._baseUrl}api/status/${options.statusId}`)
-      .pipe(
-        map(x => x.status)
-      );
+  /**
+   * @param StatusId undefined
+   * @return Success
+   */
+  RemoveStatusResponse(StatusId: string): __Observable<__StrictHttpResponse<RemoveStatusResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/Status/${encodeURIComponent(String(statusId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<RemoveStatusResponse>;
+      })
+    );
+  }
+  /**
+   * @param StatusId undefined
+   * @return Success
+   */
+  RemoveStatus(StatusId: string): __Observable<RemoveStatusResponse> {
+    return this.RemoveStatusResponse(StatusId).pipe(
+      __map(_r => _r.body as RemoveStatusResponse)
+    );
   }
 
-  public remove(options: { status: Status }): Observable<void> {
-    return this._client.delete<void>(`${this._baseUrl}api/status/${options.status.statusId}`);
+  /**
+   * @return Success
+   */
+  GetStatusesResponse(): __Observable<__StrictHttpResponse<GetStatusesResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/Status`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetStatusesResponse>;
+      })
+    );
+  }
+  /**
+   * @return Success
+   */
+  GetStatuses(): __Observable<GetStatusesResponse> {
+    return this.GetStatusesResponse().pipe(
+      __map(_r => _r.body as GetStatusesResponse)
+    );
   }
 
-  public create(options: { status: Status }): Observable<{ status: Status }> {
-    return this._client.post<{ status: Status }>(`${this._baseUrl}api/status`, { status: options.status });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateStatusResponse(body?: CreateStatusRequest): __Observable<__StrictHttpResponse<CreateStatusResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/Status`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CreateStatusResponse>;
+      })
+    );
   }
-  
-  public update(options: { status: Status }): Observable<{ status: Status }> {
-    return this._client.put<{ status: Status }>(`${this._baseUrl}api/status`, { status: options.status });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateStatus(body?: CreateStatusRequest): __Observable<CreateStatusResponse> {
+    return this.CreateStatusResponse(body).pipe(
+      __map(_r => _r.body as CreateStatusResponse)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateStatusResponse(body?: UpdateStatusRequest): __Observable<__StrictHttpResponse<UpdateStatusResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/api/Status`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<UpdateStatusResponse>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateStatus(body?: UpdateStatusRequest): __Observable<UpdateStatusResponse> {
+    return this.UpdateStatusResponse(body).pipe(
+      __map(_r => _r.body as UpdateStatusResponse)
+    );
+  }
+
+  /**
+   * @param params The `StatusService.GetStatusesPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetStatusesPageResponse(params: StatusService.GetStatusesPageParams): __Observable<__StrictHttpResponse<GetStatusesPageResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/Status/page/${encodeURIComponent(String(params.pageSize))}/${encodeURIComponent(String(params.index))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetStatusesPageResponse>;
+      })
+    );
+  }
+  /**
+   * @param params The `StatusService.GetStatusesPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetStatusesPage(params: StatusService.GetStatusesPageParams): __Observable<GetStatusesPageResponse> {
+    return this.GetStatusesPageResponse(params).pipe(
+      __map(_r => _r.body as GetStatusesPageResponse)
+    );
   }
 }
+
+module StatusService {
+
+  /**
+   * Parameters for GetStatusesPage
+   */
+  export interface GetStatusesPageParams {
+    PageSize: number;
+    Index: number;
+  }
+}
+
+export { StatusService }

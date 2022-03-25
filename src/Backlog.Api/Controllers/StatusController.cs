@@ -15,7 +15,7 @@ namespace Backlog.Api.Controllers
         public StatusController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("{statusId}", Name = "GetStatusByIdRoute")]
+        [HttpGet("{statusId}", Name = "GetStatusById")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -32,35 +32,35 @@ namespace Backlog.Api.Controllers
             return response;
         }
 
-        [HttpGet(Name = "GetStatusesRoute")]
+        [HttpGet(Name = "GetStatuses")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetStatusesResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetStatusesResponse>> Get()
             => await _mediator.Send(new GetStatusesRequest());
 
-        [HttpPost(Name = "CreateStatusRoute")]
+        [HttpPost(Name = "CreateStatus")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CreateStatusResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CreateStatusResponse>> Create([FromBody] CreateStatusRequest request)
             => await _mediator.Send(request);
 
-        [HttpGet("page/{pageSize}/{index}", Name = "GetStatusesPageRoute")]
+        [HttpGet("page/{pageSize}/{index}", Name = "GetStatusesPage")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetStatusesPageResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetStatusesPageResponse>> Page([FromRoute] GetStatusesPageRequest request)
             => await _mediator.Send(request);
 
-        [HttpPut(Name = "UpdateStatusRoute")]
+        [HttpPut(Name = "UpdateStatus")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateStatusResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<UpdateStatusResponse>> Update([FromBody] UpdateStatusRequest request)
             => await _mediator.Send(request);
 
-        [HttpDelete("{statusId}", Name = "RemoveStatusRoute")]
+        [HttpDelete("{statusId}", Name = "RemoveStatus")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveStatusResponse), (int)HttpStatusCode.OK)]

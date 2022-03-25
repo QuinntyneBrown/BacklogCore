@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, NgModule, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '@api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { User } from '@core';
+
 
 @Component({
   selector: 'bl-user-detail',

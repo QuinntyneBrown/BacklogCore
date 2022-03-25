@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SprintService, Story, StoryService } from '@api';
-import { Destroyable } from '@core';
+import { SprintService, StoryService } from '@api';
+import { Destroyable, Story } from '@core';
 import { AddSprintDialogComponent, FileUploadDialogComponent } from '@shared/components/dialogs';
 import { AddDependencyRelationshipDialogComponent } from '@shared/components/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/components/dialogs/add-skill-requirement-dialog';
 import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
-import { map, startWith, switchAll, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, pluck, startWith, switchAll, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-story',
@@ -48,8 +48,8 @@ export class StoryComponent extends Destroyable  {
     map(([paramMap]) => paramMap.get("storyId")),
     switchMap(storyId => combineLatest(
       [ 
-        storyId ? this._storyService.getById({ storyId }) : of({ }),
-        storyId ? this._sprintService.getByStoryId({ storyId }): of([])
+        storyId ? this._storyService.GetStoryById(storyId).pipe(pluck("story")) : of({ }),
+        storyId ? this._sprintService.GetSprintsByStoryId(storyId).pipe(pluck("sprints")): of([])
       ])),
     map(([story, sprints ]) => {
       const storyControl = new FormControl(story,[Validators.required]);
@@ -75,8 +75,8 @@ export class StoryComponent extends Destroyable  {
 
   save(story: Story) {
     const obs$ = story.storyId
-    ? this._storyService.update({ story })
-    : this._storyService.create({ story });
+    ? this._storyService.UpdateStory({ story })
+    : this._storyService.CreateStory({ story });
 
     obs$
     .pipe(

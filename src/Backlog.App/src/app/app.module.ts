@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateModule  } from '@ngx-translate/core';
 import { TranslateHttpLoader  } from '@ngx-translate/http-loader';
+import { ApiModule } from '@api';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -34,7 +35,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ShellModule
+    ShellModule,
+    ApiModule.forRoot({ rootUrl: 'https://localhost:5001' }),
   ],
   providers: [
     { provide: baseUrl, useValue: "https://localhost:5001/"},

@@ -15,7 +15,7 @@ namespace Backlog.Api.Controllers
         public BugController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("{bugId}", Name = "GetBugByIdRoute")]
+        [HttpGet("{bugId}", Name = "GetBugById")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -32,35 +32,35 @@ namespace Backlog.Api.Controllers
             return response;
         }
 
-        [HttpGet(Name = "GetBugsRoute")]
+        [HttpGet(Name = "GetBugs")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetBugsResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetBugsResponse>> Get()
             => await _mediator.Send(new GetBugsRequest());
 
-        [HttpPost(Name = "CreateBugRoute")]
+        [HttpPost(Name = "CreateBug")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CreateBugResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CreateBugResponse>> Create([FromBody] CreateBugRequest request)
             => await _mediator.Send(request);
 
-        [HttpGet("page/{pageSize}/{index}", Name = "GetBugsPageRoute")]
+        [HttpGet("page/{pageSize}/{index}", Name = "GetBugsPage")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetBugsPageResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetBugsPageResponse>> Page([FromRoute] GetBugsPageRequest request)
             => await _mediator.Send(request);
 
-        [HttpPut(Name = "UpdateBugRoute")]
+        [HttpPut(Name = "UpdateBug")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateBugResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<UpdateBugResponse>> Update([FromBody] UpdateBugRequest request)
             => await _mediator.Send(request);
 
-        [HttpDelete("{bugId}", Name = "RemoveBugRoute")]
+        [HttpDelete("{bugId}", Name = "RemoveBug")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveBugResponse), (int)HttpStatusCode.OK)]

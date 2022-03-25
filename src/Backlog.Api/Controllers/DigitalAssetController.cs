@@ -17,14 +17,14 @@ namespace Backlog.Api.Controllers
         public DigitalAssetController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("page/{pageSize}/{index}", Name = "GetDigitalAssetsPageRoute")]
+        [HttpGet("page/{pageSize}/{index}", Name = "GetDigitalAssetsPage")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetDigitalAssetsPageResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetDigitalAssetsPageResponse>> Page([FromRoute] GetDigitalAssetsPageRequest request)
             => await _mediator.Send(request);
 
-        [HttpGet("{digitalAssetId}", Name = "GetDigitalAssetByIdRoute")]
+        [HttpGet("{digitalAssetId}", Name = "GetDigitalAssetById")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetDigitalAssetByIdResponse), (int)HttpStatusCode.OK)]
@@ -65,7 +65,7 @@ namespace Backlog.Api.Controllers
         }
 
 
-        [HttpDelete("{digitalAssetId}", Name = "RemoveDigitalAssetRoute")]
+        [HttpDelete("{digitalAssetId}", Name = "RemoveDigitalAsset")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveDigitalAssetResponse), (int)HttpStatusCode.OK)]

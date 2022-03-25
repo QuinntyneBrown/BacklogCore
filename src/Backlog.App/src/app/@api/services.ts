@@ -1,0 +1,12 @@
+export { BugService } from './services/bug.service';
+export { CompetencyLevelService } from './services/competency-level.service';
+export { ConnectorService } from './services/connector.service';
+export { DigitalAssetService } from './services/digital-asset.service';
+export { EventsService } from './services/events.service';
+export { ProfileService } from './services/profile.service';
+export { SprintService } from './services/sprint.service';
+export { StatusService } from './services/status.service';
+export { StoryService } from './services/story.service';
+export { TaskItemService } from './services/task-item.service';
+export { TechnologyService } from './services/technology.service';
+export { UserService } from './services/user.service';

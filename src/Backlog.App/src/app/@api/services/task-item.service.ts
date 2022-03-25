@@ -1,49 +1,272 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TaskItem } from '@api';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { baseUrl, EntityPage, IPagableService } from '@core';
+/* tslint:disable */
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { BaseService as __BaseService } from '../base-service';
+import { ApiConfiguration as __Configuration } from '../api-configuration';
+import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
+import { Observable as __Observable } from 'rxjs';
+import { map as __map, filter as __filter } from 'rxjs/operators';
 
+import { GetTaskItemByIdResponse } from '../models/get-task-item-by-id-response';
+import { RemoveTaskItemResponse } from '../models/remove-task-item-response';
+import { GetTaskItemsResponse } from '../models/get-task-items-response';
+import { CreateTaskItemResponse } from '../models/create-task-item-response';
+import { CreateTaskItemRequest } from '../models/create-task-item-request';
+import { UpdateTaskItemResponse } from '../models/update-task-item-response';
+import { UpdateTaskItemRequest } from '../models/update-task-item-request';
+import { GetTaskItemsPageResponse } from '../models/get-task-items-page-response';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class TaskItemService implements IPagableService<TaskItem> {
-
-  uniqueIdentifierName: string = "taskItemId";
+class TaskItemService extends __BaseService {
+  static readonly GetTaskItemByIdPath = '/api/TaskItem/{taskItemId}';
+  static readonly RemoveTaskItemPath = '/api/TaskItem/{taskItemId}';
+  static readonly GetTaskItemsPath = '/api/TaskItem';
+  static readonly CreateTaskItemPath = '/api/TaskItem';
+  static readonly UpdateTaskItemPath = '/api/TaskItem';
+  static readonly GetTaskItemsPagePath = '/api/TaskItem/page/{pageSize}/{index}';
 
   constructor(
-    @Inject(baseUrl) private readonly _baseUrl: string,
-    private readonly _client: HttpClient
-  ) { }
-
-  getPage(options: { pageIndex: number; pageSize: number; }): Observable<EntityPage<TaskItem>> {
-    return this._client.get<EntityPage<TaskItem>>(`${this._baseUrl}api/taskItem/page/${options.pageSize}/${options.pageIndex}`)
+    config: __Configuration,
+    http: HttpClient
+  ) {
+    super(config, http);
   }
 
-  public get(): Observable<TaskItem[]> {
-    return this._client.get<{ taskItems: TaskItem[] }>(`${this._baseUrl}api/taskItem`)
-      .pipe(
-        map(x => x.taskItems)
-      );
+  /**
+   * @param TaskItemId undefined
+   * @return Success
+   */
+  GetTaskItemByIdResponse(TaskItemId: string): __Observable<__StrictHttpResponse<GetTaskItemByIdResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/TaskItem/${encodeURIComponent(String(taskItemId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetTaskItemByIdResponse>;
+      })
+    );
+  }
+  /**
+   * @param TaskItemId undefined
+   * @return Success
+   */
+  GetTaskItemById(TaskItemId: string): __Observable<GetTaskItemByIdResponse> {
+    return this.GetTaskItemByIdResponse(TaskItemId).pipe(
+      __map(_r => _r.body as GetTaskItemByIdResponse)
+    );
   }
 
-  public getById(options: { taskItemId: string }): Observable<TaskItem> {
-    return this._client.get<{ taskItem: TaskItem }>(`${this._baseUrl}api/taskItem/${options.taskItemId}`)
-      .pipe(
-        map(x => x.taskItem)
-      );
+  /**
+   * @param TaskItemId undefined
+   * @return Success
+   */
+  RemoveTaskItemResponse(TaskItemId: string): __Observable<__StrictHttpResponse<RemoveTaskItemResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/TaskItem/${encodeURIComponent(String(taskItemId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<RemoveTaskItemResponse>;
+      })
+    );
+  }
+  /**
+   * @param TaskItemId undefined
+   * @return Success
+   */
+  RemoveTaskItem(TaskItemId: string): __Observable<RemoveTaskItemResponse> {
+    return this.RemoveTaskItemResponse(TaskItemId).pipe(
+      __map(_r => _r.body as RemoveTaskItemResponse)
+    );
   }
 
-  public remove(options: { taskItem: TaskItem }): Observable<void> {
-    return this._client.delete<void>(`${this._baseUrl}api/taskItem/${options.taskItem.taskItemId}`);
+  /**
+   * @return Success
+   */
+  GetTaskItemsResponse(): __Observable<__StrictHttpResponse<GetTaskItemsResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/TaskItem`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetTaskItemsResponse>;
+      })
+    );
+  }
+  /**
+   * @return Success
+   */
+  GetTaskItems(): __Observable<GetTaskItemsResponse> {
+    return this.GetTaskItemsResponse().pipe(
+      __map(_r => _r.body as GetTaskItemsResponse)
+    );
   }
 
-  public create(options: { taskItem: TaskItem }): Observable<{ taskItem: TaskItem }> {
-    return this._client.post<{ taskItem: TaskItem }>(`${this._baseUrl}api/taskItem`, { taskItem: options.taskItem });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateTaskItemResponse(body?: CreateTaskItemRequest): __Observable<__StrictHttpResponse<CreateTaskItemResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/TaskItem`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CreateTaskItemResponse>;
+      })
+    );
   }
-  
-  public update(options: { taskItem: TaskItem }): Observable<{ taskItem: TaskItem }> {
-    return this._client.put<{ taskItem: TaskItem }>(`${this._baseUrl}api/taskItem`, { taskItem: options.taskItem });
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  CreateTaskItem(body?: CreateTaskItemRequest): __Observable<CreateTaskItemResponse> {
+    return this.CreateTaskItemResponse(body).pipe(
+      __map(_r => _r.body as CreateTaskItemResponse)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateTaskItemResponse(body?: UpdateTaskItemRequest): __Observable<__StrictHttpResponse<UpdateTaskItemResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/api/TaskItem`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<UpdateTaskItemResponse>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  UpdateTaskItem(body?: UpdateTaskItemRequest): __Observable<UpdateTaskItemResponse> {
+    return this.UpdateTaskItemResponse(body).pipe(
+      __map(_r => _r.body as UpdateTaskItemResponse)
+    );
+  }
+
+  /**
+   * @param params The `TaskItemService.GetTaskItemsPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetTaskItemsPageResponse(params: TaskItemService.GetTaskItemsPageParams): __Observable<__StrictHttpResponse<GetTaskItemsPageResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/TaskItem/page/${encodeURIComponent(String(params.pageSize))}/${encodeURIComponent(String(params.index))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetTaskItemsPageResponse>;
+      })
+    );
+  }
+  /**
+   * @param params The `TaskItemService.GetTaskItemsPageParams` containing the following parameters:
+   *
+   * - `PageSize`:
+   *
+   * - `Index`:
+   *
+   * @return Success
+   */
+  GetTaskItemsPage(params: TaskItemService.GetTaskItemsPageParams): __Observable<GetTaskItemsPageResponse> {
+    return this.GetTaskItemsPageResponse(params).pipe(
+      __map(_r => _r.body as GetTaskItemsPageResponse)
+    );
   }
 }
+
+module TaskItemService {
+
+  /**
+   * Parameters for GetTaskItemsPage
+   */
+  export interface GetTaskItemsPageParams {
+    PageSize: number;
+    Index: number;
+  }
+}
+
+export { TaskItemService }

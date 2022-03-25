@@ -1,6 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { EventService } from '@api/services/event.service';
-import { BASE_URL } from '@core';
+import { Component } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -12,8 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   }
 })
 export class AppComponent {
-  constructor(private readonly _translateService: TranslateService, 
-    private readonly _eventService: EventService
+  constructor(private readonly _translateService: TranslateService
   ) {
     _translateService.setDefaultLang("en");
     _translateService.use(localStorage.getItem("currentLanguage") || "en");

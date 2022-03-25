@@ -26,7 +26,9 @@ export class StoriesComponent  {
   readonly vm$ = merge(this._refresh$, routeChanged$(this._router))
   .pipe(
     switchMap(_ => combineLatest([
-      this._storyService.get(),
+      this._storyService.GetStories().pipe(
+        map(response => response.stories)
+      ),
       this._searchEnabled$.pipe(
         startWith(false)
       )

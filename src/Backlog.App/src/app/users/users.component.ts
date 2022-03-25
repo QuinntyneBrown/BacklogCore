@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User, UserService } from '@api';
-import { combine } from '@core';
+import { UserService } from '@api';
+import { combine, User } from '@core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -23,7 +23,9 @@ export class UsersComponent {
   readonly vm$ = this._refreshSubject
   .pipe(
     switchMap(_ => combine([
-      this._userService.get(),
+      this._userService.GetUsers().pipe(
+        map(response => response.users)
+      ),
       this._selected$,
       this._createSubject.pipe(switchMap(_ => this._handleCreate())),
       this._saveSubject.pipe(switchMap(user => this._handleSave(user))),
@@ -48,7 +50,7 @@ export class UsersComponent {
   }
 
   private _handleSave(user: User): Observable<boolean> {
-    return (user.userId ? this._userService.update({ user }) : this._userService.create({ user }))
+    return (user.userId ? this._userService.UpdateUser({ user }) : this._userService.CreateUser({ user }))
     .pipe(      
       switchMap(_ => this._router.navigate(["/","users"])),
       tap(_ => this._refreshSubject.next(null))
@@ -56,7 +58,7 @@ export class UsersComponent {
   }
 
   private _handleDelete(user: User): Observable<boolean> {
-    return this._userService.remove({ user })
+    return this._userService.RemoveUser(user.userId)
     .pipe(
       switchMap(_ => this._router.navigate(["/","users"])),
       tap(_ => this._refreshSubject.next(null))
@@ -67,7 +69,9 @@ export class UsersComponent {
   .paramMap
   .pipe(
     map(x => x.get("userId")),
-    switchMap((userId: string) => userId ? this._userService.getById({ userId }) : of({} as User)));
+    switchMap((userId: string) => userId ? this._userService.GetUserById(userId).pipe(
+      map(response => response.user)
+    ) : of({} as User)));
 
   onSave(user: User) {
     this._saveSubject.next(user);

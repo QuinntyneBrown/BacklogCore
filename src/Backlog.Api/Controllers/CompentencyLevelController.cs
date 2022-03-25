@@ -15,7 +15,7 @@ namespace Backlog.Api.Controllers
         public CompetencyLevelController(IMediator mediator)
             => _mediator = mediator;
 
-        [HttpGet("{competencyLevelId}", Name = "GetCompetencyLevelByIdRoute")]
+        [HttpGet("{competencyLevelId}", Name = "GetCompetencyLevelById")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -32,35 +32,35 @@ namespace Backlog.Api.Controllers
             return response;
         }
 
-        [HttpGet(Name = "GetCompetencyLevelsRoute")]
+        [HttpGet(Name = "GetCompetencyLevels")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetCompetencyLevelsResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetCompetencyLevelsResponse>> Get()
             => await _mediator.Send(new GetCompetencyLevelsRequest());
 
-        [HttpPost(Name = "CreateCompetencyLevelRoute")]
+        [HttpPost(Name = "CreateCompetencyLevel")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(CreateCompetencyLevelResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<CreateCompetencyLevelResponse>> Create([FromBody] CreateCompetencyLevelRequest request)
             => await _mediator.Send(request);
 
-        [HttpGet("page/{pageSize}/{index}", Name = "GetCompetencyLevelsPageRoute")]
+        [HttpGet("page/{pageSize}/{index}", Name = "GetCompetencyLevelsPage")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetCompetencyLevelsPageResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetCompetencyLevelsPageResponse>> Page([FromRoute] GetCompetencyLevelsPageRequest request)
             => await _mediator.Send(request);
 
-        [HttpPut(Name = "UpdateCompetencyLevelRoute")]
+        [HttpPut(Name = "UpdateCompetencyLevel")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpdateCompetencyLevelResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<UpdateCompetencyLevelResponse>> Update([FromBody] UpdateCompetencyLevelRequest request)
             => await _mediator.Send(request);
 
-        [HttpDelete("{competencyLevelId}", Name = "RemoveCompetencyLevelRoute")]
+        [HttpDelete("{competencyLevelId}", Name = "RemoveCompetencyLevel")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveCompetencyLevelResponse), (int)HttpStatusCode.OK)]

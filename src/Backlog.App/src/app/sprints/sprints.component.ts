@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Sprint, SprintService } from '@api';
-import { combine } from '@core';
+import { SprintService } from '@api';
+import { combine, Sprint } from '@core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, pluck, switchMap, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class SprintsComponent {
   readonly vm$ = this._refreshSubject
   .pipe(
     switchMap(_ => combine([
-      this._sprintService.get(),
+      this._sprintService.GetSprints().pipe(pluck("sprints")),
       this._selected$,
       this._createSubject.pipe(switchMap(_ => this._handleCreate())),
       this._saveSubject.pipe(switchMap(sprint => this._handleSave(sprint))),
@@ -48,15 +48,15 @@ export class SprintsComponent {
   }
 
   private _handleSave(sprint: Sprint): Observable<boolean> {
-    return (sprint.sprintId ? this._sprintService.update({ sprint }) : this._sprintService.create({ sprint }))
-    .pipe(      
+    return (sprint.sprintId ? this._sprintService.UpdateSprint({ sprint }) : this._sprintService.CreateSprint({ sprint }))
+    .pipe(     
       switchMap(_ => this._router.navigate(["/","sprints"])),
       tap(_ => this._refreshSubject.next(null))
       );    
   }
 
   private _handleDelete(sprint: Sprint): Observable<boolean> {
-    return this._sprintService.remove({ sprint })
+    return this._sprintService.RemoveSprint(sprint.sprintId)
     .pipe(
       switchMap(_ => this._router.navigate(["/","sprints"])),
       tap(_ => this._refreshSubject.next(null))
@@ -67,7 +67,7 @@ export class SprintsComponent {
   .paramMap
   .pipe(
     map(x => x.get("sprintId")),
-    switchMap((sprintId: string) => sprintId ? this._sprintService.getById({ sprintId }) : of({} as Sprint)));
+    switchMap((sprintId: string) => sprintId ? this._sprintService.GetSprintById(sprintId).pipe(pluck("sprint")) : of({} as Sprint)));
 
   onSave(sprint: Sprint) {
     this._saveSubject.next(sprint);

@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { User } from '@api';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { pageSizeOptions } from '@core';
+import { pageSizeOptions, User } from '@core';
 import { MatButtonModule } from '@angular/material/button';
+
 
 
 @Component({

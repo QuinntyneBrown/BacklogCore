@@ -5,6 +5,8 @@ namespace Backlog.Core
     [Owned]
     public class DependencyRelationship
     {
+        // client
+        // supplier
         public string DependsOn { get; private set; }
 
         private DependencyRelationship()

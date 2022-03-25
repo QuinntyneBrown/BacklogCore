@@ -1,6 +1,6 @@
 using Backlog.Api.Helpers;
-using Backlog.Api.Interfaces;
-using Backlog.Core;
+using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;

@@ -1,6 +1,6 @@
-using Backlog.Api.Core;
+
 using Backlog.Api.Extensions;
-using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

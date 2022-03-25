@@ -1,4 +1,4 @@
-using Backlog.Core;
+using Backlog.SharedKernel;
 using System.Linq;
 
 namespace Backlog.Core

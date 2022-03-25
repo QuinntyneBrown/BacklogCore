@@ -2,8 +2,8 @@ using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
+
+using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core

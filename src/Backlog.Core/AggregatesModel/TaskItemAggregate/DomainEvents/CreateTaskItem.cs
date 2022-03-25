@@ -1,6 +1,6 @@
-using Backlog.Api.Core;
 
-namespace Backlog.Api.DomainEvents
+
+namespace Backlog.Core
 {
     public class CreateTaskItem : BaseDomainEvent
     {

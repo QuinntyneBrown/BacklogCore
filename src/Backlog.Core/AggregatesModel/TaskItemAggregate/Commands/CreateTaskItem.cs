@@ -1,10 +1,6 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using Backlog.Core;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
 
 namespace Backlog.Core
 {

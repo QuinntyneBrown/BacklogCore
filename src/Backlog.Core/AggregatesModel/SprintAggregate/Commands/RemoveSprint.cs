@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Backlog.Core;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
+
+using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {

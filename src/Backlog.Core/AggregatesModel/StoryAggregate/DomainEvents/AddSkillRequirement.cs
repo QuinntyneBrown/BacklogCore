@@ -1,7 +1,6 @@
-﻿using Backlog.Api.Core;
-using Backlog.Core;
+﻿using Backlog.SharedKernel;
 
-namespace Backlog.Api.DomainEvents
+namespace Backlog.Core
 {
     public class AddSkillRequirement : BaseDomainEvent
     {

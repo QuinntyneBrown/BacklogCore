@@ -1,5 +1,5 @@
-using Backlog.Api.Core;
-using Backlog.Api.DomainEvents;
+
+using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {

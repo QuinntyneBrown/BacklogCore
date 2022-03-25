@@ -1,9 +1,8 @@
-using Backlog.Api.Core;
-using Backlog.Core;
+using Backlog.SharedKernel;
 using System;
 using System.Collections.Generic;
 
-namespace Backlog.Api.DomainEvents
+namespace Backlog.Core
 {
 
     public class UpdateDependsOn : BaseDomainEvent

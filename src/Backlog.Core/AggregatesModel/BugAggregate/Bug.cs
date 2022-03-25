@@ -1,5 +1,6 @@
-using Backlog.Api.Core;
-using Backlog.Api.DomainEvents;
+
+using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 using System;
 using static System.String;
 

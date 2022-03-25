@@ -1,5 +1,5 @@
 using Backlog.Api.Extensions;
-using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
 using MediatR;
 using System;
 using System.Collections.Generic;

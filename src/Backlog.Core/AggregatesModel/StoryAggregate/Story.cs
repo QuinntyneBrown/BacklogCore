@@ -1,9 +1,4 @@
-using Backlog.Api.Core;
-using Backlog.Api.DomainEvents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using static Backlog.Api.Core.Constants;
+using Backlog.SharedKernel;
 using static System.String;
 
 namespace Backlog.Core

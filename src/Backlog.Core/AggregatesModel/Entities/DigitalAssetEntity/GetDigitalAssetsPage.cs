@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Backlog.Api.Extensions;
-using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
+
+using Backlog.SharedKernel;
 using Backlog.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 

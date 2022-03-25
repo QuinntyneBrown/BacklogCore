@@ -1,5 +1,5 @@
 using System;
-using Backlog.Core;
+using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {

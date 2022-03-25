@@ -1,7 +1,7 @@
-using Backlog.Core;
+using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Api.Interfaces
+namespace Backlog.Core
 {
     public interface IBacklogDbContext
     {

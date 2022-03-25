@@ -1,5 +1,5 @@
-using Backlog.Api.DomainEvents;
-using Backlog.Api.Interfaces;
+using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;

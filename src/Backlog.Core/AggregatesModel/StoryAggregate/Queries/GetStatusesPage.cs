@@ -1,55 +1,45 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
 using Backlog.Api.Extensions;
-
 using Backlog.SharedKernel;
-using Backlog.Api.Extensions;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetStatusesPage
+    public class GetStatusesPageRequest : IRequest<GetStatusesPageResponse>
     {
-        public class Request : IRequest<Response>
+        public int PageSize { get; set; }
+        public int Index { get; set; }
+    }
+
+    public class GetStatusesPageResponse : ResponseBase
+    {
+        public int Length { get; set; }
+        public List<StatusDto>? Entities { get; set; }
+    }
+
+    public class GetStatusesPageHandler : IRequestHandler<GetStatusesPageRequest, GetStatusesPageResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetStatusesPageHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetStatusesPageResponse> Handle(GetStatusesPageRequest request, CancellationToken cancellationToken)
         {
-            public int PageSize { get; set; }
-            public int Index { get; set; }
-        }
+            var query = from status in _context.Statuses
+                        select status;
 
-        public class Response : ResponseBase
-        {
-            public int Length { get; set; }
-            public List<StatusDto> Entities { get; set; }
-        }
+            var length = await _context.Statuses.CountAsync(cancellationToken);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            var statuses = await query.Page(request.Index, request.PageSize)
+                .Select(x => x.ToDto()).ToListAsync();
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                var query = from status in _context.Statuses
-                            select status;
-
-                var length = await _context.Statuses.CountAsync();
-
-                var statuses = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
-
-                return new()
-                {
-                    Length = length,
-                    Entities = statuses
-                };
-            }
-
+                Length = length,
+                Entities = statuses
+            };
         }
+
     }
 }

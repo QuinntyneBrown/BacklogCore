@@ -1,55 +1,38 @@
 using Backlog.Api.Extensions;
-using Backlog.SharedKernel;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class SearchStories
+    public class SearchStoriesRequest : IRequest<SearchStoriesResponse>
     {
-        public class Request : IRequest<Response>
+        public string? Query { get; set; }
+    }
+
+    public class SearchStoriesResponse
+    {
+        public List<StoryDto>? Stories { get; set; }
+    }
+
+    public class SearchStoriesHandler : IRequestHandler<SearchStoriesRequest, SearchStoriesResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public SearchStoriesHandler(IBacklogDbContext context)
         {
-            public string Query { get; set; }
+            _context = context;
         }
 
-        public class Response
+        public async Task<SearchStoriesResponse> Handle(SearchStoriesRequest request, CancellationToken cancellationToken)
         {
-            public List<StoryDto> Stories { get; set; }
-        }
+            var nameResults = _context.Stories.Search("Name", request.Query);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            var titleResults = _context.Stories.Search("Title", request.Query);
 
-            public Handler(IBacklogDbContext context)
+            return new()
             {
-                _context = context;
-            }
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-
-                try
-                {
-                    var nameResults = _context.Stories.Search("Name", request.Query);
-
-                    var titleResults = _context.Stories.Search("Title", request.Query);
-
-                    return new()
-                    {
-                        Stories = nameResults.Union(titleResults)
-                        .Select(x => x.ToDto()).ToList()
-                    };
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-            }
+                Stories = nameResults.Union(titleResults)
+                .Select(x => x.ToDto()).ToList()
+            };
         }
     }
 }

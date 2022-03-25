@@ -1,54 +1,46 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class UpdateStatus
+    public class UpdateStatusValidator : AbstractValidator<UpdateStatusRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public UpdateStatusValidator()
         {
-            public Validator()
+            RuleFor(request => request.Status).NotNull();
+            RuleFor(request => request.Status).SetValidator(new StatusValidator());
+        }
+    }
+
+    public class UpdateStatusRequest : IRequest<UpdateStatusResponse>
+    {
+        public StatusDto? Status { get; set; }
+    }
+
+    public class UpdateStatusResponse : ResponseBase
+    {
+        public StatusDto? Status { get; set; }
+    }
+
+    public class UpdateStatusHandler : IRequestHandler<UpdateStatusRequest, UpdateStatusResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public UpdateStatusHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<UpdateStatusResponse> Handle(UpdateStatusRequest request, CancellationToken cancellationToken)
+        {
+            var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.Status.StatusId, cancellationToken);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new UpdateStatusResponse()
             {
-                RuleFor(request => request.Status).NotNull();
-                RuleFor(request => request.Status).SetValidator(new StatusValidator());
-            }
-
-        }
-
-        public class Request : IRequest<Response>
-        {
-            public StatusDto Status { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public StatusDto Status { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.Status.StatusId);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Status = status.ToDto()
-                };
-            }
-
+                Status = status.ToDto()
+            };
         }
     }
 }

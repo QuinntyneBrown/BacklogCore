@@ -1,53 +1,45 @@
-
 using Backlog.Api.Extensions;
 using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Backlog.Core
 {
-    public class GetStoriesPage
+    public class GetStoriesPageRequest : IRequest<GetStoriesPageResponse>
     {
-        public class Request : IRequest<Response>
+        public int PageSize { get; set; }
+        public int Index { get; set; }
+    }
+
+    public class GetStoriesPageResponse : ResponseBase
+    {
+        public int Length { get; set; }
+        public List<StoryDto>? Entities { get; set; }
+    }
+
+    public class GetStoriesPageHandler : IRequestHandler<GetStoriesPageRequest, GetStoriesPageResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetStoriesPageHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetStoriesPageResponse> Handle(GetStoriesPageRequest request, CancellationToken cancellationToken)
         {
-            public int PageSize { get; set; }
-            public int Index { get; set; }
-        }
+            var query = from story in _context.Stories
+                        select story;
 
-        public class Response : ResponseBase
-        {
-            public int Length { get; set; }
-            public List<StoryDto> Entities { get; set; }
-        }
+            var length = await _context.Stories.CountAsync(cancellationToken: cancellationToken);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            var stories = await query.Page(request.Index, request.PageSize)
+                .Select(x => x.ToDto()).ToListAsync();
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                var query = from story in _context.Stories
-                            select story;
-
-                var length = await _context.Stories.CountAsync();
-
-                var stories = await query.Page(request.Index, request.PageSize)
-                    .Select(x => x.ToDto()).ToListAsync();
-
-                return new()
-                {
-                    Length = length,
-                    Entities = stories
-                };
-            }
-
+                Length = length,
+                Entities = stories
+            };
         }
+
     }
 }

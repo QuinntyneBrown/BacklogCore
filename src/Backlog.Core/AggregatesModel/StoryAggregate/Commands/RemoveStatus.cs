@@ -1,48 +1,40 @@
-using FluentValidation;
+using Backlog.SharedKernel;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.SharedKernel;
 
-using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class RemoveStatus
+    public class RemoveStatusRequest : IRequest<RemoveStatusResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid StatusId { get; set; }
+    }
+
+    public class RemoveStatusResponse : ResponseBase
+    {
+        public StatusDto? Status { get; set; }
+    }
+
+    public class RemoveStatusHandler : IRequestHandler<RemoveStatusRequest, RemoveStatusResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveStatusHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveStatusResponse> Handle(RemoveStatusRequest request, CancellationToken cancellationToken)
         {
-            public Guid StatusId { get; set; }
-        }
+            var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.StatusId, cancellationToken);
 
-        public class Response : ResponseBase
-        {
-            public StatusDto Status { get; set; }
-        }
+            _context.Statuses.Remove(status);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new RemoveStatusResponse()
             {
-                var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.StatusId);
-
-                _context.Statuses.Remove(status);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Status = status.ToDto()
-                };
-            }
-
+                Status = status.ToDto()
+            };
         }
+
     }
 }

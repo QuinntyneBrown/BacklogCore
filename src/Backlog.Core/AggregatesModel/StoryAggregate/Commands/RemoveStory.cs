@@ -1,48 +1,38 @@
-using FluentValidation;
+using Backlog.SharedKernel;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using System;
-using Backlog.SharedKernel;
-
-using Backlog.SharedKernel;
 
 namespace Backlog.Core
 {
-    public class RemoveStory
+    public class RemoveStoryRequest : IRequest<RemoveStoryResponse>
     {
-        public class Request : IRequest<Response>
+        public Guid StoryId { get; set; }
+    }
+
+    public class RemoveStoryResponse : ResponseBase
+    {
+        public StoryDto? Story { get; set; }
+    }
+
+    public class RemoveStoryHandler : IRequestHandler<RemoveStoryRequest, RemoveStoryResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public RemoveStoryHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<RemoveStoryResponse> Handle(RemoveStoryRequest request, CancellationToken cancellationToken)
         {
-            public Guid StoryId { get; set; }
-        }
+            var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId, cancellationToken);
 
-        public class Response : ResponseBase
-        {
-            public StoryDto Story { get; set; }
-        }
+            _context.Stories.Remove(story);
 
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
+            await _context.SaveChangesAsync(cancellationToken);
 
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new RemoveStoryResponse()
             {
-                var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
-
-                _context.Stories.Remove(story);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    Story = story.ToDto()
-                };
-            }
-
+                Story = story.ToDto()
+            };
         }
     }
 }

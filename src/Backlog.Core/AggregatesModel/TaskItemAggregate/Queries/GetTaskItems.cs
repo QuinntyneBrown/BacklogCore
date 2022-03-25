@@ -1,39 +1,30 @@
-using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-
 using Backlog.SharedKernel;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class GetTaskItems
+    public class GetTaskItemsRequest : IRequest<GetTaskItemsResponse> { }
+
+    public class GetTaskItemsResponse : ResponseBase
     {
-        public class Request : IRequest<Response> { }
+        public List<TaskItemDto>? TaskItems { get; set; }
+    }
 
-        public class Response : ResponseBase
+    public class GetTaskItemsHandler : IRequestHandler<GetTaskItemsRequest, GetTaskItemsResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public GetTaskItemsHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<GetTaskItemsResponse> Handle(GetTaskItemsRequest request, CancellationToken cancellationToken)
         {
-            public List<TaskItemDto> TaskItems { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            return new()
             {
-                return new()
-                {
-                    TaskItems = await _context.TaskItems.Select(x => x.ToDto()).ToListAsync()
-                };
-            }
-
+                TaskItems = await _context.TaskItems.Select(x => x.ToDto()).ToListAsync(cancellationToken)
+            };
         }
+
     }
 }

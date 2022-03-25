@@ -43,8 +43,6 @@ namespace Backlog.Api
                         Url = new Uri("https://opensource.org/licenses/MIT"),
                     }
                 });
-
-                options.CustomSchemaIds(x => x.FullName);
             });
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
@@ -107,7 +105,7 @@ namespace Backlog.Api
                 })
                 .AddJwtBearer(options =>
                 {
-                    optionsRequireHttpsMetadata = false;
+                    options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.SecurityTokenValidators.Clear();
                     options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
@@ -116,7 +114,7 @@ namespace Backlog.Api
                     {
                         OnMessageReceived = context =>
                         {
-                            contextRequest.Query.TryGetValue("access_token", out StringValues token);
+                            context.Request.Query.TryGetValue("access_token", out StringValues token);
 
                             if (!string.IsNullOrEmpty(token)) context.Token = token;
 

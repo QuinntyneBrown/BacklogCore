@@ -1,0 +1,4326 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Backlog",
+    "description": "Agile Software",
+    "termsOfService": "https://example.com/terms",
+    "contact": {
+      "name": "Quinntyne Brown",
+      "email": "quinntynebrown@gmail.com"
+    },
+    "license": {
+      "name": "Use under MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Bug/{bugId}": {
+      "get": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "GetBugByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "BugId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBugByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "RemoveBugRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "BugId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveBugResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Bug": {
+      "get": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "GetBugsRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBugsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "CreateBugRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateBugRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateBugResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "UpdateBugRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateBugRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateBugResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Bug/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Bug"
+        ],
+        "operationId": "GetBugsPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetBugsPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/CompetencyLevel/{competencyLevelId}": {
+      "get": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "GetCompetencyLevelByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "CompetencyLevelId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetCompetencyLevelByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "RemoveCompetencyLevelRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "CompetencyLevelId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveCompetencyLevelResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/CompetencyLevel": {
+      "get": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "GetCompetencyLevelsRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetCompetencyLevelsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "CreateCompetencyLevelRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateCompetencyLevelRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateCompetencyLevelResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "UpdateCompetencyLevelRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateCompetencyLevelRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateCompetencyLevelResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/CompetencyLevel/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "CompetencyLevel"
+        ],
+        "operationId": "GetCompetencyLevelsPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetCompetencyLevelsPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Connector": {
+      "post": {
+        "tags": [
+          "Connector"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectorUploadDigitalAssetResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/DigitalAsset/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "operationId": "GetDigitalAssetsPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDigitalAssetsPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/DigitalAsset/{digitalAssetId}": {
+      "get": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "operationId": "GetDigitalAssetByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DigitalAssetId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDigitalAssetByIdResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "operationId": "RemoveDigitalAssetRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DigitalAssetId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveDigitalAssetResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/DigitalAsset/range": {
+      "get": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "DigitalAssetIds",
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetDigitalAssetsByIdsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/DigitalAsset/upload": {
+      "post": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UploadDigitalAssetResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/DigitalAsset/serve/{digitalAssetId}": {
+      "get": {
+        "tags": [
+          "DigitalAsset"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DigitalAssetId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "format": "binary",
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Profile/{profileId}": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "GetProfileByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ProfileId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetProfileByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "RemoveProfileRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ProfileId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveProfileResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Profile": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "GetProfilesRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetProfilesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "CreateProfileRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateProfileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateProfileResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "UpdateProfileRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateProfileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateProfileResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Profile/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "GetProfilesPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetProfilesPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint/{sprintId}": {
+      "get": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "GetSprintByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "SprintId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetSprintByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "RemoveSprintRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "SprintId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveSprintResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint": {
+      "put": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "UpdateSprintRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateSprintRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateSprintResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "GetSprintsRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetSprintsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "CreateSprintRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateSprintRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateSprintResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint/story/{storyId}": {
+      "get": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "GetSprintsByStoryIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StoryId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetSprintsByStoryIdResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint/current": {
+      "get": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "GetCurrentSprintRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetCurrentSprintResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint/story": {
+      "post": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "AddSprintStoryRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddSprintStoryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AddSprintStoryResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Sprint/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Sprint"
+        ],
+        "operationId": "GetSprintsPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetSprintsPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Status/{statusId}": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "GetStatusByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StatusId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStatusByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "RemoveStatusRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StatusId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveStatusResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Status": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "GetStatusesRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStatusesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "CreateStatusRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateStatusResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "UpdateStatusRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateStatusResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Status/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "operationId": "GetStatusesPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStatusesPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/search/{query}": {
+      "get": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "SearchStoriesRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SearchStoriesResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/{storyId}": {
+      "get": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "GetStoryByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StoryId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStoryByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "RemoveStoryRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StoryId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveStoryResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story": {
+      "get": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "GetStoriesRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStoriesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "CreateStoryRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateStoryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateStoryResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "UpdateStoryRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryDescriptionResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/skill-requirement": {
+      "post": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "AddStorySkillRequirementRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddStorySkillRequirementRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AddStorySkillRequirementResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/depends-on": {
+      "put": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "UpdateStoryDependsOnRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryDependsOnRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryDependsOnResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/status": {
+      "put": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "UpdateStoryStatusRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryStatusResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "GetStoriesPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetStoriesPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Story/jira": {
+      "put": {
+        "tags": [
+          "Story"
+        ],
+        "operationId": "UpdateStoryJiraUrlRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryJiraUrlRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateStoryJiraUrlResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/TaskItem/{taskItemId}": {
+      "get": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "GetTaskItemByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TaskItemId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTaskItemByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "RemoveTaskItemRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TaskItemId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveTaskItemResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/TaskItem": {
+      "get": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "GetTaskItemsRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTaskItemsResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "CreateTaskItemRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTaskItemRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateTaskItemResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "UpdateTaskItemRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskItemRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateTaskItemResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/TaskItem/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "TaskItem"
+        ],
+        "operationId": "GetTaskItemsPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTaskItemsPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Technology/{technologyId}": {
+      "get": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "GetTechnologyByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TechnologyId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTechnologyByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "RemoveTechnologyRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TechnologyId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveTechnologyResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Technology": {
+      "get": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "GetTechnologiesRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTechnologiesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "CreateTechnologyRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTechnologyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateTechnologyResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "UpdateTechnologyRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateTechnologyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateTechnologyResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/Technology/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "Technology"
+        ],
+        "operationId": "GetTechnologiesPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetTechnologiesPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/User/{userId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetUserByIdRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetUserByIdResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "RemoveUserRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveUserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/User": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetUsersRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetUsersResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "CreateUserRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CreateUserResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "UpdateUserRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/User/page/{pageSize}/{index}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetUsersPageRoute",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PageSize",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "Index",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetUsersPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/User/token": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "AuthenticateRoute",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AuthenticateResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AddSprintStoryRequest": {
+      "type": "object",
+      "properties": {
+        "sprintId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "storyId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "AddSprintStoryResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "AddStorySkillRequirementRequest": {
+      "type": "object",
+      "properties": {
+        "storyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "technology": {
+          "type": "string"
+        },
+        "competencyLevel": {
+          "type": "string"
+        }
+      }
+    },
+    "AddStorySkillRequirementResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "AuthenticateRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticateResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "userId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "BugDto": {
+      "type": "object",
+      "properties": {
+        "bugId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "CompetencyLevelDto": {
+      "type": "object",
+      "properties": {
+        "competencyLevelId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ConnectorUploadDigitalAssetResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "uploaded": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "file": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateBugRequest": {
+      "type": "object",
+      "properties": {
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "CreateBugResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "CreateCompetencyLevelRequest": {
+      "type": "object",
+      "properties": {
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "CreateCompetencyLevelResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "CreateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "CreateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "CreateSprintRequest": {
+      "type": "object",
+      "properties": {
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "CreateSprintResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "CreateStatusRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "CreateStatusResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "CreateStoryRequest": {
+      "type": "object",
+      "properties": {
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "CreateStoryResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "CreateTaskItemRequest": {
+      "type": "object",
+      "properties": {
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "CreateTaskItemResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "CreateTechnologyRequest": {
+      "type": "object",
+      "properties": {
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "CreateTechnologyResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "CreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "DigitalAssetDto": {
+      "type": "object",
+      "properties": {
+        "digitalAssetId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "bytes": {
+          "format": "byte",
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "height": {
+          "format": "float",
+          "type": "number"
+        },
+        "width": {
+          "format": "float",
+          "type": "number"
+        }
+      }
+    },
+    "GetBugByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "GetBugsPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BugDto"
+          }
+        }
+      }
+    },
+    "GetBugsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bugs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BugDto"
+          }
+        }
+      }
+    },
+    "GetCompetencyLevelByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "GetCompetencyLevelsPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CompetencyLevelDto"
+          }
+        }
+      }
+    },
+    "GetCompetencyLevelsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencyLevels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CompetencyLevelDto"
+          }
+        }
+      }
+    },
+    "GetCurrentSprintResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "GetDigitalAssetByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "digitalAsset": {
+          "$ref": "#/definitions/DigitalAssetDto"
+        }
+      }
+    },
+    "GetDigitalAssetsByIdsResponse": {
+      "type": "object",
+      "properties": {
+        "digitalAssets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DigitalAssetDto"
+          }
+        }
+      }
+    },
+    "GetDigitalAssetsPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DigitalAssetDto"
+          }
+        }
+      }
+    },
+    "GetProfileByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "GetProfilesPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProfileDto"
+          }
+        }
+      }
+    },
+    "GetProfilesResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProfileDto"
+          }
+        }
+      }
+    },
+    "GetSprintByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "GetSprintsByStoryIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SprintDto"
+          }
+        }
+      }
+    },
+    "GetSprintsPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SprintDto"
+          }
+        }
+      }
+    },
+    "GetSprintsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SprintDto"
+          }
+        }
+      }
+    },
+    "GetStatusByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "GetStatusesPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusDto"
+          }
+        }
+      }
+    },
+    "GetStatusesResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "statuses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusDto"
+          }
+        }
+      }
+    },
+    "GetStoriesPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryDto"
+          }
+        }
+      }
+    },
+    "GetStoriesResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryDto"
+          }
+        }
+      }
+    },
+    "GetStoryByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "GetTaskItemByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "GetTaskItemsPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskItemDto"
+          }
+        }
+      }
+    },
+    "GetTaskItemsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TaskItemDto"
+          }
+        }
+      }
+    },
+    "GetTechnologiesPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TechnologyDto"
+          }
+        }
+      }
+    },
+    "GetTechnologiesResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technologies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TechnologyDto"
+          }
+        }
+      }
+    },
+    "GetTechnologyByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "GetUserByIdResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "GetUsersPageResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "length": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserDto"
+          }
+        }
+      }
+    },
+    "GetUsersResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserDto"
+          }
+        }
+      }
+    },
+    "ProblemDetails": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": { }
+    },
+    "ProfileDto": {
+      "type": "object",
+      "properties": {
+        "profileId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        }
+      }
+    },
+    "RemoveBugResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "RemoveCompetencyLevelResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "RemoveDigitalAssetResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "digitalAsset": {
+          "$ref": "#/definitions/DigitalAssetDto"
+        }
+      }
+    },
+    "RemoveProfileResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "RemoveSprintResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "RemoveStatusResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "RemoveStoryResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "RemoveTaskItemResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "RemoveTechnologyResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "RemoveUserResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "SearchStoriesResponse": {
+      "type": "object",
+      "properties": {
+        "stories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StoryDto"
+          }
+        }
+      }
+    },
+    "SkillRequirementDto": {
+      "type": "object",
+      "properties": {
+        "competencyLevel": {
+          "type": "string"
+        },
+        "technology": {
+          "type": "string"
+        }
+      }
+    },
+    "SprintDto": {
+      "type": "object",
+      "properties": {
+        "sprintId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "storyIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "StatusDto": {
+      "type": "object",
+      "properties": {
+        "statusId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "StoryDto": {
+      "type": "object",
+      "properties": {
+        "storyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "acceptanceCriteria": {
+          "type": "string"
+        },
+        "jiraUrl": {
+          "type": "string"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "effort": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "skillRequirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SkillRequirementDto"
+          }
+        }
+      }
+    },
+    "TaskItemDto": {
+      "type": "object",
+      "properties": {
+        "taskItemId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "TechnologyDto": {
+      "type": "object",
+      "properties": {
+        "technologyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateBugRequest": {
+      "type": "object",
+      "properties": {
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "UpdateBugResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bug": {
+          "$ref": "#/definitions/BugDto"
+        }
+      }
+    },
+    "UpdateCompetencyLevelRequest": {
+      "type": "object",
+      "properties": {
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "UpdateCompetencyLevelResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competencyLevel": {
+          "$ref": "#/definitions/CompetencyLevelDto"
+        }
+      }
+    },
+    "UpdateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "UpdateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profile": {
+          "$ref": "#/definitions/ProfileDto"
+        }
+      }
+    },
+    "UpdateSprintRequest": {
+      "type": "object",
+      "properties": {
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "UpdateSprintResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sprint": {
+          "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "UpdateStatusRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "UpdateStatusResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/StatusDto"
+        }
+      }
+    },
+    "UpdateStoryDependsOnRequest": {
+      "type": "object",
+      "properties": {
+        "storyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UpdateStoryDependsOnResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateStoryDescriptionResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateStoryJiraUrlRequest": {
+      "type": "object",
+      "properties": {
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateStoryJiraUrlResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateStoryRequest": {
+      "type": "object",
+      "properties": {
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateStoryStatusRequest": {
+      "type": "object",
+      "properties": {
+        "storyId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateStoryStatusResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "story": {
+          "$ref": "#/definitions/StoryDto"
+        }
+      }
+    },
+    "UpdateTaskItemRequest": {
+      "type": "object",
+      "properties": {
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "UpdateTaskItemResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "taskItem": {
+          "$ref": "#/definitions/TaskItemDto"
+        }
+      }
+    },
+    "UpdateTechnologyRequest": {
+      "type": "object",
+      "properties": {
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "UpdateTechnologyResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "technology": {
+          "$ref": "#/definitions/TechnologyDto"
+        }
+      }
+    },
+    "UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "UpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "$ref": "#/definitions/UserDto"
+        }
+      }
+    },
+    "UploadDigitalAssetResponse": {
+      "type": "object",
+      "properties": {
+        "digitalAssetIds": {
+          "type": "array",
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UserDto": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

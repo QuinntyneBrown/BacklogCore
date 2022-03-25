@@ -64,20 +64,6 @@ namespace Backlog.Api.Controllers
             return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);
         }
 
-        [AllowAnonymous]
-        [HttpGet("serve/name/{filename}")]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(FileContentResult), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> ServeByName([FromRoute] GetDigitalAssetByFilenameRequest request)
-        {
-            var response = await _mediator.Send(request);
-
-            if (response.DigitalAsset == null)
-                return new NotFoundObjectResult(null);
-
-            return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);
-        }
 
         [HttpDelete("{digitalAssetId}", Name = "RemoveDigitalAssetRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

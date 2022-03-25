@@ -1,5 +1,4 @@
-﻿using Backlog.Api.Core;
-using Backlog.Api.Interfaces;
+﻿using Backlog.SharedKernel;
 using Backlog.Testing;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

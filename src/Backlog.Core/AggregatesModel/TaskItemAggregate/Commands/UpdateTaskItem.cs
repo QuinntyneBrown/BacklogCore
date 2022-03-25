@@ -1,54 +1,46 @@
+using Backlog.SharedKernel;
 using FluentValidation;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core
 {
-    public class UpdateTaskItem
+    public class UpdateTaskItemValidator : AbstractValidator<UpdateTaskItemRequest>
     {
-        public class Validator : AbstractValidator<Request>
+        public UpdateTaskItemValidator()
         {
-            public Validator()
+            RuleFor(request => request.TaskItem).NotNull();
+            RuleFor(request => request.TaskItem).SetValidator(new TaskItemValidator());
+        }
+    }
+
+    public class UpdateTaskItemRequest : IRequest<UpdateTaskItemResponse>
+    {
+        public TaskItemDto? TaskItem { get; set; }
+    }
+
+    public class UpdateTaskItemResponse : ResponseBase
+    {
+        public TaskItemDto? TaskItem { get; set; }
+    }
+
+    public class UpdateTaskItemHandler : IRequestHandler<UpdateTaskItemRequest, UpdateTaskItemResponse>
+    {
+        private readonly IBacklogDbContext _context;
+
+        public UpdateTaskItemHandler(IBacklogDbContext context)
+            => _context = context;
+
+        public async Task<UpdateTaskItemResponse> Handle(UpdateTaskItemRequest request, CancellationToken cancellationToken)
+        {
+            var taskItem = await _context.TaskItems.SingleAsync(x => x.TaskItemId == request.TaskItem.TaskItemId, cancellationToken);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return new UpdateTaskItemResponse()
             {
-                RuleFor(request => request.TaskItem).NotNull();
-                RuleFor(request => request.TaskItem).SetValidator(new TaskItemValidator());
-            }
-
-        }
-
-        public class Request : IRequest<Response>
-        {
-            public TaskItemDto TaskItem { get; set; }
-        }
-
-        public class Response : ResponseBase
-        {
-            public TaskItemDto TaskItem { get; set; }
-        }
-
-        public class Handler : IRequestHandler<Request, Response>
-        {
-            private readonly IBacklogDbContext _context;
-
-            public Handler(IBacklogDbContext context)
-                => _context = context;
-
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                var taskItem = await _context.TaskItems.SingleAsync(x => x.TaskItemId == request.TaskItem.TaskItemId);
-
-                await _context.SaveChangesAsync(cancellationToken);
-
-                return new Response()
-                {
-                    TaskItem = taskItem.ToDto()
-                };
-            }
-
+                TaskItem = taskItem.ToDto()
+            };
         }
     }
 }

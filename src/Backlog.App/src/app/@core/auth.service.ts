@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LocalStorageService } from './local-storage.service';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { accessTokenKey, BASE_URL, usernameKey } from './constants';
-import { User, UserService } from '@api';
+import { accessTokenKey, usernameKey } from './constants';
+import { UserDto, UserService } from '@api';
 import { combineLatest, Observable, of, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -11,13 +10,11 @@ import { combineLatest, Observable, of, ReplaySubject, Subject } from 'rxjs';
 })
 export class AuthService {
 
-  private readonly _currentUserSubject: ReplaySubject<User> = new ReplaySubject(1);
+  private readonly _currentUserSubject: ReplaySubject<UserDto> = new ReplaySubject(1);
 
-  currentUser$: Observable<User> = this._currentUserSubject.asObservable();
+  currentUser$: Observable<UserDto> = this._currentUserSubject.asObservable();
 
   constructor(
-    @Inject(BASE_URL) private _baseUrl: string,
-    private readonly _httpClient: HttpClient,
     private readonly _localStorageService: LocalStorageService,
     private readonly _userService: UserService,
     
@@ -29,19 +26,19 @@ export class AuthService {
   }
 
   tryToLogin(options: { username: string; password: string }) {
-    return this._httpClient.post<any>(`${this._baseUrl}api/user/token`, options)
+    return this._userService.Authenticate({ username: options.username, password: options.password })
     .pipe(
       tap(response => {
         this._localStorageService.put({ name: accessTokenKey, value: response.accessToken });
         this._localStorageService.put({ name: usernameKey, value: options.username});
       }),
-      switchMap(_ => this._userService.getCurrent()),
+      switchMap(_ => of({})),
       tap(x => this._currentUserSubject.next(x))
     );
   }
 
-  tryToInitializeCurrentUser(): Observable<User> {
-    return combineLatest([this._userService.getCurrent()])
+  tryToInitializeCurrentUser(): Observable<UserDto> {
+    return combineLatest([this._userService.GetCurrent()])
     .pipe(
       map(([user]) => Object.assign(user)),
       tap(user => this._currentUserSubject.next(user)),

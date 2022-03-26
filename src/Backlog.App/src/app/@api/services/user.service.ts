@@ -14,6 +14,7 @@ import { CreateUserResponse } from '../models/create-user-response';
 import { CreateUserRequest } from '../models/create-user-request';
 import { UpdateUserResponse } from '../models/update-user-response';
 import { UpdateUserRequest } from '../models/update-user-request';
+import { GetCurrentUserResponse } from '../models/get-current-user-response';
 import { GetUsersPageResponse } from '../models/get-users-page-response';
 import { AuthenticateResponse } from '../models/authenticate-response';
 import { AuthenticateRequest } from '../models/authenticate-request';
@@ -26,6 +27,7 @@ class UserService extends __BaseService {
   static readonly GetUsersPath = '/api/User';
   static readonly CreateUserPath = '/api/User';
   static readonly UpdateUserPath = '/api/User';
+  static readonly GetCurrentPath = '/api/User/current';
   static readonly GetUsersPagePath = '/api/User/page/{pageSize}/{index}';
   static readonly AuthenticatePath = '/api/User/token';
 
@@ -210,6 +212,39 @@ class UserService extends __BaseService {
   UpdateUser(body?: UpdateUserRequest): __Observable<UpdateUserResponse> {
     return this.UpdateUserResponse(body).pipe(
       __map(_r => _r.body as UpdateUserResponse)
+    );
+  }
+
+  /**
+   * @return Success
+   */
+  GetCurrentResponse(): __Observable<__StrictHttpResponse<GetCurrentUserResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/api/User/current`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<GetCurrentUserResponse>;
+      })
+    );
+  }
+  /**
+   * @return Success
+   */
+  GetCurrent(): __Observable<GetCurrentUserResponse> {
+    return this.GetCurrentResponse().pipe(
+      __map(_r => _r.body as GetCurrentUserResponse)
     );
   }
 

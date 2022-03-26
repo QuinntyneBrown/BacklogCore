@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SprintService, StoryService } from '@api';
-import { Destroyable, Story } from '@core';
+import { SprintService, StoryDto, StoryService } from '@api';
+import { Destroyable } from '@core';
 import { AddSprintDialogComponent, FileUploadDialogComponent } from '@shared/components/dialogs';
 import { AddDependencyRelationshipDialogComponent } from '@shared/components/dialogs/add-dependency-relationship-dialog';
 import { AddSkillRequirementDialogComponent } from '@shared/components/dialogs/add-skill-requirement-dialog';
@@ -73,7 +73,7 @@ export class StoryComponent extends Destroyable  {
 
   }
 
-  save(story: Story) {
+  save(story: StoryDto) {
     const obs$ = story.storyId
     ? this._storyService.UpdateStory({ story })
     : this._storyService.CreateStory({ story });
@@ -90,7 +90,7 @@ export class StoryComponent extends Destroyable  {
     ).subscribe();
   }
 
-  handleAddDependencyRelationshipClick(story: Story) {
+  handleAddDependencyRelationshipClick(story: StoryDto) {
     this._dialog
     .open(AddDependencyRelationshipDialogComponent, {
       panelClass: 'g-dialog-panel',
@@ -103,7 +103,7 @@ export class StoryComponent extends Destroyable  {
     .subscribe();
   }
 
-  handleAddSkillRequirementClick(story: Story) {
+  handleAddSkillRequirementClick(story: StoryDto) {
     this._dialog
     .open(AddSkillRequirementDialogComponent, {
       panelClass: 'g-dialog-panel',
@@ -116,7 +116,7 @@ export class StoryComponent extends Destroyable  {
     .subscribe();
   }
 
-  handleFileUploadClick(story: Story) {
+  handleFileUploadClick(story: StoryDto) {
     this._dialog.open(FileUploadDialogComponent, {
       panelClass: 'g-dialog-panel',
       width:'100%',

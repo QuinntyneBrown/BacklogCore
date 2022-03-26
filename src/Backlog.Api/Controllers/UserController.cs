@@ -39,7 +39,14 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(GetUsersResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetUsersResponse>> Get()
             => await _mediator.Send(new GetUsersRequest());
-        
+
+        [HttpGet("current", Name = "GetCurrent")]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetCurrentUserResponse), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentUserResponse>> Current()
+            => await _mediator.Send(new GetCurrentUserRequest());
+
         [HttpPost(Name = "CreateUser")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

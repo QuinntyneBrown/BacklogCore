@@ -33,6 +33,7 @@ export { GetCompetencyLevelByIdResponse } from './models/get-competency-level-by
 export { GetCompetencyLevelsPageResponse } from './models/get-competency-levels-page-response';
 export { GetCompetencyLevelsResponse } from './models/get-competency-levels-response';
 export { GetCurrentSprintResponse } from './models/get-current-sprint-response';
+export { GetCurrentUserResponse } from './models/get-current-user-response';
 export { GetDigitalAssetByIdResponse } from './models/get-digital-asset-by-id-response';
 export { GetDigitalAssetsByIdsResponse } from './models/get-digital-assets-by-ids-response';
 export { GetDigitalAssetsPageResponse } from './models/get-digital-assets-page-response';

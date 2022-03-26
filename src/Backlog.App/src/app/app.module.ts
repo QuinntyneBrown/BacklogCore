@@ -39,8 +39,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ApiModule.forRoot({ rootUrl: 'https://localhost:5001' }),
   ],
   providers: [
-    { provide: baseUrl, useValue: "https://localhost:5001/"},
-    { provide: BASE_URL, useValue: "https://localhost:5001/"},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeadersInterceptor,

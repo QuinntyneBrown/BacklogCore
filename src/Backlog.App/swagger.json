@@ -2727,6 +2727,36 @@
         }
       }
     },
+    "/api/User/current": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "GetCurrent",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/GetCurrentUserResponse"
+            }
+          }
+        }
+      }
+    },
     "/api/User/page/{pageSize}/{index}": {
       "get": {
         "tags": [
@@ -3283,6 +3313,14 @@
         },
         "sprint": {
           "$ref": "#/definitions/SprintDto"
+        }
+      }
+    },
+    "GetCurrentUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/UserDto"
         }
       }
     },

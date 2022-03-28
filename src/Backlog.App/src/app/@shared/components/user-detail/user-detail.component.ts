@@ -4,8 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { User } from '@core';
-
+import { UserDto } from '@api';
 
 @Component({
   selector: 'bl-user-detail',
@@ -20,9 +19,9 @@ export class UserDetailComponent {
     password: new FormControl(null, [Validators.required])
   });
 
-  get user(): User { return this.form.value as User; }
+  get user(): UserDto { return this.form.value as UserDto; }
 
-  @Input("user") set user(value: User) {
+  @Input("user") set user(value: UserDto) {
     if(!value?.userId) {
       this.form.reset({
         name: null
@@ -32,7 +31,7 @@ export class UserDetailComponent {
     }
   }
 
-  @Output() save: EventEmitter<User> = new EventEmitter();
+  @Output() save: EventEmitter<UserDto> = new EventEmitter();
 
 }
 

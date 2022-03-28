@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { pageSizeOptions, User } from '@core';
+import { pageSizeOptions } from '@core';
 import { MatButtonModule } from '@angular/material/button';
+import { UserDto } from '@api';
 
 
 
@@ -16,9 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class UserListComponent {
 
-  @Input() selected: User;
+  @Input() selected: UserDto;
 
-  private _dataSource: MatTableDataSource<User>;
+  private _dataSource: MatTableDataSource<UserDto>;
 
   readonly pageSizeOptions: typeof pageSizeOptions = pageSizeOptions;
 
@@ -26,18 +27,18 @@ export class UserListComponent {
 
   @ViewChild(MatPaginator, { static: true }) private _paginator: MatPaginator;
 
-  @Input("users") set users(value: User[]) {
+  @Input("users") set users(value: UserDto[]) {
     this._dataSource = new MatTableDataSource(value);
     this.dataSource.paginator = this._paginator;
   }
 
   get dataSource() { return this._dataSource; }
 
-  @Output() select: EventEmitter<User> = new EventEmitter();
+  @Output() select: EventEmitter<UserDto> = new EventEmitter();
 
   @Output() create: EventEmitter<void> = new EventEmitter();
 
-  @Output() delete: EventEmitter<User> = new EventEmitter();
+  @Output() delete: EventEmitter<UserDto> = new EventEmitter();
 
 }
 

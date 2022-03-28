@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Story } from '@api';
+import { StoryDto } from '@api';
 
 @Component({
   selector: 'bl-search-stories-results',
@@ -8,5 +8,5 @@ import { Story } from '@api';
 })
 export class SearchStoriesResultsComponent {
   @Input() public query: string;
-  @Input() public stories: Story[] = [];
+  @Input() public stories: StoryDto[] = [];
 }

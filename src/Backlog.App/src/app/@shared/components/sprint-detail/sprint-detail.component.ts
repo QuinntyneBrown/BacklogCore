@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, NgModule, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { Sprint } from '@api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SprintDto } from '@api';
 
 @Component({
   selector: 'bl-sprint-detail',
@@ -23,9 +23,9 @@ export class SprintDetailComponent {
     end: new FormControl(null, [Validators.required])
   });
 
-  get sprint(): Sprint { return this.form.value as Sprint; }
+  get sprint(): SprintDto { return this.form.value as SprintDto; }
 
-  @Input("sprint") set sprint(value: Sprint) {
+  @Input("sprint") set sprint(value: SprintDto) {
     if(!value?.sprintId) {
       this.form.reset({
         name: null
@@ -35,7 +35,7 @@ export class SprintDetailComponent {
     }
   }
 
-  @Output() save: EventEmitter<Sprint> = new EventEmitter();
+  @Output() save: EventEmitter<SprintDto> = new EventEmitter();
 
 }
 

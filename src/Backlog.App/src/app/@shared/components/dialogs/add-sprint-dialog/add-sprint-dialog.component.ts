@@ -2,7 +2,6 @@ import { Component, Inject, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { combineLatest, of, Subject } from 'rxjs';
 import { map, startWith, switchMap, tap } from 'rxjs/operators';
-import { combine } from '@core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SprintService, StoryService } from '@api';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,9 +23,9 @@ export class AddSprintDialogComponent {
 
   readonly vm$ = combineLatest([
     of(this._storyId),
-    this._sprintService.get(),
+    this._sprintService.GetSprints(),
     this._addStory$.pipe(
-      switchMap(params => this._sprintService.addStory(params)),
+      switchMap(params => this._sprintService.AddSprintStory(params)),
       tap(_ => this._dialogRef.close()),
       startWith(null)
     )

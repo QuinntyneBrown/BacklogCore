@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { Sprint } from '@api';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { pageSizeOptions } from '@core';
 import { MatButtonModule } from '@angular/material/button';
+import { SprintDto } from '@api';
 
 
 @Component({
@@ -16,9 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SprintListComponent {
 
-  @Input() selected: Sprint;
+  @Input() selected: SprintDto;
 
-  private _dataSource: MatTableDataSource<Sprint>;
+  private _dataSource: MatTableDataSource<SprintDto>;
 
   readonly pageSizeOptions: typeof pageSizeOptions = pageSizeOptions;
 
@@ -26,18 +26,18 @@ export class SprintListComponent {
 
   @ViewChild(MatPaginator, { static: true }) private _paginator: MatPaginator;
 
-  @Input("sprints") set sprints(value: Sprint[]) {
+  @Input("sprints") set sprints(value: SprintDto[]) {
     this._dataSource = new MatTableDataSource(value);
     this.dataSource.paginator = this._paginator;
   }
 
   get dataSource() { return this._dataSource; }
 
-  @Output() select: EventEmitter<Sprint> = new EventEmitter();
+  @Output() select: EventEmitter<SprintDto> = new EventEmitter();
 
   @Output() create: EventEmitter<void> = new EventEmitter();
 
-  @Output() delete: EventEmitter<Sprint> = new EventEmitter();
+  @Output() delete: EventEmitter<SprintDto> = new EventEmitter();
 
 }
 

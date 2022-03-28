@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Story, StoryService } from '@api';
+import { StoryDto, StoryService } from '@api';
 import { Destroyable } from '@core';
 import { BehaviorSubject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { map, takeUntil, tap } from 'rxjs/operators';
 })
 export class AddSkillRequirementDialogComponent extends Destroyable {
 
-  private _story$: BehaviorSubject<Story> = new BehaviorSubject(null);
+  private _story$: BehaviorSubject<StoryDto> = new BehaviorSubject(null);
 
   public vm$ = this._story$
   .pipe(
@@ -48,7 +48,7 @@ export class AddSkillRequirementDialogComponent extends Destroyable {
   ];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) _story: Story,
+    @Inject(MAT_DIALOG_DATA) _story: StoryDto,
     private readonly _storyService: StoryService,
     private readonly _dialogRef: MatDialogRef<AddSkillRequirementDialogComponent>
   ) {
@@ -58,7 +58,7 @@ export class AddSkillRequirementDialogComponent extends Destroyable {
 
   public save(options: { storyId: string, competencyLevel: string, technology: string}) {
     this._storyService
-    .addSkillRequirement(options)
+    .AddStorySkillRequirement(options)
     .pipe(
       takeUntil(this._destroyed$),
       tap(_ => this._dialogRef.close(true))

@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Story, StoryService } from '@api';
+import { StoryDto, StoryService } from '@api';
 import { Destroyable } from '@core';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, pluck, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'bl-add-dependency-relationship-dialog',
@@ -16,12 +16,12 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
 
   public searchControl = new FormControl(null,[]);
 
-  public readonly story$: BehaviorSubject<Story> = new BehaviorSubject(null);
+  public readonly story$: BehaviorSubject<StoryDto> = new BehaviorSubject(null);
 
   public readonly stories$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) _story: Story,
+    @Inject(MAT_DIALOG_DATA) _story: StoryDto,
     private readonly _storyService: StoryService,
     private readonly _dialogRef: MatDialogRef<AddDependencyRelationshipDialogComponent>
   ) {
@@ -31,10 +31,12 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
 
   }
 
-  filteredOptions: Observable<Story[]> = this.searchControl.valueChanges.pipe(
+  filteredOptions: Observable<StoryDto[]> = this.searchControl.valueChanges.pipe(
     startWith(""),
     map(value => (typeof value === "string" ? value : value && value.name)),
-    switchMap(name => (name ? this._storyService.search({ query: name }) : of([])))
+    switchMap(name => (name ? this._storyService.SearchStories(name).pipe(
+      pluck("stories")
+    ) : of([])))
   )
 
   public storySelected($event: MatAutocompleteSelectedEvent) {
@@ -56,7 +58,7 @@ export class AddDependencyRelationshipDialogComponent extends Destroyable {
   public displayWith = value => value?.name;
 
   public save() {
-    this._storyService.updateDependsOn({ storyId: this.story$.value.storyId, dependsOn: this.stories$.value })
+    this._storyService.UpdateStoryDependsOn({ storyId: this.story$.value.storyId, dependsOn: this.stories$.value })
     .pipe(
       takeUntil(this._destroyed$),
       tap(_ => {

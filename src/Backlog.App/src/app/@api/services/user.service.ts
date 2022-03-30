@@ -8,7 +8,6 @@ import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { GetUserByIdResponse } from '../models/get-user-by-id-response';
-import { RemoveUserResponse } from '../models/remove-user-response';
 import { GetUsersResponse } from '../models/get-users-response';
 import { CreateUserResponse } from '../models/create-user-response';
 import { CreateUserRequest } from '../models/create-user-request';
@@ -16,6 +15,7 @@ import { UpdateUserResponse } from '../models/update-user-response';
 import { UpdateUserRequest } from '../models/update-user-request';
 import { GetCurrentUserResponse } from '../models/get-current-user-response';
 import { GetUsersPageResponse } from '../models/get-users-page-response';
+import { RemoveUserResponse } from '../models/remove-user-response';
 import { AuthenticateResponse } from '../models/authenticate-response';
 import { AuthenticateRequest } from '../models/authenticate-request';
 @Injectable({
@@ -23,12 +23,12 @@ import { AuthenticateRequest } from '../models/authenticate-request';
 })
 class UserService extends __BaseService {
   static readonly GetUserByIdPath = '/api/User/{userId}';
-  static readonly RemoveUserPath = '/api/User/{userId}';
   static readonly GetUsersPath = '/api/User';
   static readonly CreateUserPath = '/api/User';
   static readonly UpdateUserPath = '/api/User';
   static readonly GetCurrentPath = '/api/User/current';
-  static readonly GetUsersPagePath = '/api/User/page/{pageSize}/{index}';
+  static readonly GetUsersPagePath = '/api/User/page/{PageSize}/{Index}';
+  static readonly RemoveUserPath = '/api/User/{UserId}';
   static readonly AuthenticatePath = '/api/User/token';
 
   constructor(
@@ -71,42 +71,6 @@ class UserService extends __BaseService {
   GetUserById(UserId: string): __Observable<GetUserByIdResponse> {
     return this.GetUserByIdResponse(UserId).pipe(
       __map(_r => _r.body as GetUserByIdResponse)
-    );
-  }
-
-  /**
-   * @param UserId undefined
-   * @return Success
-   */
-  RemoveUserResponse(UserId: string): __Observable<__StrictHttpResponse<RemoveUserResponse>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `/api/User/${encodeURIComponent(String(userId))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<RemoveUserResponse>;
-      })
-    );
-  }
-  /**
-   * @param UserId undefined
-   * @return Success
-   */
-  RemoveUser(UserId: string): __Observable<RemoveUserResponse> {
-    return this.RemoveUserResponse(UserId).pipe(
-      __map(_r => _r.body as RemoveUserResponse)
     );
   }
 
@@ -265,7 +229,7 @@ class UserService extends __BaseService {
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/api/User/page/${encodeURIComponent(String(params.pageSize))}/${encodeURIComponent(String(params.index))}`,
+      this.rootUrl + `/api/User/page/${encodeURIComponent(String(params.PageSize))}/${encodeURIComponent(String(params.Index))}`,
       __body,
       {
         headers: __headers,
@@ -292,6 +256,42 @@ class UserService extends __BaseService {
   GetUsersPage(params: UserService.GetUsersPageParams): __Observable<GetUsersPageResponse> {
     return this.GetUsersPageResponse(params).pipe(
       __map(_r => _r.body as GetUsersPageResponse)
+    );
+  }
+
+  /**
+   * @param UserId undefined
+   * @return Success
+   */
+  RemoveUserResponse(UserId: string): __Observable<__StrictHttpResponse<RemoveUserResponse>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `/api/User/${encodeURIComponent(String(UserId))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<RemoveUserResponse>;
+      })
+    );
+  }
+  /**
+   * @param UserId undefined
+   * @return Success
+   */
+  RemoveUser(UserId: string): __Observable<RemoveUserResponse> {
+    return this.RemoveUserResponse(UserId).pipe(
+      __map(_r => _r.body as RemoveUserResponse)
     );
   }
 

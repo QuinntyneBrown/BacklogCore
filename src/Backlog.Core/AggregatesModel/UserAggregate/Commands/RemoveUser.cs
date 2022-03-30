@@ -6,7 +6,12 @@ namespace Backlog.Core
 {
     public class RemoveUserRequest : IRequest<RemoveUserResponse>
     {
-        public Guid UserId { get; set; }
+        public Guid UserId { get; init; }
+
+        public RemoveUserRequest(Guid userId)
+        {
+            UserId = userId;
+        }
     }
 
     public class RemoveUserResponse : ResponseBase

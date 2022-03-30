@@ -15,4 +15,3 @@ export * from './mixin';
 export * from './navigation.service';
 export * from './page-size-options';
 export * from './route-changed';
-export * from './view-models';

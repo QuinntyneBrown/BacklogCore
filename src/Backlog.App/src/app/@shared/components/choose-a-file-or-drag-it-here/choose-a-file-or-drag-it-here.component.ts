@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
 import { BaseControl } from '@core';
-import { DigitalAsset, DigitalAssetService } from '@api';
+import { DigitalAssetDto, DigitalAssetService, UploadDigitalAssetResponse } from '@api';
 
 @Component({
   selector: 'bl-choose-a-file-or-drag-it-here',
@@ -27,7 +27,7 @@ export class ChooseAFileOrDragItHereComponent extends BaseControl implements Aft
 
   @Input() public idOnly: boolean = true;
 
-  public digitalAssetId$: Subject<string| DigitalAsset> = new Subject();
+  public digitalAssetId$: Subject<string| DigitalAssetDto> = new Subject();
 
   constructor(
     private readonly _digitalAssetService: DigitalAssetService,
@@ -65,13 +65,13 @@ export class ChooseAFileOrDragItHereComponent extends BaseControl implements Aft
 
       const data = packageFiles(e.dataTransfer.files);
 
-      this._digitalAssetService.upload({ data })
+      this._digitalAssetService.UploadDigitalAsset()
         .pipe(
-          switchMap((x) => this._digitalAssetService.getByIds({ digitalAssetIds: x.digitalAssetIds })),
+          switchMap((x: UploadDigitalAssetResponse) => this._digitalAssetService.GetDigitalAssetsByIdsResponse(x.digitalAssetIds)),
           tap(x => {
             if(this.idOnly) {
               this.digitalAssetId$.next(x[0].digitalAssetId)
-            }else {
+            } else {
               this.digitalAssetId$.next(x[0])
             }
           }),

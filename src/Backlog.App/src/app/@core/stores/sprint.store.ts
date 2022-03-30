@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { DomainEvent, Sprint, SprintService, StoredEvent } from "@api";
-import { EventService } from "@api/services/event.service";
-import { Observable } from "rxjs";
+import { ServerSentEventService, SprintDto, SprintService } from "@api";
+import { Observable, of } from "rxjs";
 import { concatMap, exhaustMap, filter, shareReplay, startWith, switchMap, tap } from "rxjs/operators";
 
 @Injectable({
@@ -11,25 +10,29 @@ export class SprintStore {
 
     constructor(
         private readonly _sprintService: SprintService,
-        private readonly _eventService: EventService
+        private readonly _serverSentEventService: ServerSentEventService
     ) { }
 
-    get(): Observable<Sprint[]> {
-        return this._eventService
-        .events$.pipe(
-            filter(x => x.Items.Type == "UpdateSprint" || x.Items.Type == "CreateSprint"),
-            startWith(null),
-            switchMap(_ => this._sprintService.get())
-        )
+    get(): Observable<SprintDto[]> {
+        // return this._serverSentEventService
+        // .GetEvents.pipe(
+        //     filter(x => x.Items.Type == "UpdateSprint" || x.Items.Type == "CreateSprint"),
+        //     startWith(null),
+        //     switchMap(_ => this._sprintService.get())
+        // )
+
+        return of([]);
     }
 
-    current(): Observable<Sprint> {
-        return this._eventService
-        .events$.pipe(
-            filter(x => x.Items.Type == "UpdateSprint" || x.Items.Type == "CreateSprint"),
-            startWith(null),            
-            exhaustMap(_ => this._sprintService.current())
-        )
+    current(): Observable<SprintDto> {
+        // return this._serverSentEventService
+        // .events$.pipe(
+        //     filter(x => x.Items.Type == "UpdateSprint" || x.Items.Type == "CreateSprint"),
+        //     startWith(null),            
+        //     exhaustMap(_ => this._sprintService.current())
+        // )
+
+        return of(null);
     }
     
 }

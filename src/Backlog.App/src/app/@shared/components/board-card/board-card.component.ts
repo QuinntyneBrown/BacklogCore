@@ -1,6 +1,6 @@
 import { Component, Input, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Story } from '@api';
+import { StoryDto } from '@api';
 
 @Component({
   selector: 'bl-board-card',
@@ -8,7 +8,7 @@ import { Story } from '@api';
   styleUrls: ['./board-card.component.scss']
 })
 export class BoardCardComponent  {
-  @Input() story!: Story;
+  @Input() story!: StoryDto;
 }
 
 @NgModule({

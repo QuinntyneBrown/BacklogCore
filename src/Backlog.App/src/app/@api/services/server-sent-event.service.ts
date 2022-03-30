@@ -10,8 +10,8 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-class EventsService extends __BaseService {
-  static readonly getApiEventsPath = '/api/events';
+class ServerSentEventService extends __BaseService {
+  static readonly GetEventsPath = '/api/events';
 
   constructor(
     config: __Configuration,
@@ -19,7 +19,7 @@ class EventsService extends __BaseService {
   ) {
     super(config, http);
   }
-  getApiEventsResponse(): __Observable<__StrictHttpResponse<null>> {
+  GetEventsResponse(): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -39,14 +39,14 @@ class EventsService extends __BaseService {
         return _r as __StrictHttpResponse<null>;
       })
     );
-  }  getApiEvents(): __Observable<null> {
-    return this.getApiEventsResponse().pipe(
+  }  GetEvents(): __Observable<null> {
+    return this.GetEventsResponse().pipe(
       __map(_r => _r.body as null)
     );
   }
 }
 
-module EventsService {
+module ServerSentEventService {
 }
 
-export { EventsService }
+export { ServerSentEventService }

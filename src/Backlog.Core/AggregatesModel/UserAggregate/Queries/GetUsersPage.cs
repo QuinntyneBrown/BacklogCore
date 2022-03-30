@@ -1,6 +1,5 @@
 using Backlog.Api.Extensions;
 using Backlog.SharedKernel;
-using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +9,11 @@ namespace Backlog.Core
     {
         public int PageSize { get; set; }
         public int Index { get; set; }
+        public GetUsersPageRequest(int pageSize, int index)
+        {
+            PageSize = pageSize;
+            Index = index;
+        }
     }
 
     public class GetUsersPageResponse : ResponseBase

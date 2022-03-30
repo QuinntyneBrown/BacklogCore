@@ -16,16 +16,16 @@ namespace Backlog.Core
 
     public class GetDigitalAssetsByIdsHandler : IRequestHandler<GetDigitalAssetsByIdsRequest, GetDigitalAssetsByIdsResponse>
     {
-        public IBacklogDbContext _context { get; init; }
+        private readonly IBacklogDbContext _context;
         public GetDigitalAssetsByIdsHandler(IBacklogDbContext context) => _context = context;
 
         public async Task<GetDigitalAssetsByIdsResponse> Handle(GetDigitalAssetsByIdsRequest request, CancellationToken cancellationToken)
             => new ()
             {
                 DigitalAssets = await _context.DigitalAssets
-                .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
+                .Where(x => request.DigitalAssetIds != null && request.DigitalAssetIds.Contains(x.DigitalAssetId))
                 .Select(x => x.ToDto())
-                .ToListAsync()
+                .ToListAsync(cancellationToken: cancellationToken)
             };
     }
 }

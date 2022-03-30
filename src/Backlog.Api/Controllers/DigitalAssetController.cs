@@ -41,11 +41,11 @@ namespace Backlog.Api.Controllers
             return response;
         }
 
-        [HttpGet("range")]
+        [HttpGet("range",Name = "GetDigitalAssetsByIds")]
         public async Task<ActionResult<GetDigitalAssetsByIdsResponse>> GetByIds([FromQuery] GetDigitalAssetsByIdsRequest request)
             => await _mediator.Send(request);
 
-        [HttpPost("upload"), DisableRequestSizeLimit]
+        [HttpPost("upload", Name = "UploadDigitalAsset"), DisableRequestSizeLimit]
         public async Task<ActionResult<UploadDigitalAssetResponse>> Save()
             => await _mediator.Send(new UploadDigitalAssetRequest());
 

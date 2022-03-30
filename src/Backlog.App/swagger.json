@@ -652,6 +652,7 @@
         "tags": [
           "DigitalAsset"
         ],
+        "operationId": "GetDigitalAssetsByIds",
         "produces": [
           "text/plain",
           "application/json",
@@ -683,6 +684,7 @@
         "tags": [
           "DigitalAsset"
         ],
+        "operationId": "UploadDigitalAsset",
         "produces": [
           "text/plain",
           "application/json",
@@ -736,18 +738,6 @@
             "schema": {
               "$ref": "#/definitions/ProblemDetails"
             }
-          }
-        }
-      }
-    },
-    "/api/events": {
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
           }
         }
       }
@@ -990,6 +980,19 @@
             "schema": {
               "$ref": "#/definitions/GetProfilesPageResponse"
             }
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "tags": [
+          "ServerSentEvent"
+        ],
+        "operationId": "GetEvents",
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -2574,43 +2577,6 @@
             }
           }
         }
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "RemoveUser",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "UserId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
-            }
-          },
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/RemoveUserResponse"
-            }
-          }
-        }
       }
     },
     "/api/User": {
@@ -2757,7 +2723,7 @@
         }
       }
     },
-    "/api/User/page/{pageSize}/{index}": {
+    "/api/User/page/{PageSize}/{Index}": {
       "get": {
         "tags": [
           "User"
@@ -2798,6 +2764,45 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/GetUsersPageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/User/{UserId}": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "RemoveUser",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "UserId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveUserResponse"
             }
           }
         }

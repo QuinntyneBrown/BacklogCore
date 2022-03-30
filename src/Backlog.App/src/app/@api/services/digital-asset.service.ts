@@ -19,8 +19,8 @@ class DigitalAssetService extends __BaseService {
   static readonly GetDigitalAssetsPagePath = '/api/DigitalAsset/page/{pageSize}/{index}';
   static readonly GetDigitalAssetByIdPath = '/api/DigitalAsset/{digitalAssetId}';
   static readonly RemoveDigitalAssetPath = '/api/DigitalAsset/{digitalAssetId}';
-  static readonly getApiDigitalAssetRangePath = '/api/DigitalAsset/range';
-  static readonly postApiDigitalAssetUploadPath = '/api/DigitalAsset/upload';
+  static readonly GetDigitalAssetsByIdsPath = '/api/DigitalAsset/range';
+  static readonly UploadDigitalAssetPath = '/api/DigitalAsset/upload';
   static readonly getApiDigitalAssetServeDigitalAssetIdPath = '/api/DigitalAsset/serve/{digitalAssetId}';
 
   constructor(
@@ -153,7 +153,7 @@ class DigitalAssetService extends __BaseService {
    * @param DigitalAssetIds undefined
    * @return Success
    */
-  getApiDigitalAssetRangeResponse(DigitalAssetIds?: Array<string>): __Observable<__StrictHttpResponse<GetDigitalAssetsByIdsResponse>> {
+  GetDigitalAssetsByIdsResponse(DigitalAssetIds?: Array<string>): __Observable<__StrictHttpResponse<GetDigitalAssetsByIdsResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -179,8 +179,8 @@ class DigitalAssetService extends __BaseService {
    * @param DigitalAssetIds undefined
    * @return Success
    */
-  getApiDigitalAssetRange(DigitalAssetIds?: Array<string>): __Observable<GetDigitalAssetsByIdsResponse> {
-    return this.getApiDigitalAssetRangeResponse(DigitalAssetIds).pipe(
+  GetDigitalAssetsByIds(DigitalAssetIds?: Array<string>): __Observable<GetDigitalAssetsByIdsResponse> {
+    return this.GetDigitalAssetsByIdsResponse(DigitalAssetIds).pipe(
       __map(_r => _r.body as GetDigitalAssetsByIdsResponse)
     );
   }
@@ -188,7 +188,7 @@ class DigitalAssetService extends __BaseService {
   /**
    * @return Success
    */
-  postApiDigitalAssetUploadResponse(): __Observable<__StrictHttpResponse<UploadDigitalAssetResponse>> {
+  UploadDigitalAssetResponse(): __Observable<__StrictHttpResponse<UploadDigitalAssetResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -212,8 +212,8 @@ class DigitalAssetService extends __BaseService {
   /**
    * @return Success
    */
-  postApiDigitalAssetUpload(): __Observable<UploadDigitalAssetResponse> {
-    return this.postApiDigitalAssetUploadResponse().pipe(
+  UploadDigitalAsset(): __Observable<UploadDigitalAssetResponse> {
+    return this.UploadDigitalAssetResponse().pipe(
       __map(_r => _r.body as UploadDigitalAssetResponse)
     );
   }

@@ -7,8 +7,8 @@ import { BugService } from './services/bug.service';
 import { CompetencyLevelService } from './services/competency-level.service';
 import { ConnectorService } from './services/connector.service';
 import { DigitalAssetService } from './services/digital-asset.service';
-import { EventsService } from './services/events.service';
 import { ProfileService } from './services/profile.service';
+import { ServerSentEventService } from './services/server-sent-event.service';
 import { SprintService } from './services/sprint.service';
 import { StatusService } from './services/status.service';
 import { StoryService } from './services/story.service';
@@ -33,8 +33,8 @@ import { UserService } from './services/user.service';
     CompetencyLevelService,
     ConnectorService,
     DigitalAssetService,
-    EventsService,
     ProfileService,
+    ServerSentEventService,
     SprintService,
     StatusService,
     StoryService,

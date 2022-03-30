@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Backlog.Core;
@@ -58,8 +59,8 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetUsersPageResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetUsersPageResponse>> Page([FromRoute]GetUsersPageRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<GetUsersPageResponse>> Page([FromRoute]int pageSize, [FromRoute]int index)
+            => await _mediator.Send(new GetUsersPageRequest(pageSize,index));
         
         [HttpPut(Name = "UpdateUser")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -72,8 +73,9 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveUserResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveUserResponse>> Remove([FromRoute]RemoveUserRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveUserResponse>> Remove([FromRoute]Guid userId)
+            => await _mediator.Send(new RemoveUserRequest(userId));
+
 
         [AllowAnonymous]
         [HttpPost("token", Name = "Authenticate")]

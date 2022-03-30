@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IO;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,16 +11,19 @@ namespace Backlog.Api.Controllers
 {
     [ApiController]
     [Route("api/events")]
-    public class EventsController : Controller
+    [Produces(MediaTypeNames.Application.Json)]
+    [Consumes(MediaTypeNames.Application.Json)]
+    public class ServerSentEventController : Controller
     {
         private readonly INotificationService _notificationService;
-        public EventsController(INotificationService notificationService)
+        public ServerSentEventController(INotificationService notificationService)
         {
             _notificationService = notificationService;
         }
 
-        [HttpGet]
-        public async Task Get(CancellationToken cancellationToken)
+        [HttpGet(Name = "GetEvents")]
+        [Produces(MediaTypeNames.Application.Json)]
+        public async Task<ActionResult<dynamic>> Get(CancellationToken cancellationToken)
         {
             var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
@@ -38,6 +42,8 @@ namespace Backlog.Api.Controllers
             });
 
             await tcs.Task;
+
+            return null;
 
         }
 

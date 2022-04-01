@@ -2,7 +2,7 @@ import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import { map, pluck, startWith, switchMap } from 'rxjs/operators';
 import { storyStatus } from '@core';
-import { SprintService, StoryService } from '@api';
+import { SprintService, StoryDto, StoryService } from '@api';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Pipe({name: 'translateStatus', pure: true })
@@ -60,14 +60,14 @@ export class BoardComponent {
     })
   );
 
-  @Input() story: Story;
+  @Input() story: StoryDto;
 
   constructor(
     private readonly _sprintService: SprintService,
     private readonly _storyService: StoryService
   ) { }
 
-  onDrop(event: CdkDragDrop<Story[]>, status: string) {
+  onDrop(event: CdkDragDrop<StoryDto[]>, status: string) {
 
     if (event.previousContainer !== event.container) {
 
@@ -76,7 +76,7 @@ export class BoardComponent {
         event.previousIndex,
         event.currentIndex);
 
-      const story: Story = event.container.data[event.currentIndex] as Story;
+      const story: StoryDto = event.container.data[event.currentIndex] as StoryDto;
 
       this._dropSubject.next({
         storyId: story.storyId,

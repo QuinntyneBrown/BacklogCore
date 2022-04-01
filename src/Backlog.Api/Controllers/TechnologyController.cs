@@ -1,6 +1,7 @@
 using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -64,8 +65,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveTechnologyResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveTechnologyResponse>> Remove([FromRoute] RemoveTechnologyRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveTechnologyResponse>> Remove([FromRoute] Guid technologyId)
+        {
+            return await _mediator.Send(new RemoveTechnologyRequest() {  TechnologyId = technologyId });
+        }
 
     }
 }

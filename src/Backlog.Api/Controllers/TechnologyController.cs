@@ -21,8 +21,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTechnologyByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTechnologyByIdResponse>> GetById([FromRoute] GetTechnologyByIdRequest request)
+        public async Task<ActionResult<GetTechnologyByIdResponse>> GetById([FromRoute] Guid technologyId)
         {
+            var request = new GetTechnologyByIdRequest() { TechnologyId = technologyId };
+
             var response = await _mediator.Send(request);
 
             if (response.Technology == null)
@@ -66,9 +68,7 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveTechnologyResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<RemoveTechnologyResponse>> Remove([FromRoute] Guid technologyId)
-        {
-            return await _mediator.Send(new RemoveTechnologyRequest() {  TechnologyId = technologyId });
-        }
+            => await _mediator.Send(new RemoveTechnologyRequest() { TechnologyId = technologyId });
 
     }
 }

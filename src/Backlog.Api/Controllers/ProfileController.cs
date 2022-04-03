@@ -1,6 +1,7 @@
 using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -20,8 +21,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetProfileByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetProfileByIdResponse>> GetById([FromRoute] GetProfileByIdRequest request)
+        public async Task<ActionResult<GetProfileByIdResponse>> GetById([FromRoute]Guid profileId)
         {
+            var request = new GetProfileByIdRequest { ProfileId = profileId };
+
             var response = await _mediator.Send(request);
 
             if (response.Profile == null)

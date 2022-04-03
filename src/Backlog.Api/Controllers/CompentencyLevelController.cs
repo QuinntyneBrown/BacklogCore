@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
+using System;
 
 namespace Backlog.Api.Controllers
 {
@@ -20,8 +21,9 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetCompetencyLevelByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetCompetencyLevelByIdResponse>> GetById([FromRoute] GetCompetencyLevelByIdRequest request)
+        public async Task<ActionResult<GetCompetencyLevelByIdResponse>> GetById([FromRoute] Guid competencyLevelId)
         {
+            var request = new GetCompetencyLevelByIdRequest { CompetencyLevelId = competencyLevelId };
             var response = await _mediator.Send(request);
 
             if (response.CompetencyLevel == null)
@@ -64,8 +66,11 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveCompetencyLevelResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveCompetencyLevelResponse>> Remove([FromRoute] RemoveCompetencyLevelRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveCompetencyLevelResponse>> Remove([FromRoute] Guid competencyLevelId)
+        {
+            var request = new RemoveCompetencyLevelRequest {  CompetencyLevelId = competencyLevelId };
 
+            return await _mediator.Send(request);
+        }
     }
 }

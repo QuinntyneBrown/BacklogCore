@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Backlog.Core;
@@ -20,8 +21,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetSprintByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprintByIdResponse>> GetById([FromRoute]GetSprintByIdRequest request)
+        public async Task<ActionResult<GetSprintByIdResponse>> GetById([FromRoute]Guid sprintId)
         {
+            var request = new GetSprintByIdRequest() {  SprintId = sprintId };
+
             var response = await _mediator.Send(request);
         
             if (response.Sprint == null)
@@ -85,8 +88,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveSprintResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveSprintResponse>> Remove([FromRoute]RemoveSprintRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveSprintResponse>> Remove([FromRoute]Guid sprintId)
+        {
+            var request = new RemoveSprintRequest { SprintId = sprintId };
+
+            return await _mediator.Send(request);
+        }
 
     }
 }

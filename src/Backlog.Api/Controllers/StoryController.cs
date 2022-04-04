@@ -1,6 +1,7 @@
 using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -20,8 +21,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(SearchStoriesResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<SearchStoriesResponse>> SearchStories([FromRoute] SearchStoriesRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<SearchStoriesResponse>> SearchStories([FromRoute] string query)
+        {
+            var request = new SearchStoriesRequest { Query = query };
+
+            return await _mediator.Send(request);
+        }
 
 
         [HttpGet("{storyId}", Name = "GetStoryById")]
@@ -29,8 +34,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetStoryByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStoryByIdResponse>> GetById([FromRoute] GetStoryByIdRequest request)
+        public async Task<ActionResult<GetStoryByIdResponse>> GetById([FromRoute] Guid storyId)
         {
+            var request = new GetStoryByIdRequest { StoryId = storyId };
+
             var response = await _mediator.Send(request);
 
             if (response.Story == null)
@@ -103,8 +110,11 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveStoryResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveStoryResponse>> Remove([FromRoute] RemoveStoryRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveStoryResponse>> Remove([FromRoute] Guid storyId)
+        {
+            var request = new RemoveStoryRequest { StoryId = storyId };
 
+            return await _mediator.Send(request);
+        }        
     }
 }

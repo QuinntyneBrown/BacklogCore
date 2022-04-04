@@ -1,6 +1,7 @@
 using Backlog.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -20,8 +21,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetStatusByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStatusByIdResponse>> GetById([FromRoute] GetStatusByIdRequest request)
+        public async Task<ActionResult<GetStatusByIdResponse>> GetById([FromRoute]Guid statusId)
         {
+            var request = new GetStatusByIdRequest { StatusId = statusId };
+
             var response = await _mediator.Send(request);
 
             if (response.Status == null)
@@ -64,8 +67,11 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveStatusResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveStatusResponse>> Remove([FromRoute] RemoveStatusRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveStatusResponse>> Remove([FromRoute] Guid statusId)
+        {
+            var request = new RemoveStatusRequest { StatusId = statusId };
 
+            return await _mediator.Send(request);
+        }
     }
 }

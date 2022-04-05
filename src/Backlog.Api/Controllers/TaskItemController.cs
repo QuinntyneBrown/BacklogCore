@@ -67,8 +67,11 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveTaskItemResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveTaskItemResponse>> Remove([FromRoute] RemoveTaskItemRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveTaskItemResponse>> Remove([FromRoute] Guid taskItemId)
+        {
+            var request = new RemoveTaskItemRequest { TaskItemId = taskItemId };
 
+            return await _mediator.Send(request);
+        }
     }
 }

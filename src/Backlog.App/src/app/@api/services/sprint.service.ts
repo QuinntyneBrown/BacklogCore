@@ -41,10 +41,10 @@ class SprintService extends __BaseService {
   }
 
   /**
-   * @param SprintId undefined
+   * @param sprintId undefined
    * @return Success
    */
-  GetSprintByIdResponse(SprintId: string): __Observable<__StrictHttpResponse<GetSprintByIdResponse>> {
+  GetSprintByIdResponse(sprintId: string): __Observable<__StrictHttpResponse<GetSprintByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -67,20 +67,20 @@ class SprintService extends __BaseService {
     );
   }
   /**
-   * @param SprintId undefined
+   * @param sprintId undefined
    * @return Success
    */
-  GetSprintById(SprintId: string): __Observable<GetSprintByIdResponse> {
-    return this.GetSprintByIdResponse(SprintId).pipe(
+  GetSprintById(sprintId: string): __Observable<GetSprintByIdResponse> {
+    return this.GetSprintByIdResponse(sprintId).pipe(
       __map(_r => _r.body as GetSprintByIdResponse)
     );
   }
 
   /**
-   * @param SprintId undefined
+   * @param sprintId undefined
    * @return Success
    */
-  RemoveSprintResponse(SprintId: string): __Observable<__StrictHttpResponse<RemoveSprintResponse>> {
+  RemoveSprintResponse(sprintId: string): __Observable<__StrictHttpResponse<RemoveSprintResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -103,11 +103,11 @@ class SprintService extends __BaseService {
     );
   }
   /**
-   * @param SprintId undefined
+   * @param sprintId undefined
    * @return Success
    */
-  RemoveSprint(SprintId: string): __Observable<RemoveSprintResponse> {
-    return this.RemoveSprintResponse(SprintId).pipe(
+  RemoveSprint(sprintId: string): __Observable<RemoveSprintResponse> {
+    return this.RemoveSprintResponse(sprintId).pipe(
       __map(_r => _r.body as RemoveSprintResponse)
     );
   }
@@ -218,10 +218,10 @@ class SprintService extends __BaseService {
   }
 
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  GetSprintsByStoryIdResponse(StoryId: string): __Observable<__StrictHttpResponse<GetSprintsByStoryIdResponse>> {
+  GetSprintsByStoryIdResponse(storyId: string): __Observable<__StrictHttpResponse<GetSprintsByStoryIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -244,11 +244,11 @@ class SprintService extends __BaseService {
     );
   }
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  GetSprintsByStoryId(StoryId: string): __Observable<GetSprintsByStoryIdResponse> {
-    return this.GetSprintsByStoryIdResponse(StoryId).pipe(
+  GetSprintsByStoryId(storyId: string): __Observable<GetSprintsByStoryIdResponse> {
+    return this.GetSprintsByStoryIdResponse(storyId).pipe(
       __map(_r => _r.body as GetSprintsByStoryIdResponse)
     );
   }

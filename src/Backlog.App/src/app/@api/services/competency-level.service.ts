@@ -34,10 +34,10 @@ class CompetencyLevelService extends __BaseService {
   }
 
   /**
-   * @param CompetencyLevelId undefined
+   * @param competencyLevelId undefined
    * @return Success
    */
-  GetCompetencyLevelByIdResponse(CompetencyLevelId: string): __Observable<__StrictHttpResponse<GetCompetencyLevelByIdResponse>> {
+  GetCompetencyLevelByIdResponse(competencyLevelId: string): __Observable<__StrictHttpResponse<GetCompetencyLevelByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,20 +60,20 @@ class CompetencyLevelService extends __BaseService {
     );
   }
   /**
-   * @param CompetencyLevelId undefined
+   * @param competencyLevelId undefined
    * @return Success
    */
-  GetCompetencyLevelById(CompetencyLevelId: string): __Observable<GetCompetencyLevelByIdResponse> {
-    return this.GetCompetencyLevelByIdResponse(CompetencyLevelId).pipe(
+  GetCompetencyLevelById(competencyLevelId: string): __Observable<GetCompetencyLevelByIdResponse> {
+    return this.GetCompetencyLevelByIdResponse(competencyLevelId).pipe(
       __map(_r => _r.body as GetCompetencyLevelByIdResponse)
     );
   }
 
   /**
-   * @param CompetencyLevelId undefined
+   * @param competencyLevelId undefined
    * @return Success
    */
-  RemoveCompetencyLevelResponse(CompetencyLevelId: string): __Observable<__StrictHttpResponse<RemoveCompetencyLevelResponse>> {
+  RemoveCompetencyLevelResponse(competencyLevelId: string): __Observable<__StrictHttpResponse<RemoveCompetencyLevelResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class CompetencyLevelService extends __BaseService {
     );
   }
   /**
-   * @param CompetencyLevelId undefined
+   * @param competencyLevelId undefined
    * @return Success
    */
-  RemoveCompetencyLevel(CompetencyLevelId: string): __Observable<RemoveCompetencyLevelResponse> {
-    return this.RemoveCompetencyLevelResponse(CompetencyLevelId).pipe(
+  RemoveCompetencyLevel(competencyLevelId: string): __Observable<RemoveCompetencyLevelResponse> {
+    return this.RemoveCompetencyLevelResponse(competencyLevelId).pipe(
       __map(_r => _r.body as RemoveCompetencyLevelResponse)
     );
   }

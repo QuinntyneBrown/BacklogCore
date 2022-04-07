@@ -2107,7 +2107,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "TaskItemId",
+            "name": "taskItemId",
             "required": true,
             "type": "string",
             "format": "uuid"

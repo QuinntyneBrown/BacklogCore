@@ -34,10 +34,10 @@ class BugService extends __BaseService {
   }
 
   /**
-   * @param BugId undefined
+   * @param bugId undefined
    * @return Success
    */
-  GetBugByIdResponse(BugId: string): __Observable<__StrictHttpResponse<GetBugByIdResponse>> {
+  GetBugByIdResponse(bugId: string): __Observable<__StrictHttpResponse<GetBugByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,20 +60,20 @@ class BugService extends __BaseService {
     );
   }
   /**
-   * @param BugId undefined
+   * @param bugId undefined
    * @return Success
    */
-  GetBugById(BugId: string): __Observable<GetBugByIdResponse> {
-    return this.GetBugByIdResponse(BugId).pipe(
+  GetBugById(bugId: string): __Observable<GetBugByIdResponse> {
+    return this.GetBugByIdResponse(bugId).pipe(
       __map(_r => _r.body as GetBugByIdResponse)
     );
   }
 
   /**
-   * @param BugId undefined
+   * @param bugId undefined
    * @return Success
    */
-  RemoveBugResponse(BugId: string): __Observable<__StrictHttpResponse<RemoveBugResponse>> {
+  RemoveBugResponse(bugId: string): __Observable<__StrictHttpResponse<RemoveBugResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class BugService extends __BaseService {
     );
   }
   /**
-   * @param BugId undefined
+   * @param bugId undefined
    * @return Success
    */
-  RemoveBug(BugId: string): __Observable<RemoveBugResponse> {
-    return this.RemoveBugResponse(BugId).pipe(
+  RemoveBug(bugId: string): __Observable<RemoveBugResponse> {
+    return this.RemoveBugResponse(bugId).pipe(
       __map(_r => _r.body as RemoveBugResponse)
     );
   }

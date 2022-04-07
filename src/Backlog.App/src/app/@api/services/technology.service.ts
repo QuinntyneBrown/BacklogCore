@@ -34,10 +34,10 @@ class TechnologyService extends __BaseService {
   }
 
   /**
-   * @param TechnologyId undefined
+   * @param technologyId undefined
    * @return Success
    */
-  GetTechnologyByIdResponse(TechnologyId: string): __Observable<__StrictHttpResponse<GetTechnologyByIdResponse>> {
+  GetTechnologyByIdResponse(technologyId: string): __Observable<__StrictHttpResponse<GetTechnologyByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,20 +60,20 @@ class TechnologyService extends __BaseService {
     );
   }
   /**
-   * @param TechnologyId undefined
+   * @param technologyId undefined
    * @return Success
    */
-  GetTechnologyById(TechnologyId: string): __Observable<GetTechnologyByIdResponse> {
-    return this.GetTechnologyByIdResponse(TechnologyId).pipe(
+  GetTechnologyById(technologyId: string): __Observable<GetTechnologyByIdResponse> {
+    return this.GetTechnologyByIdResponse(technologyId).pipe(
       __map(_r => _r.body as GetTechnologyByIdResponse)
     );
   }
 
   /**
-   * @param TechnologyId undefined
+   * @param technologyId undefined
    * @return Success
    */
-  RemoveTechnologyResponse(TechnologyId: string): __Observable<__StrictHttpResponse<RemoveTechnologyResponse>> {
+  RemoveTechnologyResponse(technologyId: string): __Observable<__StrictHttpResponse<RemoveTechnologyResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class TechnologyService extends __BaseService {
     );
   }
   /**
-   * @param TechnologyId undefined
+   * @param technologyId undefined
    * @return Success
    */
-  RemoveTechnology(TechnologyId: string): __Observable<RemoveTechnologyResponse> {
-    return this.RemoveTechnologyResponse(TechnologyId).pipe(
+  RemoveTechnology(technologyId: string): __Observable<RemoveTechnologyResponse> {
+    return this.RemoveTechnologyResponse(technologyId).pipe(
       __map(_r => _r.body as RemoveTechnologyResponse)
     );
   }

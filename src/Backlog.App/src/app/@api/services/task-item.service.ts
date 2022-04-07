@@ -34,10 +34,10 @@ class TaskItemService extends __BaseService {
   }
 
   /**
-   * @param TaskItemId undefined
+   * @param taskItemId undefined
    * @return Success
    */
-  GetTaskItemByIdResponse(TaskItemId: string): __Observable<__StrictHttpResponse<GetTaskItemByIdResponse>> {
+  GetTaskItemByIdResponse(taskItemId: string): __Observable<__StrictHttpResponse<GetTaskItemByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,20 +60,20 @@ class TaskItemService extends __BaseService {
     );
   }
   /**
-   * @param TaskItemId undefined
+   * @param taskItemId undefined
    * @return Success
    */
-  GetTaskItemById(TaskItemId: string): __Observable<GetTaskItemByIdResponse> {
-    return this.GetTaskItemByIdResponse(TaskItemId).pipe(
+  GetTaskItemById(taskItemId: string): __Observable<GetTaskItemByIdResponse> {
+    return this.GetTaskItemByIdResponse(taskItemId).pipe(
       __map(_r => _r.body as GetTaskItemByIdResponse)
     );
   }
 
   /**
-   * @param TaskItemId undefined
+   * @param taskItemId undefined
    * @return Success
    */
-  RemoveTaskItemResponse(TaskItemId: string): __Observable<__StrictHttpResponse<RemoveTaskItemResponse>> {
+  RemoveTaskItemResponse(taskItemId: string): __Observable<__StrictHttpResponse<RemoveTaskItemResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class TaskItemService extends __BaseService {
     );
   }
   /**
-   * @param TaskItemId undefined
+   * @param taskItemId undefined
    * @return Success
    */
-  RemoveTaskItem(TaskItemId: string): __Observable<RemoveTaskItemResponse> {
-    return this.RemoveTaskItemResponse(TaskItemId).pipe(
+  RemoveTaskItem(taskItemId: string): __Observable<RemoveTaskItemResponse> {
+    return this.RemoveTaskItemResponse(taskItemId).pipe(
       __map(_r => _r.body as RemoveTaskItemResponse)
     );
   }

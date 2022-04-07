@@ -34,10 +34,10 @@ class ProfileService extends __BaseService {
   }
 
   /**
-   * @param ProfileId undefined
+   * @param profileId undefined
    * @return Success
    */
-  GetProfileByIdResponse(ProfileId: string): __Observable<__StrictHttpResponse<GetProfileByIdResponse>> {
+  GetProfileByIdResponse(profileId: string): __Observable<__StrictHttpResponse<GetProfileByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,11 +60,11 @@ class ProfileService extends __BaseService {
     );
   }
   /**
-   * @param ProfileId undefined
+   * @param profileId undefined
    * @return Success
    */
-  GetProfileById(ProfileId: string): __Observable<GetProfileByIdResponse> {
-    return this.GetProfileByIdResponse(ProfileId).pipe(
+  GetProfileById(profileId: string): __Observable<GetProfileByIdResponse> {
+    return this.GetProfileByIdResponse(profileId).pipe(
       __map(_r => _r.body as GetProfileByIdResponse)
     );
   }

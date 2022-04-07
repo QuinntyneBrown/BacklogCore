@@ -48,10 +48,10 @@ class StoryService extends __BaseService {
   }
 
   /**
-   * @param Query undefined
+   * @param query undefined
    * @return Success
    */
-  SearchStoriesResponse(Query: string): __Observable<__StrictHttpResponse<SearchStoriesResponse>> {
+  SearchStoriesResponse(query: string): __Observable<__StrictHttpResponse<SearchStoriesResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -74,20 +74,20 @@ class StoryService extends __BaseService {
     );
   }
   /**
-   * @param Query undefined
+   * @param query undefined
    * @return Success
    */
-  SearchStories(Query: string): __Observable<SearchStoriesResponse> {
-    return this.SearchStoriesResponse(Query).pipe(
+  SearchStories(query: string): __Observable<SearchStoriesResponse> {
+    return this.SearchStoriesResponse(query).pipe(
       __map(_r => _r.body as SearchStoriesResponse)
     );
   }
 
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  GetStoryByIdResponse(StoryId: string): __Observable<__StrictHttpResponse<GetStoryByIdResponse>> {
+  GetStoryByIdResponse(storyId: string): __Observable<__StrictHttpResponse<GetStoryByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -110,20 +110,20 @@ class StoryService extends __BaseService {
     );
   }
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  GetStoryById(StoryId: string): __Observable<GetStoryByIdResponse> {
-    return this.GetStoryByIdResponse(StoryId).pipe(
+  GetStoryById(storyId: string): __Observable<GetStoryByIdResponse> {
+    return this.GetStoryByIdResponse(storyId).pipe(
       __map(_r => _r.body as GetStoryByIdResponse)
     );
   }
 
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  RemoveStoryResponse(StoryId: string): __Observable<__StrictHttpResponse<RemoveStoryResponse>> {
+  RemoveStoryResponse(storyId: string): __Observable<__StrictHttpResponse<RemoveStoryResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -146,11 +146,11 @@ class StoryService extends __BaseService {
     );
   }
   /**
-   * @param StoryId undefined
+   * @param storyId undefined
    * @return Success
    */
-  RemoveStory(StoryId: string): __Observable<RemoveStoryResponse> {
-    return this.RemoveStoryResponse(StoryId).pipe(
+  RemoveStory(storyId: string): __Observable<RemoveStoryResponse> {
+    return this.RemoveStoryResponse(storyId).pipe(
       __map(_r => _r.body as RemoveStoryResponse)
     );
   }

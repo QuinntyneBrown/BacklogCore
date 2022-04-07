@@ -28,10 +28,6 @@ export class SearchStoriesControlComponent extends BaseControl  {
     super();
   }
 
-  writeValue(obj: any): void {
-
-  }
-
   registerOnChange(fn: any): void {
     this.formControl.valueChanges
     .pipe(

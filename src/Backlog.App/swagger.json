@@ -29,7 +29,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "BugId",
+            "name": "bugId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -72,7 +72,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "BugId",
+            "name": "bugId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -271,7 +271,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "CompetencyLevelId",
+            "name": "competencyLevelId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -314,7 +314,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "CompetencyLevelId",
+            "name": "competencyLevelId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -756,7 +756,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "ProfileId",
+            "name": "profileId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1011,7 +1011,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "SprintId",
+            "name": "sprintId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1054,7 +1054,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "SprintId",
+            "name": "sprintId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1207,7 +1207,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "StoryId",
+            "name": "storyId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1366,7 +1366,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "StatusId",
+            "name": "statusId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1409,7 +1409,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "StatusId",
+            "name": "statusId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1608,7 +1608,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "Query",
+            "name": "query",
             "required": true,
             "type": "string"
           }
@@ -1646,7 +1646,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "StoryId",
+            "name": "storyId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -1689,7 +1689,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "StoryId",
+            "name": "storyId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -2064,7 +2064,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "TaskItemId",
+            "name": "taskItemId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -2107,7 +2107,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "TaskItemId",
+            "name": "taskItemId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -2306,7 +2306,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "TechnologyId",
+            "name": "technologyId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -2349,7 +2349,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "TechnologyId",
+            "name": "technologyId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -2577,6 +2577,43 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "RemoveUser",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RemoveUserResponse"
+            }
+          }
+        }
       }
     },
     "/api/User": {
@@ -2723,7 +2760,7 @@
         }
       }
     },
-    "/api/User/page/{PageSize}/{Index}": {
+    "/api/User/page/{pageSize}/{index}": {
       "get": {
         "tags": [
           "User"
@@ -2737,14 +2774,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -2764,45 +2801,6 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/GetUsersPageResponse"
-            }
-          }
-        }
-      }
-    },
-    "/api/User/{UserId}": {
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "operationId": "RemoveUser",
-        "produces": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "UserId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/ProblemDetails"
-            }
-          },
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/RemoveUserResponse"
             }
           }
         }

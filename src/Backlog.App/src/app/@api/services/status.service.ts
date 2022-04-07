@@ -34,10 +34,10 @@ class StatusService extends __BaseService {
   }
 
   /**
-   * @param StatusId undefined
+   * @param statusId undefined
    * @return Success
    */
-  GetStatusByIdResponse(StatusId: string): __Observable<__StrictHttpResponse<GetStatusByIdResponse>> {
+  GetStatusByIdResponse(statusId: string): __Observable<__StrictHttpResponse<GetStatusByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,20 +60,20 @@ class StatusService extends __BaseService {
     );
   }
   /**
-   * @param StatusId undefined
+   * @param statusId undefined
    * @return Success
    */
-  GetStatusById(StatusId: string): __Observable<GetStatusByIdResponse> {
-    return this.GetStatusByIdResponse(StatusId).pipe(
+  GetStatusById(statusId: string): __Observable<GetStatusByIdResponse> {
+    return this.GetStatusByIdResponse(statusId).pipe(
       __map(_r => _r.body as GetStatusByIdResponse)
     );
   }
 
   /**
-   * @param StatusId undefined
+   * @param statusId undefined
    * @return Success
    */
-  RemoveStatusResponse(StatusId: string): __Observable<__StrictHttpResponse<RemoveStatusResponse>> {
+  RemoveStatusResponse(statusId: string): __Observable<__StrictHttpResponse<RemoveStatusResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class StatusService extends __BaseService {
     );
   }
   /**
-   * @param StatusId undefined
+   * @param statusId undefined
    * @return Success
    */
-  RemoveStatus(StatusId: string): __Observable<RemoveStatusResponse> {
-    return this.RemoveStatusResponse(StatusId).pipe(
+  RemoveStatus(statusId: string): __Observable<RemoveStatusResponse> {
+    return this.RemoveStatusResponse(statusId).pipe(
       __map(_r => _r.body as RemoveStatusResponse)
     );
   }

@@ -6,12 +6,12 @@ namespace Backlog.Core
     public class Profile : AggregateRoot
     {
         public Guid ProfileId { get; private set; }
-        public string Firstname { get; private set; }
-        public string Lastname { get; private set; }
+        public string? Firstname { get; private set; }
+        public string? Lastname { get; private set; }
 
         public Profile(CreateProfile @event)
         {
-
+            Apply(@event);
         }
 
         private Profile()

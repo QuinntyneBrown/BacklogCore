@@ -41,6 +41,8 @@ namespace Backlog.Api.Controllers
 
             });
 
+            using (cancellationToken.Register(() => tcs.TrySetCanceled()))
+
             await tcs.Task;
 
             return null;

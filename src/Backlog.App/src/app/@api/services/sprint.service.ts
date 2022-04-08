@@ -325,9 +325,9 @@ class SprintService extends __BaseService {
   /**
    * @param params The `SprintService.GetSprintsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -357,9 +357,9 @@ class SprintService extends __BaseService {
   /**
    * @param params The `SprintService.GetSprintsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -376,8 +376,8 @@ module SprintService {
    * Parameters for GetSprintsPage
    */
   export interface GetSprintsPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

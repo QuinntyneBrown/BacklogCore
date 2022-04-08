@@ -213,9 +213,9 @@ class BugService extends __BaseService {
   /**
    * @param params The `BugService.GetBugsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class BugService extends __BaseService {
   /**
    * @param params The `BugService.GetBugsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module BugService {
    * Parameters for GetBugsPage
    */
   export interface GetBugsPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

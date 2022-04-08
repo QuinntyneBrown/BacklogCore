@@ -213,9 +213,9 @@ class TechnologyService extends __BaseService {
   /**
    * @param params The `TechnologyService.GetTechnologiesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class TechnologyService extends __BaseService {
   /**
    * @param params The `TechnologyService.GetTechnologiesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module TechnologyService {
    * Parameters for GetTechnologiesPage
    */
   export interface GetTechnologiesPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

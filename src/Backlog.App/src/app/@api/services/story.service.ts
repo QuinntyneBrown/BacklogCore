@@ -371,9 +371,9 @@ class StoryService extends __BaseService {
   /**
    * @param params The `StoryService.GetStoriesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -403,9 +403,9 @@ class StoryService extends __BaseService {
   /**
    * @param params The `StoryService.GetStoriesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -458,8 +458,8 @@ module StoryService {
    * Parameters for GetStoriesPage
    */
   export interface GetStoriesPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

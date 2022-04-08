@@ -85,9 +85,13 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetSprintsPageResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetSprintsPageResponse>> Page([FromRoute]GetSprintsPageRequest request)
-            => await _mediator.Send(request);
-        
+        public async Task<ActionResult<GetSprintsPageResponse>> Page([FromRoute] int pageSize, [FromRoute] int index)
+        {
+            var request = new GetSprintsPageRequest { Index = index, PageSize = pageSize };
+
+            return await _mediator.Send(request);
+        }
+
         [HttpDelete("{sprintId}", Name = "RemoveSprint")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

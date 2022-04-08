@@ -213,9 +213,9 @@ class StatusService extends __BaseService {
   /**
    * @param params The `StatusService.GetStatusesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class StatusService extends __BaseService {
   /**
    * @param params The `StatusService.GetStatusesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module StatusService {
    * Parameters for GetStatusesPage
    */
   export interface GetStatusesPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

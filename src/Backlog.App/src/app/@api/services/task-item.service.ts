@@ -213,9 +213,9 @@ class TaskItemService extends __BaseService {
   /**
    * @param params The `TaskItemService.GetTaskItemsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class TaskItemService extends __BaseService {
   /**
    * @param params The `TaskItemService.GetTaskItemsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module TaskItemService {
    * Parameters for GetTaskItemsPage
    */
   export interface GetTaskItemsPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

@@ -225,14 +225,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -467,14 +467,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -533,14 +533,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -579,7 +579,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "DigitalAssetId",
+            "name": "digitalAssetId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -622,7 +622,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "DigitalAssetId",
+            "name": "digitalAssetId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -661,7 +661,7 @@
         "parameters": [
           {
             "in": "query",
-            "name": "DigitalAssetIds",
+            "name": "digitalAssetIds",
             "type": "array",
             "items": {
               "format": "uuid",
@@ -713,7 +713,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "DigitalAssetId",
+            "name": "digitalAssetId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -799,7 +799,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "ProfileId",
+            "name": "profileId",
             "required": true,
             "type": "string",
             "format": "uuid"
@@ -952,14 +952,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1320,14 +1320,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1562,14 +1562,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -1974,14 +1974,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -2260,14 +2260,14 @@
         "parameters": [
           {
             "in": "path",
-            "name": "PageSize",
+            "name": "index",
             "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
             "in": "path",
-            "name": "Index",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"

@@ -70,10 +70,10 @@ class ProfileService extends __BaseService {
   }
 
   /**
-   * @param ProfileId undefined
+   * @param profileId undefined
    * @return Success
    */
-  RemoveProfileResponse(ProfileId: string): __Observable<__StrictHttpResponse<RemoveProfileResponse>> {
+  RemoveProfileResponse(profileId: string): __Observable<__StrictHttpResponse<RemoveProfileResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -96,11 +96,11 @@ class ProfileService extends __BaseService {
     );
   }
   /**
-   * @param ProfileId undefined
+   * @param profileId undefined
    * @return Success
    */
-  RemoveProfile(ProfileId: string): __Observable<RemoveProfileResponse> {
-    return this.RemoveProfileResponse(ProfileId).pipe(
+  RemoveProfile(profileId: string): __Observable<RemoveProfileResponse> {
+    return this.RemoveProfileResponse(profileId).pipe(
       __map(_r => _r.body as RemoveProfileResponse)
     );
   }
@@ -213,9 +213,9 @@ class ProfileService extends __BaseService {
   /**
    * @param params The `ProfileService.GetProfilesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class ProfileService extends __BaseService {
   /**
    * @param params The `ProfileService.GetProfilesPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module ProfileService {
    * Parameters for GetProfilesPage
    */
   export interface GetProfilesPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

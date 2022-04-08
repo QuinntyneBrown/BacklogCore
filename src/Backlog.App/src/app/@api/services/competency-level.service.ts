@@ -213,9 +213,9 @@ class CompetencyLevelService extends __BaseService {
   /**
    * @param params The `CompetencyLevelService.GetCompetencyLevelsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -245,9 +245,9 @@ class CompetencyLevelService extends __BaseService {
   /**
    * @param params The `CompetencyLevelService.GetCompetencyLevelsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -264,8 +264,8 @@ module CompetencyLevelService {
    * Parameters for GetCompetencyLevelsPage
    */
   export interface GetCompetencyLevelsPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

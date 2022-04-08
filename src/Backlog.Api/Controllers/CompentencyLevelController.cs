@@ -52,8 +52,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetCompetencyLevelsPageResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetCompetencyLevelsPageResponse>> Page([FromRoute] GetCompetencyLevelsPageRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<GetCompetencyLevelsPageResponse>> Page([FromRoute] int pageSize, [FromRoute] int index)
+        {
+            var request = new GetCompetencyLevelsPageRequest { Index = index, PageSize = pageSize };
+
+            return await _mediator.Send(request);
+        }
 
         [HttpPut(Name = "UpdateCompetencyLevel")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

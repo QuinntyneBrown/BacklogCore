@@ -53,8 +53,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetProfilesPageResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetProfilesPageResponse>> Page([FromRoute] GetProfilesPageRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<GetProfilesPageResponse>> Page([FromRoute] int pageSize, [FromRoute] int index)
+        {
+            var request = new GetProfilesPageRequest { Index = index, PageSize = pageSize };
+
+            return await _mediator.Send(request);
+        }
 
         [HttpPut(Name = "UpdateProfile")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -67,8 +71,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(RemoveProfileResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RemoveProfileResponse>> Remove([FromRoute] RemoveProfileRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<RemoveProfileResponse>> Remove([FromRoute] Guid profileId)
+        {
+            var request = new RemoveProfileRequest { ProfileId = profileId };
+
+            return await _mediator.Send(request);
+        }
 
     }
 }

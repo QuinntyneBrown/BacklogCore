@@ -33,9 +33,9 @@ class DigitalAssetService extends __BaseService {
   /**
    * @param params The `DigitalAssetService.GetDigitalAssetsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -65,9 +65,9 @@ class DigitalAssetService extends __BaseService {
   /**
    * @param params The `DigitalAssetService.GetDigitalAssetsPageParams` containing the following parameters:
    *
-   * - `PageSize`:
+   * - `pageSize`:
    *
-   * - `Index`:
+   * - `index`:
    *
    * @return Success
    */
@@ -78,10 +78,10 @@ class DigitalAssetService extends __BaseService {
   }
 
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  GetDigitalAssetByIdResponse(DigitalAssetId: string): __Observable<__StrictHttpResponse<GetDigitalAssetByIdResponse>> {
+  GetDigitalAssetByIdResponse(digitalAssetId: string): __Observable<__StrictHttpResponse<GetDigitalAssetByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -104,20 +104,20 @@ class DigitalAssetService extends __BaseService {
     );
   }
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  GetDigitalAssetById(DigitalAssetId: string): __Observable<GetDigitalAssetByIdResponse> {
-    return this.GetDigitalAssetByIdResponse(DigitalAssetId).pipe(
+  GetDigitalAssetById(digitalAssetId: string): __Observable<GetDigitalAssetByIdResponse> {
+    return this.GetDigitalAssetByIdResponse(digitalAssetId).pipe(
       __map(_r => _r.body as GetDigitalAssetByIdResponse)
     );
   }
 
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  RemoveDigitalAssetResponse(DigitalAssetId: string): __Observable<__StrictHttpResponse<RemoveDigitalAssetResponse>> {
+  RemoveDigitalAssetResponse(digitalAssetId: string): __Observable<__StrictHttpResponse<RemoveDigitalAssetResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -140,24 +140,24 @@ class DigitalAssetService extends __BaseService {
     );
   }
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  RemoveDigitalAsset(DigitalAssetId: string): __Observable<RemoveDigitalAssetResponse> {
-    return this.RemoveDigitalAssetResponse(DigitalAssetId).pipe(
+  RemoveDigitalAsset(digitalAssetId: string): __Observable<RemoveDigitalAssetResponse> {
+    return this.RemoveDigitalAssetResponse(digitalAssetId).pipe(
       __map(_r => _r.body as RemoveDigitalAssetResponse)
     );
   }
 
   /**
-   * @param DigitalAssetIds undefined
+   * @param digitalAssetIds undefined
    * @return Success
    */
-  GetDigitalAssetsByIdsResponse(DigitalAssetIds?: Array<string>): __Observable<__StrictHttpResponse<GetDigitalAssetsByIdsResponse>> {
+  GetDigitalAssetsByIdsResponse(digitalAssetIds?: Array<string>): __Observable<__StrictHttpResponse<GetDigitalAssetsByIdsResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    (DigitalAssetIds || []).forEach(val => {if (val != null) __params = __params.append('DigitalAssetIds', val.toString())});
+    (digitalAssetIds || []).forEach(val => {if (val != null) __params = __params.append('digitalAssetIds', val.toString())});
     let req = new HttpRequest<any>(
       'GET',
       this.rootUrl + `/api/DigitalAsset/range`,
@@ -176,11 +176,11 @@ class DigitalAssetService extends __BaseService {
     );
   }
   /**
-   * @param DigitalAssetIds undefined
+   * @param digitalAssetIds undefined
    * @return Success
    */
-  GetDigitalAssetsByIds(DigitalAssetIds?: Array<string>): __Observable<GetDigitalAssetsByIdsResponse> {
-    return this.GetDigitalAssetsByIdsResponse(DigitalAssetIds).pipe(
+  GetDigitalAssetsByIds(digitalAssetIds?: Array<string>): __Observable<GetDigitalAssetsByIdsResponse> {
+    return this.GetDigitalAssetsByIdsResponse(digitalAssetIds).pipe(
       __map(_r => _r.body as GetDigitalAssetsByIdsResponse)
     );
   }
@@ -219,10 +219,10 @@ class DigitalAssetService extends __BaseService {
   }
 
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  getApiDigitalAssetServeDigitalAssetIdResponse(DigitalAssetId: string): __Observable<__StrictHttpResponse<string>> {
+  getApiDigitalAssetServeDigitalAssetIdResponse(digitalAssetId: string): __Observable<__StrictHttpResponse<string>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -245,11 +245,11 @@ class DigitalAssetService extends __BaseService {
     );
   }
   /**
-   * @param DigitalAssetId undefined
+   * @param digitalAssetId undefined
    * @return Success
    */
-  getApiDigitalAssetServeDigitalAssetId(DigitalAssetId: string): __Observable<string> {
-    return this.getApiDigitalAssetServeDigitalAssetIdResponse(DigitalAssetId).pipe(
+  getApiDigitalAssetServeDigitalAssetId(digitalAssetId: string): __Observable<string> {
+    return this.getApiDigitalAssetServeDigitalAssetIdResponse(digitalAssetId).pipe(
       __map(_r => _r.body as string)
     );
   }
@@ -261,8 +261,8 @@ module DigitalAssetService {
    * Parameters for GetDigitalAssetsPage
    */
   export interface GetDigitalAssetsPageParams {
-    PageSize: number;
-    Index: number;
+    pageSize: number;
+    index: number;
   }
 }
 

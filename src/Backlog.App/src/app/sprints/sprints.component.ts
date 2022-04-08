@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SprintService } from '@api';
-import { combine, Sprint } from '@core';
+import { SprintService, SprintDto } from '@api';
+import { combine } from '@core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { map, pluck, switchMap, tap } from 'rxjs/operators';
 
@@ -14,10 +14,10 @@ import { map, pluck, switchMap, tap } from 'rxjs/operators';
 })
 export class SprintsComponent {
 
-  private readonly _saveSubject: Subject<Sprint> = new Subject();
-  private readonly _selectSubject: Subject<Sprint> = new Subject();
+  private readonly _saveSubject: Subject<SprintDto> = new Subject();
+  private readonly _selectSubject: Subject<SprintDto> = new Subject();
   private readonly _createSubject: Subject<void> = new Subject();
-  private readonly _deleteSubject: Subject<Sprint> = new Subject();
+  private readonly _deleteSubject: Subject<SprintDto> = new Subject();
   private readonly _refreshSubject: BehaviorSubject<null> = new BehaviorSubject(null);
 
   readonly vm$ = this._refreshSubject
@@ -39,7 +39,7 @@ export class SprintsComponent {
     private readonly _router: Router,  
   ) { }
 
-  private _handleSelect(sprint: Sprint): Observable<boolean> {
+  private _handleSelect(sprint: SprintDto): Observable<boolean> {
     return from(this._router.navigate(["/","sprints","edit", sprint.sprintId]));
   }
 
@@ -47,7 +47,7 @@ export class SprintsComponent {
     return from(this._router.navigate(["/","sprints","create"]));
   }
 
-  private _handleSave(sprint: Sprint): Observable<boolean> {
+  private _handleSave(sprint: SprintDto): Observable<boolean> {
     return (sprint.sprintId ? this._sprintService.UpdateSprint({ sprint }) : this._sprintService.CreateSprint({ sprint }))
     .pipe(     
       switchMap(_ => this._router.navigate(["/","sprints"])),
@@ -55,7 +55,7 @@ export class SprintsComponent {
       );    
   }
 
-  private _handleDelete(sprint: Sprint): Observable<boolean> {
+  private _handleDelete(sprint: SprintDto): Observable<boolean> {
     return this._sprintService.RemoveSprint(sprint.sprintId)
     .pipe(
       switchMap(_ => this._router.navigate(["/","sprints"])),
@@ -63,17 +63,17 @@ export class SprintsComponent {
     );
   }
 
-  private _selected$: Observable<Sprint> = this._activatedRoute
+  private _selected$: Observable<SprintDto> = this._activatedRoute
   .paramMap
   .pipe(
     map(x => x.get("sprintId")),
     switchMap((sprintId: string) => sprintId ? this._sprintService.GetSprintById(sprintId).pipe(pluck("sprint")) : of({} as Sprint)));
 
-  onSave(sprint: Sprint) {
+  onSave(sprint: SprintDto) {
     this._saveSubject.next(sprint);
   }
 
-  onSelect(sprint: Sprint) {
+  onSelect(sprint: SprintDto) {
     this._selectSubject.next(sprint);
   }
 
@@ -81,7 +81,7 @@ export class SprintsComponent {
     this._createSubject.next();
   }
 
-  onDelete(sprint: Sprint) {
+  onDelete(sprint: SprintDto) {
     this._deleteSubject.next(sprint);
   }
 }

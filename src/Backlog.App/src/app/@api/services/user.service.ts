@@ -39,10 +39,10 @@ class UserService extends __BaseService {
   }
 
   /**
-   * @param UserId undefined
+   * @param userId undefined
    * @return Success
    */
-  GetUserByIdResponse(UserId: string): __Observable<__StrictHttpResponse<GetUserByIdResponse>> {
+  GetUserByIdResponse(userId: string): __Observable<__StrictHttpResponse<GetUserByIdResponse>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -65,11 +65,11 @@ class UserService extends __BaseService {
     );
   }
   /**
-   * @param UserId undefined
+   * @param userId undefined
    * @return Success
    */
-  GetUserById(UserId: string): __Observable<GetUserByIdResponse> {
-    return this.GetUserByIdResponse(UserId).pipe(
+  GetUserById(userId: string): __Observable<GetUserByIdResponse> {
+    return this.GetUserByIdResponse(userId).pipe(
       __map(_r => _r.body as GetUserByIdResponse)
     );
   }

@@ -22,8 +22,10 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetUserByIdResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetUserByIdResponse>> GetById([FromRoute]GetUserByIdRequest request)
+        public async Task<ActionResult<GetUserByIdResponse>> GetById([FromRoute]Guid userId)
         {
+            var request = new GetUserByIdRequest { UserId = userId };
+
             var response = await _mediator.Send(request);
         
             if (response.User == null)

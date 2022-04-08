@@ -53,8 +53,12 @@ namespace Backlog.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTechnologiesPageResponse), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTechnologiesPageResponse>> Page([FromRoute] GetTechnologiesPageRequest request)
-            => await _mediator.Send(request);
+        public async Task<ActionResult<GetTechnologiesPageResponse>> Page([FromRoute]int index, [FromRoute] int pageSize)
+        {
+            var request = new GetTechnologiesPageRequest { Index = index, PageSize = pageSize };
+
+            return await _mediator.Send(request);
+        }
 
         [HttpPut(Name = "UpdateTechnology")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

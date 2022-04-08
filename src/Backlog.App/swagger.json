@@ -2548,7 +2548,7 @@
         "parameters": [
           {
             "in": "path",
-            "name": "UserId",
+            "name": "userId",
             "required": true,
             "type": "string",
             "format": "uuid"

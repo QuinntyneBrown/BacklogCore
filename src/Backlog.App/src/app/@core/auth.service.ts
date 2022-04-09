@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { accessTokenKey, usernameKey } from './constants';

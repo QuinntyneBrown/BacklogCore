@@ -14,14 +14,7 @@ export class SprintStore {
     ) { }
 
     get(): Observable<SprintDto[]> {
-        // return this._serverSentEventService
-        // .GetEvents.pipe(
-        //     filter(x => x.Items.Type == "UpdateSprint" || x.Items.Type == "CreateSprint"),
-        //     startWith(null),
-        //     switchMap(_ => this._sprintService.get())
-        // )
-
-        return of([]);
+        return this._serverSentEventService.GetEvents()
     }
 
     current(): Observable<SprintDto> {

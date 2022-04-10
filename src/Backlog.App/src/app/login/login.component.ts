@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { combineLatest, defer, Subject } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '@api';
 
 
 type Credentials = {
@@ -20,9 +21,7 @@ export class LoginComponent {
 
   readonly vm$ = combineLatest([
     this._loginSubject.pipe(
-      switchMap(credentials => {
-        return defer(null)
-      }),
+      switchMap(credentials => this._userService.Authenticate(credentials)),
       startWith(null)
     )
   ])
@@ -39,6 +38,12 @@ export class LoginComponent {
       }
     })
   );
+
+  constructor(
+    private readonly _userService: UserService
+  ) {
+
+  }
 
   onLogin(credentials: Credentials) {
     this._loginSubject.next(credentials);

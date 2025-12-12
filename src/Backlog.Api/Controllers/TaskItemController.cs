@@ -13,7 +13,10 @@ public class TaskItemController
     private readonly IMediator _mediator;
 
     public TaskItemController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{taskItemId}", Name = "GetTaskItemById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

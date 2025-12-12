@@ -13,7 +13,10 @@ public class CompetencyLevelController
     private readonly IMediator _mediator;
 
     public CompetencyLevelController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{competencyLevelId}", Name = "GetCompetencyLevelById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

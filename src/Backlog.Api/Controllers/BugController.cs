@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 
 namespace Backlog.Api.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class BugController
@@ -13,7 +14,11 @@ public class BugController
     private readonly IMediator _mediator;
 
     public BugController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+
+        _mediator = mediator;
+    }
 
     [HttpGet("{bugId}", Name = "GetBugById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

@@ -13,7 +13,10 @@ public class TechnologyController
     private readonly IMediator _mediator;
 
     public TechnologyController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{technologyId}", Name = "GetTechnologyById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

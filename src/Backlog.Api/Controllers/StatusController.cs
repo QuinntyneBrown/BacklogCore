@@ -13,7 +13,10 @@ public class StatusController
     private readonly IMediator _mediator;
 
     public StatusController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{statusId}", Name = "GetStatusById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

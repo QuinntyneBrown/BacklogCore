@@ -13,7 +13,10 @@ public class SprintController
     private readonly IMediator _mediator;
 
     public SprintController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{sprintId}", Name = "GetSprintById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

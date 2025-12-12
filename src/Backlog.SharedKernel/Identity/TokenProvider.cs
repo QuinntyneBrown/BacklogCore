@@ -14,7 +14,10 @@ public class TokenProvider : ITokenProvider
 {
     private IConfiguration _configuration;
     public TokenProvider(IConfiguration configuration)
-        => _configuration = configuration;
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        _configuration = configuration;
+    }
 
     public string Get(string uniqueName, IEnumerable<Claim> customClaims = null)
     {

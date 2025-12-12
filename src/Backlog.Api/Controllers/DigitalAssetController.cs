@@ -15,7 +15,10 @@ public class DigitalAssetController
     private readonly IMediator _mediator;
 
     public DigitalAssetController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("page/{pageSize}/{index}", Name = "GetDigitalAssetsPage")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

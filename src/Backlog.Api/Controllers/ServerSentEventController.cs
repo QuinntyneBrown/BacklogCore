@@ -17,6 +17,7 @@ public class ServerSentEventController : Controller
     private readonly INotificationService _notificationService;
     public ServerSentEventController(INotificationService notificationService)
     {
+        ArgumentNullException.ThrowIfNull(notificationService);
         _notificationService = notificationService;
     }
 

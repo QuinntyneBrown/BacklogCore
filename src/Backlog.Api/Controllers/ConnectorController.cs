@@ -12,6 +12,7 @@ public class ConnectorController
 
     public ConnectorController(IMediator mediator)
     {
+        ArgumentNullException.ThrowIfNull(mediator);
         _mediator = mediator;
     }
 

@@ -14,7 +14,10 @@ public class UserController
     private readonly IMediator _mediator;
 
     public UserController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{userId}", Name = "GetUserById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

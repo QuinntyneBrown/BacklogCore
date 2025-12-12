@@ -11,6 +11,8 @@ public class Startup
 {
     public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
     {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(webHostEnvironment);
         Configuration = configuration;
         WebHostEnvironment = webHostEnvironment;
     }

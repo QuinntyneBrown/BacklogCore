@@ -13,7 +13,10 @@ public class ProfileController
     private readonly IMediator _mediator;
 
     public ProfileController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
     [HttpGet("{profileId}", Name = "GetProfileById")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]

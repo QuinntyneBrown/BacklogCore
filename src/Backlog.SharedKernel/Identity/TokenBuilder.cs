@@ -11,6 +11,7 @@ public class TokenBuilder : ITokenBuilder
     private List<Claim> _claims = new List<Claim>();
     public TokenBuilder(ITokenProvider tokenProvider)
     {
+        ArgumentNullException.ThrowIfNull(tokenProvider);
         _tokenProivder = tokenProvider;
     }
 

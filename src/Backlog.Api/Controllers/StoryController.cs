@@ -13,7 +13,10 @@ public class StoryController
     private readonly IMediator _mediator;
 
     public StoryController(IMediator mediator)
-        => _mediator = mediator;
+    {
+        ArgumentNullException.ThrowIfNull(mediator);
+        _mediator = mediator;
+    }
 
 
     [HttpGet("search/{query}", Name = "SearchStories")]

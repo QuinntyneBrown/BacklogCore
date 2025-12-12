@@ -3,38 +3,37 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class RemoveStatusRequest : IRequest<RemoveStatusResponse>
 {
-    public class RemoveStatusRequest : IRequest<RemoveStatusResponse>
+    public Guid StatusId { get; set; }
+}
+
+public class RemoveStatusResponse : ResponseBase
+{
+    public StatusDto? Status { get; set; }
+}
+
+public class RemoveStatusHandler : IRequestHandler<RemoveStatusRequest, RemoveStatusResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public RemoveStatusHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<RemoveStatusResponse> Handle(RemoveStatusRequest request, CancellationToken cancellationToken)
     {
-        public Guid StatusId { get; set; }
-    }
+        var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.StatusId, cancellationToken);
 
-    public class RemoveStatusResponse : ResponseBase
-    {
-        public StatusDto? Status { get; set; }
-    }
+        _context.Statuses.Remove(status);
 
-    public class RemoveStatusHandler : IRequestHandler<RemoveStatusRequest, RemoveStatusResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        await _context.SaveChangesAsync(cancellationToken);
 
-        public RemoveStatusHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<RemoveStatusResponse> Handle(RemoveStatusRequest request, CancellationToken cancellationToken)
+        return new RemoveStatusResponse()
         {
-            var status = await _context.Statuses.SingleAsync(x => x.StatusId == request.StatusId, cancellationToken);
-
-            _context.Statuses.Remove(status);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new RemoveStatusResponse()
-            {
-                Status = status.ToDto()
-            };
-        }
-
+            Status = status.ToDto()
+        };
     }
+
+}
 }

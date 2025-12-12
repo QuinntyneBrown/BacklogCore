@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Backlog.Core
-{
-    public class TaskItemValidator : AbstractValidator<TaskItemDto> { }
+namespace Backlog.Core;
+public class TaskItemValidator : AbstractValidator<TaskItemDto> { }
 }

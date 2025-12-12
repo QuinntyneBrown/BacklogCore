@@ -1,13 +1,12 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class AuthenticatedUser : BaseDomainEvent
 {
-    public class AuthenticatedUser : BaseDomainEvent
+    public AuthenticatedUser(string username)
     {
-        public AuthenticatedUser(string username)
-        {
-            Username = username;
-        }
-        public string Username { get; private set; }
+        Username = username;
     }
+    public string Username { get; private set; }
+}
 }

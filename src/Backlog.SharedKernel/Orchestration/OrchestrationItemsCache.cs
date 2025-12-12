@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public class OrchestrationItemsCache : Dictionary<string, object>
 {
-    public class OrchestrationItemsCache : Dictionary<string, object>
-    {
 
-    }
+}
 }

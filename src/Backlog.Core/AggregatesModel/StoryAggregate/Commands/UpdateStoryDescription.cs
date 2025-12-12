@@ -2,38 +2,37 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UpdateStoryDescriptionRequest : IRequest<UpdateStoryDescriptionResponse>
 {
-    public class UpdateStoryDescriptionRequest : IRequest<UpdateStoryDescriptionResponse>
+    public Guid StoryId { get; set; }
+    public string? Description { get; set; }
+}
+
+public class UpdateStoryDescriptionResponse : ResponseBase
+{
+    public StoryDto? Story { get; set; }
+}
+
+public class UpdateStoryDescriptionHandler : IRequestHandler<UpdateStoryDescriptionRequest, UpdateStoryDescriptionResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public UpdateStoryDescriptionHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<UpdateStoryDescriptionResponse> Handle(UpdateStoryDescriptionRequest request, CancellationToken cancellationToken)
     {
-        public Guid StoryId { get; set; }
-        public string? Description { get; set; }
-    }
+        var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
 
-    public class UpdateStoryDescriptionResponse : ResponseBase
-    {
-        public StoryDto? Story { get; set; }
-    }
+        await _context.SaveChangesAsync(cancellationToken);
 
-    public class UpdateStoryDescriptionHandler : IRequestHandler<UpdateStoryDescriptionRequest, UpdateStoryDescriptionResponse>
-    {
-        private readonly IBacklogDbContext _context;
-
-        public UpdateStoryDescriptionHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<UpdateStoryDescriptionResponse> Handle(UpdateStoryDescriptionRequest request, CancellationToken cancellationToken)
+        return new UpdateStoryDescriptionResponse()
         {
-            var story = await _context.Stories.SingleAsync(x => x.StoryId == request.StoryId);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new UpdateStoryDescriptionResponse()
-            {
-                Story = story.ToDto()
-            };
-        }
-
+            Story = story.ToDto()
+        };
     }
+
+}
 
 }

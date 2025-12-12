@@ -1,9 +1,8 @@
 using System;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class TaskItemDto
 {
-    public class TaskItemDto
-    {
-        public Guid TaskItemId { get; set; }
-    }
+    public Guid TaskItemId { get; set; }
+}
 }

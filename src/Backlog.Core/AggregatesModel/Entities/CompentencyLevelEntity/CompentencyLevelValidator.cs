@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Backlog.Core
-{
-    public class CompetencyLevelValidator : AbstractValidator<CompetencyLevelDto> { }
+namespace Backlog.Core;
+public class CompetencyLevelValidator : AbstractValidator<CompetencyLevelDto> { }
 }

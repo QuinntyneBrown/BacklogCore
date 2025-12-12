@@ -1,7 +1,6 @@
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public class ResponseBase
 {
-    public class ResponseBase
-    {
-        public List<string> Errors { get; set; } = new();
-    }
+    public List<string> Errors { get; set; } = new();
+}
 }

@@ -1,13 +1,12 @@
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class CreateBug : BaseDomainEvent
 {
-    public class CreateBug : BaseDomainEvent
+    public Guid BugId { get; private set; } = Guid.NewGuid();
+    public CreateBug()
     {
-        public Guid BugId { get; private set; } = Guid.NewGuid();
-        public CreateBug()
-        {
 
-        }
     }
+}
 }

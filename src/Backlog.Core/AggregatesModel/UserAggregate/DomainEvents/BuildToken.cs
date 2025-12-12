@@ -1,13 +1,12 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class BuildToken : BaseDomainEvent
 {
-    public class BuildToken : BaseDomainEvent
+    public BuildToken(string username)
     {
-        public BuildToken(string username)
-        {
-            Username = username;
-        }
-        public string Username { get; private set; }
+        Username = username;
     }
+    public string Username { get; private set; }
+}
 }

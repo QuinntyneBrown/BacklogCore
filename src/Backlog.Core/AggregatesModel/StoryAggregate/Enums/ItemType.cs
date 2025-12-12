@@ -1,9 +1,8 @@
-﻿namespace Backlog.Core
+namespace Backlog.Core;
+public enum ItemType
 {
-    public enum ItemType
-    {
-        Story,
-        Bug,
-        Task
-    }
+    Story,
+    Bug,
+    Task
+}
 }

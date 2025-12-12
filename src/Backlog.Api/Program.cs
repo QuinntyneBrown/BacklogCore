@@ -6,55 +6,54 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 
-namespace Backlog.Api
+namespace Backlog.Api;
+
+//https://css-tricks.com/drag-and-drop-file-uploading/
+public class Program
 {
-    //https://css-tricks.com/drag-and-drop-file-uploading/
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
+        var host = CreateHostBuilder(args).Build();
 
-            ProcessDbCommands(args, host);
+        ProcessDbCommands(args, host);
 
-            host.Run();
-        }
-
-        private static void ProcessDbCommands(string[] args, IHost host)
-        {
-            var services = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
-
-            using (var scope = services.CreateScope())
-            {
-                var context = scope.ServiceProvider.GetRequiredService<BacklogDbContext>();
-
-                if (args.Contains("ci"))
-                    args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
-
-                if (args.Contains("dropdb"))
-                {
-                    context.Database.EnsureDeleted();
-                }
-
-                if (args.Contains("migratedb"))
-                {
-                    context.Database.Migrate();
-                }
-
-                if (args.Contains("seeddb"))
-                {
-                    SeedData.Seed(context);
-                }
-                if (args.Contains("stop"))
-                    Environment.Exit(0);
-            }
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        host.Run();
     }
+
+    private static void ProcessDbCommands(string[] args, IHost host)
+    {
+        var services = (IServiceScopeFactory)host.Services.GetService(typeof(IServiceScopeFactory));
+
+        using (var scope = services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<BacklogDbContext>();
+
+            if (args.Contains("ci"))
+                args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
+
+            if (args.Contains("dropdb"))
+            {
+                context.Database.EnsureDeleted();
+            }
+
+            if (args.Contains("migratedb"))
+            {
+                context.Database.Migrate();
+            }
+
+            if (args.Contains("seeddb"))
+            {
+                SeedData.Seed(context);
+            }
+            if (args.Contains("stop"))
+                Environment.Exit(0);
+        }
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }

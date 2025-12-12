@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Backlog.Core
-{
-    public class TechnologyValidator : AbstractValidator<TechnologyDto> { }
+namespace Backlog.Core;
+public class TechnologyValidator : AbstractValidator<TechnologyDto> { }
 }

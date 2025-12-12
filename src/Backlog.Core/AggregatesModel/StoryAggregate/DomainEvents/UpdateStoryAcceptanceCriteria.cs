@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UpdateStoryAcceptanceCriteria : BaseDomainEvent
 {
-    public class UpdateStoryAcceptanceCriteria : BaseDomainEvent
-    {
-        public string AcceptanceCriteria { get; private set; }
+    public string AcceptanceCriteria { get; private set; }
 
-        public UpdateStoryAcceptanceCriteria(string acceptanceCriteria)
-        {
-            AcceptanceCriteria = acceptanceCriteria;
-        }
+    public UpdateStoryAcceptanceCriteria(string acceptanceCriteria)
+    {
+        AcceptanceCriteria = acceptanceCriteria;
     }
+}
 }

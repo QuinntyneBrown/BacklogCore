@@ -1,15 +1,14 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+
+public class AddSprintStory: BaseDomainEvent
 {
+    public Guid StoryId { get; private set; }
 
-    public class AddSprintStory: BaseDomainEvent
+    public AddSprintStory(Guid storyId)
     {
-        public Guid StoryId { get; private set; }
-
-        public AddSprintStory(Guid storyId)
-        {
-            StoryId = storyId;
-        }
+        StoryId = storyId;
     }
+}
 }

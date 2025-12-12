@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class AddSkillRequirement : BaseDomainEvent
 {
-    public class AddSkillRequirement : BaseDomainEvent
-    {
-        public SkillRequirement SkillRequirement { get; set; }
+    public SkillRequirement SkillRequirement { get; set; }
 
-        public AddSkillRequirement(SkillRequirement skillRequirement)
-        {
-            SkillRequirement = skillRequirement;
-        }
+    public AddSkillRequirement(SkillRequirement skillRequirement)
+    {
+        SkillRequirement = skillRequirement;
     }
+}
 }

@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UpdateStoryJiraUrl : BaseDomainEvent
 {
-    public class UpdateStoryJiraUrl : BaseDomainEvent
-    {
-        public string JiraUrl { get; private set; }
+    public string JiraUrl { get; private set; }
 
-        public UpdateStoryJiraUrl(string jiraUrl)
-        {
-            JiraUrl = jiraUrl;
-        }
+    public UpdateStoryJiraUrl(string jiraUrl)
+    {
+        JiraUrl = jiraUrl;
     }
+}
 }

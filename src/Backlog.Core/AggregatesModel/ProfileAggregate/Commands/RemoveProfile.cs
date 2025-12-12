@@ -2,39 +2,38 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class RemoveProfileRequest : IRequest<RemoveProfileResponse>
 {
-    public class RemoveProfileRequest : IRequest<RemoveProfileResponse>
+    public Guid ProfileId { get; set; }
+}
+
+public class RemoveProfileResponse : ResponseBase
+{
+    public ProfileDto Profile { get; set; }
+
+    public RemoveProfileResponse(ProfileDto profile)
     {
-        public Guid ProfileId { get; set; }
+        Profile = profile;
     }
+}
 
-    public class RemoveProfileResponse : ResponseBase
+public class RemoveProfileHandler : IRequestHandler<RemoveProfileRequest, RemoveProfileResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public RemoveProfileHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<RemoveProfileResponse> Handle(RemoveProfileRequest request, CancellationToken cancellationToken)
     {
-        public ProfileDto Profile { get; set; }
+        var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.ProfileId);
 
-        public RemoveProfileResponse(ProfileDto profile)
-        {
-            Profile = profile;
-        }
+        _context.Profiles.Remove(profile);
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new (profile.ToDto());
     }
-
-    public class RemoveProfileHandler : IRequestHandler<RemoveProfileRequest, RemoveProfileResponse>
-    {
-        private readonly IBacklogDbContext _context;
-
-        public RemoveProfileHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<RemoveProfileResponse> Handle(RemoveProfileRequest request, CancellationToken cancellationToken)
-        {
-            var profile = await _context.Profiles.SingleAsync(x => x.ProfileId == request.ProfileId);
-
-            _context.Profiles.Remove(profile);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new (profile.ToDto());
-        }
-    }
+}
 }

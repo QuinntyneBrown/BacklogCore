@@ -1,17 +1,16 @@
 using System;
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public static class TaskItemExtensions
 {
-    public static class TaskItemExtensions
+    public static TaskItemDto ToDto(this TaskItem taskItem)
     {
-        public static TaskItemDto ToDto(this TaskItem taskItem)
+        return new()
         {
-            return new()
-            {
-                TaskItemId = taskItem.TaskItemId
-            };
-        }
-
+            TaskItemId = taskItem.TaskItemId
+        };
     }
+
+}
 }

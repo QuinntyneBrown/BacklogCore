@@ -2,45 +2,44 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+
+
+public class UpdateStoryDependsOnRequest : IRequest<UpdateStoryDependsOnResponse>
 {
+    public Guid StoryId { get; set; }
+    public List<string> DependsOn { get; set; }
+}
 
+public class UpdateStoryDependsOnResponse : ResponseBase
+{
+    public StoryDto Story { get; set; }
+}
 
-    public class UpdateStoryDependsOnRequest : IRequest<UpdateStoryDependsOnResponse>
+public class UpdateStoryDependsOnHandler : IRequestHandler<UpdateStoryDependsOnRequest, UpdateStoryDependsOnResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public UpdateStoryDependsOnHandler(IBacklogDbContext context)
     {
-        public Guid StoryId { get; set; }
-        public List<string> DependsOn { get; set; }
+        _context = context;
     }
 
-    public class UpdateStoryDependsOnResponse : ResponseBase
+    public async Task<UpdateStoryDependsOnResponse> Handle(UpdateStoryDependsOnRequest request, CancellationToken cancellationToken)
     {
-        public StoryDto Story { get; set; }
-    }
 
-    public class UpdateStoryDependsOnHandler : IRequestHandler<UpdateStoryDependsOnRequest, UpdateStoryDependsOnResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        var story = await _context.Stories.Include(x => x.DependsOn)
+            .SingleAsync(x => x.StoryId == request.StoryId);
 
-        public UpdateStoryDependsOnHandler(IBacklogDbContext context)
+        story.Apply(new UpdateDependsOn(request.DependsOn.Select(x => new DependencyRelationship(x)).ToList()));
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new()
         {
-            _context = context;
-        }
-
-        public async Task<UpdateStoryDependsOnResponse> Handle(UpdateStoryDependsOnRequest request, CancellationToken cancellationToken)
-        {
-
-            var story = await _context.Stories.Include(x => x.DependsOn)
-                .SingleAsync(x => x.StoryId == request.StoryId);
-
-            story.Apply(new UpdateDependsOn(request.DependsOn.Select(x => new DependencyRelationship(x)).ToList()));
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new()
-            {
-                Story = story.ToDto()
-            };
-        }
+            Story = story.ToDto()
+        };
     }
+}
 
 }

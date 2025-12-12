@@ -18,129 +18,128 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Backlog.Api
+namespace Backlog.Api;
+
+public static class Dependencies
 {
-    public static class Dependencies
+    public static void Configure(IServiceCollection services, IConfiguration configuration)
     {
-        public static void Configure(IServiceCollection services, IConfiguration configuration)
+        services.AddSwaggerGen(options =>
         {
-            services.AddSwaggerGen(options =>
+            options.SwaggerDoc("v1", new OpenApiInfo
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
+                Version = "v1",
+                Title = "Backlog",
+                Description = "Agile Software",
+                TermsOfService = new Uri("https://example.com/terms"),
+                Contact = new OpenApiContact
                 {
-                    Version = "v1",
-                    Title = "Backlog",
-                    Description = "Agile Software",
-                    TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Quinntyne Brown",
-                        Email = "quinntynebrown@gmail.com"
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under MIT",
-                        Url = new Uri("https://opensource.org/licenses/MIT"),
-                    }
-                });
+                    Name = "Quinntyne Brown",
+                    Email = "quinntynebrown@gmail.com"
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Use under MIT",
+                    Url = new Uri("https://opensource.org/licenses/MIT"),
+                }
             });
+        });
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-                builder => builder
-                .WithOrigins("http://localhost:4200")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(isOriginAllowed: _ => true)
-                .AllowCredentials()));
+        services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder => builder
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(isOriginAllowed: _ => true)
+            .AllowCredentials()));
 
-            services.AddValidation(typeof(Startup));
+        services.AddValidation(typeof(Startup));
 
-            services.AddHttpContextAccessor();
+        services.AddHttpContextAccessor();
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<IBacklogDbContext>());
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<IBacklogDbContext>());
 
-            services.AddTransient<IBacklogDbContext, BacklogDbContext>();
+        services.AddTransient<IBacklogDbContext, BacklogDbContext>();
 
-            services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
+        services.AddScoped<IOrchestrationHandler, OrchestrationHandler>();
 
-            services.AddScoped<OrchestrationItemsCache>();
+        services.AddScoped<OrchestrationItemsCache>();
 
-            services.AddDbContext<BacklogDbContext>(options =>
-            {
-                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
-                    builder => builder.MigrationsAssembly("Backlog.Infrastructure").EnableRetryOnFailure())
-                .LogTo(Console.WriteLine)
-                .EnableSensitiveDataLogging();
-            });
+        services.AddDbContext<BacklogDbContext>(options =>
+        {
+            options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"],
+                builder => builder.MigrationsAssembly("Backlog.Infrastructure").EnableRetryOnFailure())
+            .LogTo(Console.WriteLine)
+            .EnableSensitiveDataLogging();
+        });
 /*
-            services.AddHostedService<NotificationBackgroundService>();
+        services.AddHostedService<NotificationBackgroundService>();
 
-            services.AddSingleton<IBackgroundQueue, BackgroundQueue>();*/
+        services.AddSingleton<IBackgroundQueue, BackgroundQueue>();*/
 
-            services.AddSingleton<INotificationService, NotificationService>();
+        services.AddSingleton<INotificationService, NotificationService>();
 
 
-            services.AddControllers();
-        }
+        services.AddControllers();
+    }
 
-        public static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+    public static void ConfigureAuth(IServiceCollection services, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+    {
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+        services.AddSingleton<ITokenProvider, TokenProvider>();
+
+        services.AddTransient<ITokenBuilder, TokenBuilder>();
+
+        var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
         {
-            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            InboundClaimTypeMap = new Dictionary<string, string>()
+        };
 
-            services.AddSingleton<ITokenProvider, TokenProvider>();
-
-            services.AddTransient<ITokenBuilder, TokenBuilder>();
-
-            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
+        if (webHostEnvironment.IsDevelopment() || webHostEnvironment.IsProduction())
+        {
+            services.AddAuthentication(x =>
             {
-                InboundClaimTypeMap = new Dictionary<string, string>()
-            };
-
-            if (webHostEnvironment.IsDevelopment() || webHostEnvironment.IsProduction())
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
             {
-                services.AddAuthentication(x =>
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.SecurityTokenValidators.Clear();
+                options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
+                options.TokenValidationParameters = GetTokenValidationParameters(configuration);
+                options.Events = new JwtBearerEvents
                 {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.SaveToken = true;
-                    options.SecurityTokenValidators.Clear();
-                    options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
-                    options.TokenValidationParameters = GetTokenValidationParameters(configuration);
-                    options.Events = new JwtBearerEvents
+                    OnMessageReceived = context =>
                     {
-                        OnMessageReceived = context =>
-                        {
-                            context.Request.Query.TryGetValue("access_token", out StringValues token);
+                        context.Request.Query.TryGetValue("access_token", out StringValues token);
 
-                            if (!string.IsNullOrEmpty(token)) context.Token = token;
+                        if (!string.IsNullOrEmpty(token)) context.Token = token;
 
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
-            }
+                        return Task.CompletedTask;
+                    }
+                };
+            });
         }
+    }
 
-        public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
+    public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
+    {
+        var tokenValidationParameters = new TokenValidationParameters
         {
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtKey)}"])),
-                ValidateIssuer = true,
-                ValidIssuer = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtIssuer)}"],
-                ValidateAudience = true,
-                ValidAudience = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtAudience)}"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                NameClaimType = JwtRegisteredClaimNames.UniqueName
-            };
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtKey)}"])),
+            ValidateIssuer = true,
+            ValidIssuer = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtIssuer)}"],
+            ValidateAudience = true,
+            ValidAudience = configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtAudience)}"],
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero,
+            NameClaimType = JwtRegisteredClaimNames.UniqueName
+        };
 
-            return tokenValidationParameters;
-        }
+        return tokenValidationParameters;
     }
 }

@@ -4,39 +4,38 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class RemoveBugRequest : IRequest<RemoveBugResponse>
 {
-    public class RemoveBugRequest : IRequest<RemoveBugResponse>
+    public Guid BugId { get; set; }
+}
+
+public class RemoveBugResponse : ResponseBase
+{
+    public BugDto Bug { get; set; }
+
+    public RemoveBugResponse(BugDto bug)
     {
-        public Guid BugId { get; set; }
+        Bug = bug;
     }
+}
 
-    public class RemoveBugResponse : ResponseBase
+public class RemoveBugHandler : IRequestHandler<RemoveBugRequest, RemoveBugResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public RemoveBugHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<RemoveBugResponse> Handle(RemoveBugRequest request, CancellationToken cancellationToken)
     {
-        public BugDto Bug { get; set; }
+        var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.BugId, cancellationToken);
 
-        public RemoveBugResponse(BugDto bug)
-        {
-            Bug = bug;
-        }
+        _context.Bugs.Remove(bug);
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new (bug.ToDto());
     }
-
-    public class RemoveBugHandler : IRequestHandler<RemoveBugRequest, RemoveBugResponse>
-    {
-        private readonly IBacklogDbContext _context;
-
-        public RemoveBugHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<RemoveBugResponse> Handle(RemoveBugRequest request, CancellationToken cancellationToken)
-        {
-            var bug = await _context.Bugs.SingleAsync(x => x.BugId == request.BugId, cancellationToken);
-
-            _context.Bugs.Remove(bug);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new (bug.ToDto());
-        }
-    }
+}
 }

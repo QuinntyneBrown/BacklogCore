@@ -4,29 +4,28 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Backlog.Cli
+namespace Backlog.Cli;
+public class Authenticate
 {
-    public class Authenticate
+    [Verb("default")]
+    public class Request : IRequest<Unit> {
+
+    }
+
+    internal class Handler : IRequestHandler<Request, Unit>
     {
-        [Verb("default")]
-        public class Request : IRequest<Unit> {
+        private readonly IMediator _mediator;
 
-        }
-
-        internal class Handler : IRequestHandler<Request, Unit>
+        public Handler(IMediator mediator)
         {
-            private readonly IMediator _mediator;
+            _mediator = mediator;
+        }
+        public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new GetStoriesRequest());
 
-            public Handler(IMediator mediator)
-            {
-                _mediator = mediator;
-            }
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
-            {
-                await _mediator.Send(new GetStoriesRequest());
-
-                return new();
-            }
+            return new();
         }
     }
+}
 }

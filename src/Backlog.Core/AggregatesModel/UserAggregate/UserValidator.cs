@@ -1,6 +1,5 @@
 using FluentValidation;
 
-namespace Backlog.Core
-{
-    public class UserValidator: AbstractValidator<UserDto> { }
+namespace Backlog.Core;
+public class UserValidator: AbstractValidator<UserDto> { }
 }

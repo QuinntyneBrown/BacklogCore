@@ -1,17 +1,16 @@
 using System;
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public static class BugExtensions
 {
-    public static class BugExtensions
+    public static BugDto ToDto(this Bug bug)
     {
-        public static BugDto ToDto(this Bug bug)
+        return new()
         {
-            return new()
-            {
-                BugId = bug.BugId
-            };
-        }
-
+            BugId = bug.BugId
+        };
     }
+
+}
 }

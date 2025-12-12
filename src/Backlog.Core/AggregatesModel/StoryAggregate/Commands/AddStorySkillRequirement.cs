@@ -2,46 +2,45 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class AddStorySkillRequirementRequest : IRequest<AddStorySkillRequirementResponse>
 {
-    public class AddStorySkillRequirementRequest : IRequest<AddStorySkillRequirementResponse>
+    public Guid StoryId { get; set; }
+    public string? Technology { get; set; }
+    public string? CompetencyLevel { get; set; }
+}
+
+public class AddStorySkillRequirementResponse : ResponseBase
+{
+    public StoryDto? Story { get; set; }
+}
+
+public class AddStorySkillRequirementHandler : IRequestHandler<AddStorySkillRequirementRequest, AddStorySkillRequirementResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public AddStorySkillRequirementHandler(IBacklogDbContext context)
     {
-        public Guid StoryId { get; set; }
-        public string? Technology { get; set; }
-        public string? CompetencyLevel { get; set; }
+        _context = context;
     }
 
-    public class AddStorySkillRequirementResponse : ResponseBase
+    public async Task<AddStorySkillRequirementResponse> Handle(AddStorySkillRequirementRequest request, CancellationToken cancellationToken)
     {
-        public StoryDto? Story { get; set; }
-    }
 
-    public class AddStorySkillRequirementHandler : IRequestHandler<AddStorySkillRequirementRequest, AddStorySkillRequirementResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        var story = await _context.Stories
+            .Include(x => x.SkillRequirements)
+            .SingleAsync(x => x.StoryId == request.StoryId);
 
-        public AddStorySkillRequirementHandler(IBacklogDbContext context)
+        var skillRequirement = new SkillRequirement(request.Technology, request.CompetencyLevel);
+
+        story.Apply(new AddSkillRequirement(skillRequirement));
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return new()
         {
-            _context = context;
-        }
-
-        public async Task<AddStorySkillRequirementResponse> Handle(AddStorySkillRequirementRequest request, CancellationToken cancellationToken)
-        {
-
-            var story = await _context.Stories
-                .Include(x => x.SkillRequirements)
-                .SingleAsync(x => x.StoryId == request.StoryId);
-
-            var skillRequirement = new SkillRequirement(request.Technology, request.CompetencyLevel);
-
-            story.Apply(new AddSkillRequirement(skillRequirement));
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new()
-            {
-                Story = story.ToDto()
-            };
-        }
+            Story = story.ToDto()
+        };
     }
+}
 }

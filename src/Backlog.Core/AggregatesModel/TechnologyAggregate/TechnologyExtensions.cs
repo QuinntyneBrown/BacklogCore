@@ -1,18 +1,17 @@
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public static class TechnologyExtensions
 {
-    public static class TechnologyExtensions
+    public static TechnologyDto ToDto(this Technology technology)
     {
-        public static TechnologyDto ToDto(this Technology technology)
+        return new()
         {
-            return new()
-            {
-                TechnologyId = technology.TechnologyId,
-                Name = technology.Name,
-                Description = technology.Description
-            };
-        }
-
+            TechnologyId = technology.TechnologyId,
+            Name = technology.Name,
+            Description = technology.Description
+        };
     }
+
+}
 }

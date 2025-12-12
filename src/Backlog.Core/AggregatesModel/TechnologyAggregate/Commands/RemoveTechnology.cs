@@ -2,39 +2,38 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class RemoveTechnologyRequest : IRequest<RemoveTechnologyResponse>
 {
-    public class RemoveTechnologyRequest : IRequest<RemoveTechnologyResponse>
+    public Guid TechnologyId { get; set; }
+}
+
+public class RemoveTechnologyResponse : ResponseBase
+{
+    public TechnologyDto? Technology { get; set; }
+}
+
+public class RemoveTechnologyHandler : IRequestHandler<RemoveTechnologyRequest, RemoveTechnologyResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public RemoveTechnologyHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<RemoveTechnologyResponse> Handle(RemoveTechnologyRequest request, CancellationToken cancellationToken)
     {
-        public Guid TechnologyId { get; set; }
-    }
+        var technology = await _context.Technologies.SingleAsync(x => x.TechnologyId == request.TechnologyId);
 
-    public class RemoveTechnologyResponse : ResponseBase
-    {
-        public TechnologyDto? Technology { get; set; }
-    }
+        _context.Technologies.Remove(technology);
 
-    public class RemoveTechnologyHandler : IRequestHandler<RemoveTechnologyRequest, RemoveTechnologyResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        await _context.SaveChangesAsync(cancellationToken);
 
-        public RemoveTechnologyHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<RemoveTechnologyResponse> Handle(RemoveTechnologyRequest request, CancellationToken cancellationToken)
+        return new ()
         {
-            var technology = await _context.Technologies.SingleAsync(x => x.TechnologyId == request.TechnologyId);
-
-            _context.Technologies.Remove(technology);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new ()
-            {
-                Technology = technology.ToDto()
-            };
-        }
-
+            Technology = technology.ToDto()
+        };
     }
+
+}
 
 }

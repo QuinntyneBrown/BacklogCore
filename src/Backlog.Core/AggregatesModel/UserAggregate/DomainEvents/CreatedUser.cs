@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class CreatedUser : BaseDomainEvent
 {
-    public class CreatedUser : BaseDomainEvent
-    {
-        public Guid UserId { get; private set; }
+    public Guid UserId { get; private set; }
 
-        public CreatedUser(Guid userId)
-        {
-            UserId = userId;
-        }
+    public CreatedUser(Guid userId)
+    {
+        UserId = userId;
     }
+}
 }

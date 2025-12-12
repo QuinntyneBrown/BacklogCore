@@ -1,11 +1,10 @@
-﻿using MediatR;
+using MediatR;
 
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public interface IEvent : INotification
 {
-    public interface IEvent : INotification
-    {
-        DateTime Created { get; }
-        Guid CorrelationId { get; }
-        Dictionary<string, object> Items { get; }
-    }
+    DateTime Created { get; }
+    Guid CorrelationId { get; }
+    Dictionary<string, object> Items { get; }
+}
 }

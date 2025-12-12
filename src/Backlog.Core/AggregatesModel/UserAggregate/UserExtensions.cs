@@ -1,18 +1,17 @@
 using System;
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public static class UserExtensions
 {
-    public static class UserExtensions
+    public static UserDto ToDto(this User user)
     {
-        public static UserDto ToDto(this User user)
+        return new ()
         {
-            return new ()
-            {
-                UserId = user.UserId,
-                Username = user.Username
-            };
-        }
-        
+            UserId = user.UserId,
+            Username = user.Username
+        };
     }
+    
+}
 }

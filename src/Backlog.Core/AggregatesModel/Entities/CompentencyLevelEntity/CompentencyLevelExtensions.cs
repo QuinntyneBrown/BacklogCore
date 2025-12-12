@@ -1,19 +1,18 @@
 using System;
 using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public static class CompetencyLevelExtensions
 {
-    public static class CompetencyLevelExtensions
+    public static CompetencyLevelDto ToDto(this CompetencyLevel competencyLevel)
     {
-        public static CompetencyLevelDto ToDto(this CompetencyLevel competencyLevel)
+        return new()
         {
-            return new()
-            {
-                CompetencyLevelId = competencyLevel.CompetencyLevelId,
-                Description = competencyLevel.Description,
-                Name = competencyLevel.Name
-            };
-        }
-
+            CompetencyLevelId = competencyLevel.CompetencyLevelId,
+            Description = competencyLevel.Description,
+            Name = competencyLevel.Name
+        };
     }
+
+}
 }

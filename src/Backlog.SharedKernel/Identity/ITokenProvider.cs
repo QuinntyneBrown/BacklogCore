@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public interface ITokenProvider
 {
-    public interface ITokenProvider
-    {
-        string Get(string username, IEnumerable<Claim> customClaims = null);
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
-        string GenerateRefreshToken();
-    }
+    string Get(string username, IEnumerable<Claim> customClaims = null);
+    ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+    string GenerateRefreshToken();
 }

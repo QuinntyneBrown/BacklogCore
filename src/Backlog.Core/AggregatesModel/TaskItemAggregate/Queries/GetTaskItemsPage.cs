@@ -3,43 +3,42 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class GetTaskItemsPageRequest : IRequest<GetTaskItemsPageResponse>
 {
-    public class GetTaskItemsPageRequest : IRequest<GetTaskItemsPageResponse>
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
+
+public class GetTaskItemsPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<TaskItemDto>? Entities { get; set; }
+}
+
+public class GetTaskItemsPageHandler : IRequestHandler<GetTaskItemsPageRequest, GetTaskItemsPageResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public GetTaskItemsPageHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<GetTaskItemsPageResponse> Handle(GetTaskItemsPageRequest request, CancellationToken cancellationToken)
     {
-        public int PageSize { get; set; }
-        public int Index { get; set; }
-    }
+        var query = from taskItem in _context.TaskItems
+                    select taskItem;
 
-    public class GetTaskItemsPageResponse : ResponseBase
-    {
-        public int Length { get; set; }
-        public List<TaskItemDto>? Entities { get; set; }
-    }
+        var length = await _context.TaskItems.CountAsync(cancellationToken);
 
-    public class GetTaskItemsPageHandler : IRequestHandler<GetTaskItemsPageRequest, GetTaskItemsPageResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        var taskItems = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
 
-        public GetTaskItemsPageHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<GetTaskItemsPageResponse> Handle(GetTaskItemsPageRequest request, CancellationToken cancellationToken)
+        return new()
         {
-            var query = from taskItem in _context.TaskItems
-                        select taskItem;
-
-            var length = await _context.TaskItems.CountAsync(cancellationToken);
-
-            var taskItems = await query.Page(request.Index, request.PageSize)
-                .Select(x => x.ToDto()).ToListAsync();
-
-            return new()
-            {
-                Length = length,
-                Entities = taskItems
-            };
-        }
-
+            Length = length,
+            Entities = taskItems
+        };
     }
+
+}
 }

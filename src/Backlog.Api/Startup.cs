@@ -4,53 +4,52 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Backlog.Api
+namespace Backlog.Api;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+        Configuration = configuration;
+        WebHostEnvironment = webHostEnvironment;
+    }
+
+    public IConfiguration Configuration { get; }
+    public IWebHostEnvironment WebHostEnvironment { get; set; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.Configure<KestrelServerOptions>(options =>
         {
-            Configuration = configuration;
-            WebHostEnvironment = webHostEnvironment;
-        }
+            options.AllowSynchronousIO = true;
+        });
 
-        public IConfiguration Configuration { get; }
-        public IWebHostEnvironment WebHostEnvironment { get; set; }
+        Dependencies.Configure(services, Configuration);
 
-        public void ConfigureServices(IServiceCollection services)
+        Dependencies.ConfigureAuth(services, Configuration, WebHostEnvironment);
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseSwagger();
+
+        app.UseCors("CorsPolicy");
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
         {
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
+            endpoints.MapControllers();
+        });
 
-            Dependencies.Configure(services, Configuration);
-
-            Dependencies.ConfigureAuth(services, Configuration, WebHostEnvironment);
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        app.UseSwaggerUI(c =>
         {
-            app.UseSwagger();
-
-            app.UseCors("CorsPolicy");
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backlog.Api");
-                c.RoutePrefix = string.Empty;
-            });
-        }
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Backlog.Api");
+            c.RoutePrefix = string.Empty;
+        });
     }
 }

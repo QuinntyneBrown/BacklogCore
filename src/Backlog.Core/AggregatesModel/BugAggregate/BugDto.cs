@@ -1,9 +1,8 @@
 using System;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class BugDto
 {
-    public class BugDto
-    {
-        public Guid BugId { get; set; }
-    }
+    public Guid BugId { get; set; }
+}
 }

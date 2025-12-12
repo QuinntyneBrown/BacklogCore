@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public interface INotificationService
 {
-    public interface INotificationService
-    {
-        void Subscribe(Action<dynamic> onNext);
+    void Subscribe(Action<dynamic> onNext);
 
-        void OnNext(dynamic value);
-    }
+    void OnNext(dynamic value);
+}
 }

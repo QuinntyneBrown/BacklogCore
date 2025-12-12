@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UpdateStoryStatus : BaseDomainEvent
 {
-    public class UpdateStoryStatus : BaseDomainEvent
-    {
-        public string Status { get; private set; }
+    public string Status { get; private set; }
 
-        public UpdateStoryStatus(string status)
-        {
-            Status = status;
-        }
+    public UpdateStoryStatus(string status)
+    {
+        Status = status;
     }
+}
 }

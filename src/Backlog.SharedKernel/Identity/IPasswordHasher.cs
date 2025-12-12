@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 
-namespace Backlog.SharedKernel
+namespace Backlog.SharedKernel;
+public interface IPasswordHasher
 {
-    public interface IPasswordHasher
-    {
-        string HashPassword(Byte[] salt, string password);
-    }
+    string HashPassword(Byte[] salt, string password);
+}
 }

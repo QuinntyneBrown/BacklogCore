@@ -1,11 +1,10 @@
 using System;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UserDto
 {
-    public class UserDto
-    {
-        public Guid? UserId { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
+    public Guid? UserId { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
 }

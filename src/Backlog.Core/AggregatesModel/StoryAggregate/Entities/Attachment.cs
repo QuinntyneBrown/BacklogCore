@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+[Owned]
+public class Attachment
 {
-    [Owned]
-    public class Attachment
-    {
-        public Guid DigitalAssetId { get; set; }
-    }
+    public Guid DigitalAssetId { get; set; }
+}
 }

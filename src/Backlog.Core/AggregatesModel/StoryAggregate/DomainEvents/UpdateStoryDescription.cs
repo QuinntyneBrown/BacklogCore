@@ -1,14 +1,13 @@
-﻿using Backlog.SharedKernel;
+using Backlog.SharedKernel;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+public class UpdateStoryDescription : BaseDomainEvent
 {
-    public class UpdateStoryDescription : BaseDomainEvent
-    {
-        public string Description { get; private set; }
+    public string Description { get; private set; }
 
-        public UpdateStoryDescription(string description)
-        {
-            Description = description;
-        }
+    public UpdateStoryDescription(string description)
+    {
+        Description = description;
     }
+}
 }

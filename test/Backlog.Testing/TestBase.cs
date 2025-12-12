@@ -1,14 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Backlog.Testing
+namespace Backlog.Testing;
+public class TestBase
 {
-    public class TestBase
-    {
-        protected ServiceCollection _serviceCollection;
+    protected ServiceCollection _serviceCollection;
 
-        public TestBase()
-        {
-            _serviceCollection = new ServiceCollection();
-        }
+    public TestBase()
+    {
+        _serviceCollection = new ServiceCollection();
     }
+}
 }

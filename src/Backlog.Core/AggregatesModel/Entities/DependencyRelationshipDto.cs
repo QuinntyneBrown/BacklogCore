@@ -1,7 +1,6 @@
-﻿namespace Backlog.Core
+namespace Backlog.Core;
+public class DependencyRelationshipDto
 {
-    public class DependencyRelationshipDto
-    {
-        public string DependsOn { get; set; }
-    }
+    public string DependsOn { get; set; }
+}
 }

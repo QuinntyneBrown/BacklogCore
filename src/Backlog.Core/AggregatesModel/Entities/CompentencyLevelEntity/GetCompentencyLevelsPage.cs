@@ -3,45 +3,44 @@ using Backlog.SharedKernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backlog.Core
+namespace Backlog.Core;
+
+public class GetCompetencyLevelsPageRequest : IRequest<GetCompetencyLevelsPageResponse>
 {
+    public int PageSize { get; set; }
+    public int Index { get; set; }
+}
 
-    public class GetCompetencyLevelsPageRequest : IRequest<GetCompetencyLevelsPageResponse>
+public class GetCompetencyLevelsPageResponse : ResponseBase
+{
+    public int Length { get; set; }
+    public List<CompetencyLevelDto>? Entities { get; set; }
+}
+
+public class GetCompetencyLevelsPageHandler : IRequestHandler<GetCompetencyLevelsPageRequest, GetCompetencyLevelsPageResponse>
+{
+    private readonly IBacklogDbContext _context;
+
+    public GetCompetencyLevelsPageHandler(IBacklogDbContext context)
+        => _context = context;
+
+    public async Task<GetCompetencyLevelsPageResponse> Handle(GetCompetencyLevelsPageRequest request, CancellationToken cancellationToken)
     {
-        public int PageSize { get; set; }
-        public int Index { get; set; }
-    }
+        var query = from competencyLevel in _context.CompetencyLevels
+                    select competencyLevel;
 
-    public class GetCompetencyLevelsPageResponse : ResponseBase
-    {
-        public int Length { get; set; }
-        public List<CompetencyLevelDto>? Entities { get; set; }
-    }
+        var length = await _context.CompetencyLevels.CountAsync();
 
-    public class GetCompetencyLevelsPageHandler : IRequestHandler<GetCompetencyLevelsPageRequest, GetCompetencyLevelsPageResponse>
-    {
-        private readonly IBacklogDbContext _context;
+        var competencyLevels = await query.Page(request.Index, request.PageSize)
+            .Select(x => x.ToDto()).ToListAsync();
 
-        public GetCompetencyLevelsPageHandler(IBacklogDbContext context)
-            => _context = context;
-
-        public async Task<GetCompetencyLevelsPageResponse> Handle(GetCompetencyLevelsPageRequest request, CancellationToken cancellationToken)
+        return new()
         {
-            var query = from competencyLevel in _context.CompetencyLevels
-                        select competencyLevel;
-
-            var length = await _context.CompetencyLevels.CountAsync();
-
-            var competencyLevels = await query.Page(request.Index, request.PageSize)
-                .Select(x => x.ToDto()).ToListAsync();
-
-            return new()
-            {
-                Length = length,
-                Entities = competencyLevels
-            };
-        }
-
+            Length = length,
+            Entities = competencyLevels
+        };
     }
+
+}
 
 }

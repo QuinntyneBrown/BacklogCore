@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backlog.Api.Migrations;
+
 public partial class AddStoryEffortProperty : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

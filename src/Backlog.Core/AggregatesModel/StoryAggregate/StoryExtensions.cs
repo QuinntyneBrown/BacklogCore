@@ -2,6 +2,7 @@ using Backlog.SharedKernel;
 using System.Linq;
 
 namespace Backlog.Core;
+
 public static class StoryExtensions
 {
     public static StoryDto ToDto(this Story story)

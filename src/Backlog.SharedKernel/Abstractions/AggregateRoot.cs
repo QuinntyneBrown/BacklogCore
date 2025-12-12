@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Backlog.SharedKernel;
+
 public abstract class AggregateRoot : IAggregateRoot
 {
     internal List<StoredEvent> _storedEvents = new List<StoredEvent>();

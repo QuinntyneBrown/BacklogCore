@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetDigitalAssetByIdRequest : IRequest<GetDigitalAssetByIdResponse>
 {
     public Guid DigitalAssetId { get; set; }

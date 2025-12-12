@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Backlog.Core;
 
+
 public class CreateStatusValidator : AbstractValidator<CreateStatusRequest>
 {
     public CreateStatusValidator()

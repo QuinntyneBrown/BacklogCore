@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Backlog.Core;
+
 public class GetCurrentUserRequest: IRequest<GetCurrentUserResponse> { }
 
 public class GetCurrentUserResponse

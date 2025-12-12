@@ -1,4 +1,5 @@
 namespace Backlog.SharedKernel;
+
 public class Authentication
 {
     public string? TokenPath { get; set; }

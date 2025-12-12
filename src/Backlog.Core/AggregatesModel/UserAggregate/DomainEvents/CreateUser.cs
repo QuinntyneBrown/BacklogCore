@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 
 namespace Backlog.Core;
+
 public class CreateUser : BaseDomainEvent
 {
     public Guid UserId { get; private set; } = Guid.NewGuid();

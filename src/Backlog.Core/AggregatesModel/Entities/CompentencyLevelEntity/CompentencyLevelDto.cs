@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Core;
+
 public class CompetencyLevelDto
 {
     public Guid CompetencyLevelId { get; set; }

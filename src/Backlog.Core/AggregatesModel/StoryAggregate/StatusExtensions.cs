@@ -2,6 +2,7 @@ using System;
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public static class StatusExtensions
 {
     public static StatusDto ToDto(this Status status)

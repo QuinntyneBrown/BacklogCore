@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetTaskItemsRequest : IRequest<GetTaskItemsResponse> { }
 
 public class GetTaskItemsResponse : ResponseBase

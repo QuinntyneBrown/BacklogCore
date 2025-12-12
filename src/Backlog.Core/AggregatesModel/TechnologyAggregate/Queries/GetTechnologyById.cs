@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetTechnologyByIdRequest : IRequest<GetTechnologyByIdResponse>
 {
     public Guid TechnologyId { get; set; }

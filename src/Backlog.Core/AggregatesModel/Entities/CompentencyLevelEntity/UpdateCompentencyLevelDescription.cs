@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backlog.Core;
+
 public class UpdateCompetencyLevelDescription
 {
     public class Validator : AbstractValidator<Request>

@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public static class TechnologyExtensions
 {
     public static TechnologyDto ToDto(this Technology technology)

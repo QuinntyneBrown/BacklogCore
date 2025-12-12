@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class UpdateStoryDescription : BaseDomainEvent
 {
     public string Description { get; private set; }

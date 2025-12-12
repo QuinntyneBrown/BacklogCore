@@ -2,6 +2,7 @@ using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public interface IBacklogDbContext
 {
     DbSet<Story> Stories { get; }

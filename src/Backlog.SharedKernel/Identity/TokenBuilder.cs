@@ -3,6 +3,7 @@ using System.Linq;
 using System.Security.Claims;
 
 namespace Backlog.SharedKernel;
+
 public class TokenBuilder : ITokenBuilder
 {
     private readonly ITokenProvider _tokenProivder;

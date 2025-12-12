@@ -2,6 +2,7 @@ using System;
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public static class CompetencyLevelExtensions
 {
     public static CompetencyLevelDto ToDto(this CompetencyLevel competencyLevel)

@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Backlog.Core;
 
+
 public class UpdateStoryJiraUrlValidator : AbstractValidator<UpdateStoryJiraUrlRequest>
 {
     public UpdateStoryJiraUrlValidator()

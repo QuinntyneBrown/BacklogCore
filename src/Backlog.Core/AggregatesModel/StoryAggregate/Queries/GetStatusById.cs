@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetStatusByIdRequest : IRequest<GetStatusByIdResponse>
 {
     public Guid StatusId { get; set; }

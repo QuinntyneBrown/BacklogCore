@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Backlog.Core;
 
+
 public class UpdateTechnologyNameValidator : AbstractValidator<UpdateTechnologyNameRequest>
 {
     public UpdateTechnologyNameValidator()

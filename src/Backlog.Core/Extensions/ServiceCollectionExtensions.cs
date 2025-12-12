@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Backlog.Api.Extensions;
+
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddValidation(this IServiceCollection services, Type type)

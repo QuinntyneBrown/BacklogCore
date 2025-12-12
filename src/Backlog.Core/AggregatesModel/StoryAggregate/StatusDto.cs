@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Core;
+
 public class StatusDto
 {
     public Guid StatusId { get; set; }

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class AddSprintStoryValidator : AbstractValidator<AddSprintStoryRequest>
 {
     public AddSprintStoryValidator()

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using static System.Linq.Expressions.Expression;
 
 namespace Backlog.Api.Extensions;
+
 public static class IQueryableExtensions
 {
     public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int pageIndex, int pageSize)

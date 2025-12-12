@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Core;
+
 public class DigitalAsset
 {
     public Guid DigitalAssetId { get; set; }

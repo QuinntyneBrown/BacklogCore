@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class UpdateCompetencyLevelValidator : AbstractValidator<UpdateCompetencyLevelRequest>
 {
     public UpdateCompetencyLevelValidator()

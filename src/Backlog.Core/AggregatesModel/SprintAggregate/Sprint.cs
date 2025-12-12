@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Backlog.Core;
+
 public class Sprint: AggregateRoot
 {
     public Guid SprintId { get; private set; }

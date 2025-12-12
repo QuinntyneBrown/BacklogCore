@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class BuildToken : BaseDomainEvent
 {
     public BuildToken(string username)

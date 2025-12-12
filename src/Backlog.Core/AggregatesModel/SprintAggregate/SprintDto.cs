@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Backlog.Core;
+
 public class SprintDto
 {
     public Guid? SprintId { get; set; }

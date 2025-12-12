@@ -2,6 +2,7 @@ using System;
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class CreateProfile : BaseDomainEvent
 {
     public Guid ProfileId { get; private set; } = Guid.NewGuid();

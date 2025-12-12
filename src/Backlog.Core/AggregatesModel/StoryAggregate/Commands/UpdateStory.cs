@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class UpdateStoryValidator : AbstractValidator<UpdateStoryRequest>
 {
     public UpdateStoryValidator()

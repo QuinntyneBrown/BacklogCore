@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveSprintRequest : IRequest<RemoveSprintResponse>
 {
     public Guid SprintId { get; set; }

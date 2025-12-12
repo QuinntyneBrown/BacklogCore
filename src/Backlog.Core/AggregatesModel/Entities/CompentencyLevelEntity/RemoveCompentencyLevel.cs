@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveCompetencyLevelRequest : IRequest<RemoveCompetencyLevelResponse>
 {
     public Guid CompetencyLevelId { get; set; }

@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class UpdateSprint : BaseDomainEvent
 {
     public string Name { get; private set; }

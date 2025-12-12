@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class User: AggregateRoot
 {
     public Guid UserId { get; private set; }

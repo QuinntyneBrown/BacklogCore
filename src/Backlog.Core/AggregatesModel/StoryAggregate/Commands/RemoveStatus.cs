@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace Backlog.Core;
+
 public class RemoveStatusRequest : IRequest<RemoveStatusResponse>
 {
     public Guid StatusId { get; set; }

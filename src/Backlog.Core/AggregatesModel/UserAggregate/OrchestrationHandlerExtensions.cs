@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace Backlog.Core.Users;
+
 public static class OrchestrationHandlerExtensions
 {
     public static Task PublishBuildTokenEvent(this IOrchestrationHandler orchestrationHandler, string username)

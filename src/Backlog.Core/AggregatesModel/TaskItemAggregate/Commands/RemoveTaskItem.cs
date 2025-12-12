@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveTaskItemRequest : IRequest<RemoveTaskItemResponse>
 {
     public Guid TaskItemId { get; set; }

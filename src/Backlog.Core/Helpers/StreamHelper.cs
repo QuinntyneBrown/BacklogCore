@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Api.Helpers;
+
 public class StreamHelper
 {
     public static byte[] ReadToEnd(System.IO.Stream stream)

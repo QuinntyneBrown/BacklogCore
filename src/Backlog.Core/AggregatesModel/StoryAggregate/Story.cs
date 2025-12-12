@@ -3,6 +3,7 @@ using static Backlog.SharedKernel.SharedKernelConstants;
 using static System.String;
 
 namespace Backlog.Core;
+
 public class Story : AggregateRoot
 {
     public Guid StoryId { get; private set; }

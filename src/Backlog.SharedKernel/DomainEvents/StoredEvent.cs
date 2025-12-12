@@ -1,4 +1,5 @@
 namespace Backlog.SharedKernel;
+
 public class StoredEvent
 {
     public Guid StoredEventId { get; set; }

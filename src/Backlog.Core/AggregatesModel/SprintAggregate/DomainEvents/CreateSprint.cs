@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class CreateSprint: BaseDomainEvent
 {
     public Guid SprintId { get; private set; } = Guid.NewGuid();

@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Backlog.Core;
 
+
 public class CreateCompetencyLevelValidator : AbstractValidator<CreateCompetencyLevelRequest>
 {
     public CreateCompetencyLevelValidator()

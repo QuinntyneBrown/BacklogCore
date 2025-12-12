@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class GetDigitalAssetsByIdsRequest : IRequest<GetDigitalAssetsByIdsResponse>
 {
     public Guid[]? DigitalAssetIds { get; init; }

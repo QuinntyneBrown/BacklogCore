@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetUserByIdRequest : IRequest<GetUserByIdResponse>
 {
     public Guid UserId { get; set; }

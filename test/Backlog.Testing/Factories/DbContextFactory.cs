@@ -6,6 +6,7 @@ using Respawn;
 using System.Threading.Tasks;
 
 namespace Backlog.Testing;
+
 public static class DbContextFactory
 {
     private static Respawner _respawner;

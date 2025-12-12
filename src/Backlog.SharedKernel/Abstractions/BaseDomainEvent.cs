@@ -1,4 +1,5 @@
 namespace Backlog.SharedKernel;
+
 public class BaseDomainEvent : IEvent
 {
     public DateTime Created => Convert.ToDateTime(Items[nameof(Created)]);

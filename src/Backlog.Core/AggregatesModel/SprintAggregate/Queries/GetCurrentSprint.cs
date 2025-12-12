@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetCurrentSprintRequest : IRequest<GetCurrentSprintResponse> { }
 
 public class GetCurrentSprintResponse : ResponseBase

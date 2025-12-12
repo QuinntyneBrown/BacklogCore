@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace Backlog.Testing;
+
 public static class ConfigurationFactory
 {
     private static IConfiguration _configuration;

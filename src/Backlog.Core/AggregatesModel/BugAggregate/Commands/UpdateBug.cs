@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class UpdateBugValidator : AbstractValidator<UpdateBugRequest>
 {
     public UpdateBugValidator()

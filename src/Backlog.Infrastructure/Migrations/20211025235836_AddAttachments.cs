@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backlog.Api.Migrations;
+
 public partial class AddAttachments : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

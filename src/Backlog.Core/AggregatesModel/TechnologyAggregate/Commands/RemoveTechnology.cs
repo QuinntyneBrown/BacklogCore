@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveTechnologyRequest : IRequest<RemoveTechnologyResponse>
 {
     public Guid TechnologyId { get; set; }

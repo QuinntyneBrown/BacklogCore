@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class GetTechnologiesPageRequest : IRequest<GetTechnologiesPageResponse>
 {
     public int PageSize { get; set; }

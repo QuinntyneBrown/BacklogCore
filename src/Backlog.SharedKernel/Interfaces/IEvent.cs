@@ -1,6 +1,7 @@
 using MediatR;
 
 namespace Backlog.SharedKernel;
+
 public interface IEvent : INotification
 {
     DateTime Created { get; }

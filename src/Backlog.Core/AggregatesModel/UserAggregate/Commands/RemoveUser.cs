@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveUserRequest : IRequest<RemoveUserResponse>
 {
     public Guid UserId { get; init; }

@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Backlog.SharedKernel;
 
+
 public class TokenProvider : ITokenProvider
 {
     private IConfiguration _configuration;

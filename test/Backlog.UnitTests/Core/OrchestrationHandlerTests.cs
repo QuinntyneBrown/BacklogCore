@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Backlog.UnitTests.Core;
+
 public class OrchestrationHandlerTests : TestBase
 {
     [Fact]

@@ -7,6 +7,7 @@ using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetDigitalAssetByFilename
 {
     public class Request : IRequest<Response>

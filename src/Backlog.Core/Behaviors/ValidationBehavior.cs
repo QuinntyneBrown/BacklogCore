@@ -4,6 +4,7 @@ using MediatR;
 
 
 namespace Backlog.Api.Behaviors;
+
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : ResponseBase, new()

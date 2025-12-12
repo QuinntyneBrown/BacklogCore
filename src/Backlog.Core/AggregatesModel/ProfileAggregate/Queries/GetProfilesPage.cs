@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetProfilesPageRequest : IRequest<GetProfilesPageResponse>
 {
     public int PageSize { get; set; }

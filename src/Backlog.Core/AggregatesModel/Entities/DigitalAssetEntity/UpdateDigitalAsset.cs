@@ -7,6 +7,7 @@ using Backlog.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class UpdateDigitalAsset
 {
     public class Validator : AbstractValidator<Request>

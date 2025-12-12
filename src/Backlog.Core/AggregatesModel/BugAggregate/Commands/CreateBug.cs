@@ -4,6 +4,7 @@ using FluentValidation;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class CreateBugValidator : AbstractValidator<CreateBugRequest>
 {
     public CreateBugValidator()

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class UpdateTaskItemValidator : AbstractValidator<UpdateTaskItemRequest>
 {
     public UpdateTaskItemValidator()

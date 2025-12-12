@@ -2,6 +2,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class Profile : AggregateRoot
 {
     public Guid ProfileId { get; private set; }

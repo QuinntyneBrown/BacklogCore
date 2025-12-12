@@ -7,6 +7,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 
 namespace Backlog.Cli;
+
 public static class Dependencies
 {
     private static IConfiguration Configuration;

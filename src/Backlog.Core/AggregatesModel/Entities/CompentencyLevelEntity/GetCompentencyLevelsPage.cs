@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class GetCompetencyLevelsPageRequest : IRequest<GetCompetencyLevelsPageResponse>
 {
     public int PageSize { get; set; }

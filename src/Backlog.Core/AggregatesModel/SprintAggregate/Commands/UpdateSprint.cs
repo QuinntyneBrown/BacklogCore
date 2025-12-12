@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Backlog.Core;
 
+
 public class UpdateSprintValidator : AbstractValidator<UpdateSprintRequest>
 {
     public UpdateSprintValidator()

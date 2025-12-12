@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace Backlog.Api;
 
+
 public static class Dependencies
 {
     public static void Configure(IServiceCollection services, IConfiguration configuration)

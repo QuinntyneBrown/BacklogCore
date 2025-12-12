@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class CreateSprintValidator : AbstractValidator<CreateSprintRequest>
 {
     public CreateSprintValidator()

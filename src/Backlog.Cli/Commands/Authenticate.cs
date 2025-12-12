@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backlog.Cli;
+
 public class Authenticate
 {
     [Verb("default")]

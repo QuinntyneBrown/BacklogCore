@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class GetBugByIdRequest : IRequest<GetBugByIdResponse>
 {
     public Guid BugId { get; set; }

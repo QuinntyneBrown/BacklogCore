@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetSprintByIdRequest : IRequest<GetSprintByIdResponse>
 {
     public Guid SprintId { get; set; }

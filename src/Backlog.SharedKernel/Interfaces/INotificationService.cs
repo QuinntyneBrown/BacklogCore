@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.SharedKernel;
+
 public interface INotificationService
 {
     void Subscribe(Action<dynamic> onNext);

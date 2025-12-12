@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
 
+
 public class GetCompetencyLevelByIdRequest : IRequest<GetCompetencyLevelByIdResponse>
 {
     public Guid CompetencyLevelId { get; set; }

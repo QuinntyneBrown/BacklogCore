@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class RemoveBugRequest : IRequest<RemoveBugResponse>
 {
     public Guid BugId { get; set; }

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class UpdateStoryDescriptionRequest : IRequest<UpdateStoryDescriptionResponse>
 {
     public Guid StoryId { get; set; }

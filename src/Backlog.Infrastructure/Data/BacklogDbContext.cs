@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Backlog.Api.Data;
+
 public class BacklogDbContext: DbContext, IBacklogDbContext
 {
     private readonly INotificationService _notificationService;

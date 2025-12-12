@@ -2,6 +2,7 @@ using Backlog.SharedKernel;
 
 namespace Backlog.Core;
 
+
 public class BuiltToken : BaseDomainEvent
 {
     public BuiltToken(Guid userId, string accessToken)

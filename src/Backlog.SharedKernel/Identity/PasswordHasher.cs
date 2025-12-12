@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 
 namespace Backlog.SharedKernel;
+
 public class PasswordHasher : IPasswordHasher
 {
     public string HashPassword(Byte[] salt, string password)

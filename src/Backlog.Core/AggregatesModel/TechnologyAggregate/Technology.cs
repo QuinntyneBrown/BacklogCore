@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Core;
+
 public class Technology
 {
     public Guid TechnologyId { get; private set; }

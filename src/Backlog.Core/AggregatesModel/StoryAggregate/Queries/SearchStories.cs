@@ -2,6 +2,7 @@ using Backlog.Api.Extensions;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class SearchStoriesRequest : IRequest<SearchStoriesResponse>
 {
     public string? Query { get; set; }

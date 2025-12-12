@@ -1,6 +1,7 @@
 using System;
 
 namespace Backlog.Core;
+
 public class ProfileItem
 {
     public Guid ProfileItemId { get; private set; }

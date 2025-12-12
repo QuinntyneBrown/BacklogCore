@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coop.Api.Features;
+
 public class UserEventHandler :
     INotificationHandler<CreateUser>,
     INotificationHandler<BuildToken>

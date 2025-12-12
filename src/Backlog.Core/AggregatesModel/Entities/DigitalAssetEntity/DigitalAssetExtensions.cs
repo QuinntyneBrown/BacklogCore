@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public static class DigitalAssetExtensions
 {
     public static DigitalAssetDto ToDto(this DigitalAsset digitalAsset)

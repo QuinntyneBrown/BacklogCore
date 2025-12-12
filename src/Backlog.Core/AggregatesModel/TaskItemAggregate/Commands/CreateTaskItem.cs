@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class CreateTaskItemValidator : AbstractValidator<CreateTaskItemRequest>
 {
     public CreateTaskItemValidator()

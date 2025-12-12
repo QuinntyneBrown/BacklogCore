@@ -3,6 +3,7 @@ using Backlog.SharedKernel;
 using System;
 
 namespace Backlog.Core;
+
 public class TaskItem : AggregateRoot
 {
     public Guid TaskItemId { get; set; }

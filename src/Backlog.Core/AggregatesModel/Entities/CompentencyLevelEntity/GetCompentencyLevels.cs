@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetCompetencyLevelsRequest : IRequest<GetCompetencyLevelsResponse> { }
 
 public class GetCompetencyLevelsResponse : ResponseBase

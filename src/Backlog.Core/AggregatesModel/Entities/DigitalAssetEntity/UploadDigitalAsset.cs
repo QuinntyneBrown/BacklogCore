@@ -7,6 +7,7 @@ using Microsoft.Net.Http.Headers;
 using System.Drawing;
 
 namespace Backlog.Core;
+
 public class UploadDigitalAssetRequest : IRequest<UploadDigitalAssetResponse> { }
 
 public class UploadDigitalAssetResponse

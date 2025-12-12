@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Backlog.Core;
 
 
+
 public class UpdateStoryDependsOnRequest : IRequest<UpdateStoryDependsOnResponse>
 {
     public Guid StoryId { get; set; }

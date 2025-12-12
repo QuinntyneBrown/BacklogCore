@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backlog.Api.Migrations;
+
 public partial class AddDigitalAssets : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)

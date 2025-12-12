@@ -3,6 +3,7 @@ using System;
 using System.IO;
 
 namespace Backlog.Api.Helpers;
+
 public static class MultipartRequestHelper
 {
     public static string GetBoundary(Microsoft.Net.Http.Headers.MediaTypeHeaderValue contentType, int lengthLimit)

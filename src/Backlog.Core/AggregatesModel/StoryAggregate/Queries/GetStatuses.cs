@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 public class GetStatusesRequest : IRequest<GetStatusesResponse> { }
 
 public class GetStatusesResponse : ResponseBase

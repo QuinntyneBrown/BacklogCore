@@ -1,4 +1,5 @@
 namespace Backlog.Core;
+
 public class ProfileDto
 {
     public Guid? ProfileId { get; set; }

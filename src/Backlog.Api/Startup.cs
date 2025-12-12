@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Backlog.Api;
 
+
 public class Startup
 {
     public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)

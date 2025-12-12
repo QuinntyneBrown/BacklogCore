@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Backlog.UnitTests.Models;
+
 internal class UserTests
 {
 }

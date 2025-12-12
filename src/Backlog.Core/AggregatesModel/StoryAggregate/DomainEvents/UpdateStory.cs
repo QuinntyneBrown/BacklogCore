@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class UpdateStory : BaseDomainEvent
 {
     public Guid StoryId { get; private set; } = Guid.NewGuid();

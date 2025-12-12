@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public static class ProfileExtensions
 {
     public static ProfileDto ToDto(this Profile profile)

@@ -1,6 +1,7 @@
 using System.Security.Claims;
 
 namespace Backlog.SharedKernel;
+
 public interface ITokenBuilder
 {
     TokenBuilder AddOrUpdateClaim(Claim claim);

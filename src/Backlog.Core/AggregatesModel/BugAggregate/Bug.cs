@@ -5,6 +5,7 @@ using System;
 using static System.String;
 
 namespace Backlog.Core;
+
 public class Bug : AggregateRoot
 {
     public Guid BugId { get; private set; }

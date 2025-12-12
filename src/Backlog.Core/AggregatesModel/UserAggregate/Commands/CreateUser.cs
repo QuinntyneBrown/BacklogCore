@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 
 namespace Backlog.Core;
+
 public class CreateUserValidator : AbstractValidator<CreateUserRequest>
 {
     public CreateUserValidator()

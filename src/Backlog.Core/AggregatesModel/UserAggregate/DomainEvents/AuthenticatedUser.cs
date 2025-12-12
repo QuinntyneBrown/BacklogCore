@@ -1,6 +1,7 @@
 using Backlog.SharedKernel;
 
 namespace Backlog.Core;
+
 public class AuthenticatedUser : BaseDomainEvent
 {
     public AuthenticatedUser(string username)

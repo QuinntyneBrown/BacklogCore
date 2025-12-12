@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 
 namespace Backlog.SharedKernel;
+
 public interface IOrchestrationHandler
 {
     public Task Publish(IEvent message);

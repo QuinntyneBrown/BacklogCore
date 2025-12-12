@@ -73,14 +73,9 @@ public static class Dependencies
             .LogTo(Console.WriteLine)
             .EnableSensitiveDataLogging();
         });
-/*
-        services.AddHostedService<NotificationBackgroundService>();
-
-        services.AddSingleton<IBackgroundQueue, BackgroundQueue>();*/
 
         services.AddSingleton<INotificationService, NotificationService>();
-
-
+        
         services.AddControllers();
     }
 
@@ -108,8 +103,8 @@ public static class Dependencies
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
-                options.SecurityTokenValidators.Clear();
-                options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
+                options.TokenHandlers.Clear();
+                options.TokenHandlers.Add(jwtSecurityTokenHandler);
                 options.TokenValidationParameters = GetTokenValidationParameters(configuration);
                 options.Events = new JwtBearerEvents
                 {

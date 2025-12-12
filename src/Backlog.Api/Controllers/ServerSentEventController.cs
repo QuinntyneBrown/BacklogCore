@@ -1,3 +1,4 @@
+using System;
 using Backlog.SharedKernel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ public class ServerSentEventController : Controller
         var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
         var response = Response;
-        response.Headers.Add("Content-Type", "text/event-stream");
+        response.Headers.Append("Content-Type", "text/event-stream");
 
         _notificationService.Subscribe(async e =>
         {

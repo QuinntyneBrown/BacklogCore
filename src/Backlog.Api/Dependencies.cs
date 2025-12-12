@@ -57,7 +57,7 @@ namespace Backlog.Api
 
             services.AddHttpContextAccessor();
 
-            services.AddMediatR(typeof(IBacklogDbContext));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<IBacklogDbContext>());
 
             services.AddTransient<IBacklogDbContext, BacklogDbContext>();
 

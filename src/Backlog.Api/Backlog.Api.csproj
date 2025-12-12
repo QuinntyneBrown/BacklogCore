@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.11" NoWarn="NU1605" />
 
@@ -21,11 +21,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Backlog.Infrastructure\Backlog.Infrastructure.csproj" />
   </ItemGroup>
-  
-  <Target Name="EndpointPostBuildTarget" AfterTargets="Build">
-    <Exec Command="dotnet tool restore" />
-    <Exec Command="dotnet tool run swagger tofile --serializeasv2  --output &quot;$(ProjectDir)swagger.json&quot; &quot;$(TargetDir)$(TargetFileName)&quot; v1" />
-    <Exec Command="endpoint post-api-build" />
-  </Target>
 
 </Project>

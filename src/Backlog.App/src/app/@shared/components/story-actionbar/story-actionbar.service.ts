@@ -6,7 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class StoryActionbarService {
 
-  public cancel$ = new Subject();
+  public cancel$ = new Subject<void>();
 
-  public save$ = new Subject();
+  public save$ = new Subject<void>();
 }

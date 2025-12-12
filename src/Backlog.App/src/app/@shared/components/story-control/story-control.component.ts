@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESS
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { BaseControl, ckEditorConfig } from '@core';
-import { Sprint, Story } from '@api';
+import { SprintDto, StoryDto } from '@api';
 import { CKEditor4 } from 'ckeditor4-angular';
 
 
@@ -45,7 +45,7 @@ export class StoryControlComponent extends BaseControl implements Validator  {
     super();
   }
 
-  @Input() sprints: Sprint[];
+  @Input() sprints: SprintDto[];
 
   @Output() public addSkillRequirementClick = new EventEmitter();
 

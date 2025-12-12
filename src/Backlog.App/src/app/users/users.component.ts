@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '@api';
-import { combine, User } from '@core';
+import { UserDto, UserService } from '@api';
+import { combine } from '@core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
@@ -14,10 +14,10 @@ import { map, switchMap, tap } from 'rxjs/operators';
 })
 export class UsersComponent {
 
-  private readonly _saveSubject: Subject<User> = new Subject();
-  private readonly _selectSubject: Subject<User> = new Subject();
+  private readonly _saveSubject: Subject<UserDto> = new Subject();
+  private readonly _selectSubject: Subject<UserDto> = new Subject();
   private readonly _createSubject: Subject<void> = new Subject();
-  private readonly _deleteSubject: Subject<User> = new Subject();
+  private readonly _deleteSubject: Subject<UserDto> = new Subject();
   private readonly _refreshSubject: BehaviorSubject<null> = new BehaviorSubject(null);
 
   readonly vm$ = this._refreshSubject
@@ -41,7 +41,7 @@ export class UsersComponent {
     private readonly _router: Router,  
   ) { }
 
-  private _handleSelect(user: User): Observable<boolean> {
+  private _handleSelect(user: UserDto): Observable<boolean> {
     return from(this._router.navigate(["/","users","edit", user.userId]));
   }
 
@@ -49,7 +49,7 @@ export class UsersComponent {
     return from(this._router.navigate(["/","users","create"]));
   }
 
-  private _handleSave(user: User): Observable<boolean> {
+  private _handleSave(user: UserDto): Observable<boolean> {
     return (user.userId ? this._userService.UpdateUser({ user }) : this._userService.CreateUser({ user }))
     .pipe(      
       switchMap(_ => this._router.navigate(["/","users"])),
@@ -57,7 +57,7 @@ export class UsersComponent {
       );    
   }
 
-  private _handleDelete(user: User): Observable<boolean> {
+  private _handleDelete(user: UserDto): Observable<boolean> {
     return this._userService.RemoveUser(user.userId)
     .pipe(
       switchMap(_ => this._router.navigate(["/","users"])),
@@ -65,19 +65,19 @@ export class UsersComponent {
     );
   }
 
-  private _selected$: Observable<User> = this._activatedRoute
+  private _selected$: Observable<UserDto> = this._activatedRoute
   .paramMap
   .pipe(
     map(x => x.get("userId")),
     switchMap((userId: string) => userId ? this._userService.GetUserById(userId).pipe(
       map(response => response.user)
-    ) : of({} as User)));
+    ) : of({} as UserDto)));
 
-  onSave(user: User) {
+  onSave(user: UserDto) {
     this._saveSubject.next(user);
   }
 
-  onSelect(user: User) {
+  onSelect(user: UserDto) {
     this._selectSubject.next(user);
   }
 
@@ -85,7 +85,7 @@ export class UsersComponent {
     this._createSubject.next();
   }
 
-  onDelete(user: User) {
+  onDelete(user: UserDto) {
     this._deleteSubject.next(user);
   }
 }

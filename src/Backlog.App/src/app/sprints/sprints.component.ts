@@ -67,7 +67,7 @@ export class SprintsComponent {
   .paramMap
   .pipe(
     map(x => x.get("sprintId")),
-    switchMap((sprintId: string) => sprintId ? this._sprintService.GetSprintById(sprintId).pipe(pluck("sprint")) : of({} as Sprint)));
+    switchMap((sprintId: string) => sprintId ? this._sprintService.GetSprintById(sprintId).pipe(pluck("sprint")) : of({} as SprintDto)));
 
   onSave(sprint: SprintDto) {
     this._saveSubject.next(sprint);

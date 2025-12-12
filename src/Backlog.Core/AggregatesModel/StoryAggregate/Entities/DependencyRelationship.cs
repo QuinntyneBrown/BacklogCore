@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace Backlog.Core;
+
 [Owned]
 public class DependencyRelationship
 {

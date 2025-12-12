@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backlog.Api.Migrations;
+
 [DbContext(typeof(BacklogDbContext))]
 [Migration("20220108163009_AddUser")]
 partial class AddUser

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backlog.Api.Controllers;
+
 [ApiController]
 [Route("api/events")]
 [Produces(MediaTypeNames.Application.Json)]

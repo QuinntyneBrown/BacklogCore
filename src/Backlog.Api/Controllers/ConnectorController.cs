@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Backlog.Api.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class ConnectorController

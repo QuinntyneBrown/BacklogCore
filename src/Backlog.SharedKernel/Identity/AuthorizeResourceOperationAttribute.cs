@@ -1,6 +1,7 @@
 /*using Microsoft.AspNetCore.Authorization;
 
 namespace Backlog.SharedKernel;
+
 [System.AttributeUsage(System.AttributeTargets.Class |
                    System.AttributeTargets.Struct)]
 public class AuthorizeResourceOperationAttribute : System.Attribute

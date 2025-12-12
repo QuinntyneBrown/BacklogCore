@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 
 namespace Backlog.Api.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class CompetencyLevelController

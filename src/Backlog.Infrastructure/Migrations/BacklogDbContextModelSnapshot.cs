@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backlog.Api.Migrations;
+
 [DbContext(typeof(BacklogDbContext))]
 partial class BacklogDbContextModelSnapshot : ModelSnapshot
 {

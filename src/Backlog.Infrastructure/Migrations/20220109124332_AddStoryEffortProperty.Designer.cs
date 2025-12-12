@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backlog.Api.Migrations;
+
 [DbContext(typeof(BacklogDbContext))]
 [Migration("20220109124332_AddStoryEffortProperty")]
 partial class AddStoryEffortProperty

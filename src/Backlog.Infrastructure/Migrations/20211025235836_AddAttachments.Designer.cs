@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backlog.Api.Migrations;
+
 [DbContext(typeof(BacklogDbContext))]
 [Migration("20211025235836_AddAttachments")]
 partial class AddAttachments

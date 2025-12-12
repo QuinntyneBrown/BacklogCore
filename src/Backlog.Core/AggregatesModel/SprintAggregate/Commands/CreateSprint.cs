@@ -45,4 +45,3 @@ public class CreateSprintHandler : IRequestHandler<CreateSprintRequest, CreateSp
         };
     }     
 }
-}

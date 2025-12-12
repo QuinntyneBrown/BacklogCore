@@ -15,4 +15,3 @@ public class CreateSprint: BaseDomainEvent
         End = end;  
     }        
 }
-}

@@ -11,4 +11,3 @@ public class AddSprintStory: BaseDomainEvent
         StoryId = storyId;
     }
 }
-}

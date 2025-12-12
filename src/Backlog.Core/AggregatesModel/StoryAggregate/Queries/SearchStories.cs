@@ -34,4 +34,3 @@ public class SearchStoriesHandler : IRequestHandler<SearchStoriesRequest, Search
         };
     }
 }
-}

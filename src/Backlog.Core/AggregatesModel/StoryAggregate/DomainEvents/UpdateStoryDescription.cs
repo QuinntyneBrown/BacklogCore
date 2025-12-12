@@ -10,4 +10,3 @@ public class UpdateStoryDescription : BaseDomainEvent
         Description = description;
     }
 }
-}

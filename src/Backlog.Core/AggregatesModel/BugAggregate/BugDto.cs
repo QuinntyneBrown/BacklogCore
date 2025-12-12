@@ -5,4 +5,3 @@ public class BugDto
 {
     public Guid BugId { get; set; }
 }
-}

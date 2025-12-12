@@ -30,4 +30,3 @@ public class GetBugByIdHandler : IRequestHandler<GetBugByIdRequest, GetBugByIdRe
     }
 
 }
-}

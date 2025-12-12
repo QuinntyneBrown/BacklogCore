@@ -42,5 +42,3 @@ public class GetCompetencyLevelsPageHandler : IRequestHandler<GetCompetencyLevel
     }
 
 }
-
-}

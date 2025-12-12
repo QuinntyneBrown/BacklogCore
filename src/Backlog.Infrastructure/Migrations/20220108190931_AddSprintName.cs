@@ -19,4 +19,3 @@ public partial class AddSprintName : Migration
             table: "Sprints");
     }
 }
-}

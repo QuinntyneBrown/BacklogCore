@@ -20,4 +20,3 @@ public partial class AddStoryEffortProperty : Migration
             table: "Stories");
     }
 }
-}

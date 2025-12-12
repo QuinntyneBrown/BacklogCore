@@ -28,4 +28,3 @@ public partial class AddUser : Migration
             name: "Users");
     }
 }
-}

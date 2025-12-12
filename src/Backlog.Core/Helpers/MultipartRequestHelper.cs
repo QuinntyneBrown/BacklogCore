@@ -44,4 +44,3 @@ public static class MultipartRequestHelper
                    || !string.IsNullOrEmpty(contentDisposition.FileNameStar.ToString()));
     }
 }
-}

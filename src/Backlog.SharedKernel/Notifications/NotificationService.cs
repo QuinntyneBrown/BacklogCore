@@ -17,4 +17,3 @@ public class NotificationService : INotificationService
         _events.OnNext(value);
     }
 }
-}

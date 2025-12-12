@@ -42,4 +42,3 @@ public class UpdateTaskItemHandler : IRequestHandler<UpdateTaskItemRequest, Upda
         };
     }
 }
-}

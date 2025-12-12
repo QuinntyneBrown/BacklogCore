@@ -32,4 +32,3 @@ public class Bug : AggregateRoot
         BugId = @event.BugId;
     }
 }
-}

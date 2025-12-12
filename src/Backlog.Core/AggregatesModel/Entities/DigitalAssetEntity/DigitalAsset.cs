@@ -10,4 +10,3 @@ public class DigitalAsset
     public float Height { get; set; }
     public float Width { get; set; }
 }
-}

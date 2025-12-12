@@ -43,5 +43,3 @@ public class CreateDigitalAssetHandler : IRequestHandler<CreateDigitalAssetReque
     }
 
 }
-
-}

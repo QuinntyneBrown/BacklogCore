@@ -28,4 +28,3 @@ public class GetProfileByIdHandler : IRequestHandler<GetProfileByIdRequest, GetP
         };
     }
 }
-}

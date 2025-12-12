@@ -329,4 +329,3 @@ partial class AddSprint
 #pragma warning restore 612, 618
     }
 }
-}

@@ -45,5 +45,3 @@ public class UpdateCompetencyLevelHandler : IRequestHandler<UpdateCompetencyLeve
     }
 
 }
-
-}

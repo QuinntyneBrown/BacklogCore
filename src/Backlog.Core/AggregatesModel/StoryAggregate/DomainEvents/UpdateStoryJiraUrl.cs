@@ -10,4 +10,3 @@ public class UpdateStoryJiraUrl : BaseDomainEvent
         JiraUrl = jiraUrl;
     }
 }
-}

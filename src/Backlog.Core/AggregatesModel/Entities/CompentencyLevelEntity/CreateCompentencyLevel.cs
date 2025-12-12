@@ -46,5 +46,3 @@ public class CreateCompetencyLevelHandler : IRequestHandler<CreateCompetencyLeve
     }
 
 }
- 
-}

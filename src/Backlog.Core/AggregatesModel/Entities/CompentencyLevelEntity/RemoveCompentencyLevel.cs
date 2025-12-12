@@ -35,5 +35,3 @@ public class RemoveCompetencyLevelHandler : IRequestHandler<RemoveCompetencyLeve
     }
 
 }
-
-}

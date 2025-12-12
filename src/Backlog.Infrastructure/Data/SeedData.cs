@@ -8,4 +8,3 @@ public static class SeedData
 
     }
 }
-}

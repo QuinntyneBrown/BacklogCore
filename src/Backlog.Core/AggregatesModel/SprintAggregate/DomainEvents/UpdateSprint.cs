@@ -14,4 +14,3 @@ public class UpdateSprint : BaseDomainEvent
         End = end;
     }
 }
-}

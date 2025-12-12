@@ -12,4 +12,3 @@ public static class OrchestrationHandlerExtensions
     public static Task PublishBuiltTokenEvent(this IOrchestrationHandler orchestrationHandler, Guid userId, string accessToken)
         => orchestrationHandler.Publish(new BuiltToken(userId, accessToken));
 }
-}

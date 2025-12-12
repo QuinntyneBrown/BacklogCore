@@ -41,4 +41,3 @@ public class GetTechnologiesPageHandler : IRequestHandler<GetTechnologiesPageReq
         };
     }
 }
-}

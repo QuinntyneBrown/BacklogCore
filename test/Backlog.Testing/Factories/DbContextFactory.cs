@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 namespace Backlog.Testing;
 public static class DbContextFactory
 {
-    private static Checkpoint _checkpoint;
+    private static Respawner _respawner;
 
     public static async Task<IBacklogDbContext> Create(string nameOfConnectionString = "ConnectionStrings:TestConnection")
     {
         var configuration = ConfigurationFactory.Create();
 
-        _checkpoint = new Checkpoint()
+        _respawner = await Respawner.CreateAsync(configuration[nameOfConnectionString], new RespawnerOptions
         {
-            TablesToIgnore = new string[1] {
-            "__EFMigrationsHistory"
-            }
-        };
+            DbAdapter = DbAdapter.SqlServer,
+            SchemasToInclude = new[] { "dbo" }
+        });
 
         var container = new ServiceCollection()
             .AddDbContext<BacklogDbContext>(options =>
@@ -38,7 +37,7 @@ public static class DbContextFactory
 
         var connection = context.Database.GetDbConnection();
 
-        await _checkpoint.Reset(configuration[nameOfConnectionString]);
+        await _respawner.ResetAsync(configuration[nameOfConnectionString]);
 
         SeedData.Seed(context);
 

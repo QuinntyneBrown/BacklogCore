@@ -49,4 +49,3 @@ public class AddSprintStoryHandler : IRequestHandler<AddSprintStoryRequest, AddS
         };
     }
 }
-}

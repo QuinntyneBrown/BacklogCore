@@ -8,4 +8,3 @@ public class ProfileValidator : AbstractValidator<ProfileDto> {
         RuleFor(x => x.Lastname).NotEmpty().NotNull();
     }
 }
-}

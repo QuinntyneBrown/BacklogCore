@@ -42,4 +42,3 @@ public class UpdateStatusHandler : IRequestHandler<UpdateStatusRequest, UpdateSt
         };
     }
 }
-}

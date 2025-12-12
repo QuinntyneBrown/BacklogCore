@@ -7,4 +7,3 @@ public class SprintStory
 {
     public Guid StoryId { get; set; }
 }
-}

@@ -41,4 +41,3 @@ public class GetStoriesPageHandler : IRequestHandler<GetStoriesPageRequest, GetS
     }
 
 }
-}

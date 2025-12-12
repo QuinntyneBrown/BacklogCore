@@ -45,5 +45,3 @@ public class UpdateTechnologyNameHandler : IRequestHandler<UpdateTechnologyNameR
         };
     }
 }
-
-}

@@ -41,5 +41,3 @@ public class UpdateStoryDependsOnHandler : IRequestHandler<UpdateStoryDependsOnR
         };
     }
 }
-
-}

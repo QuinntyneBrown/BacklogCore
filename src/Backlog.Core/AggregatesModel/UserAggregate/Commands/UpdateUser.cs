@@ -42,4 +42,3 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserRe
         };
     }
 }
-}

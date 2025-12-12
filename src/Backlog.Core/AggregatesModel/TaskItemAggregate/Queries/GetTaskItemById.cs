@@ -28,4 +28,3 @@ public class GetTaskItemByIdHandler : IRequestHandler<GetTaskItemByIdRequest, Ge
         };
     }
 }
-}

@@ -20,4 +20,3 @@ public class ConnectorController
         => await _mediator.Send(new ConnectorUploadDigitalAssetRequest());
 
 }
-}

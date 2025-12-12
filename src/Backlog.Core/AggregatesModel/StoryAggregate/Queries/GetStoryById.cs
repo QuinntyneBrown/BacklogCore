@@ -31,4 +31,3 @@ public class GetStoryByIdHandler : IRequestHandler<GetStoryByIdRequest, GetStory
         };
     }
 }
-}

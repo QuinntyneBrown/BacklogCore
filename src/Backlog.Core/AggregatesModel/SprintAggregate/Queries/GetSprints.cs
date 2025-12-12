@@ -25,5 +25,3 @@ public class GetSprintsHandler : IRequestHandler<GetSprintsRequest, GetSprintsRe
     }
         
 }
-
-}

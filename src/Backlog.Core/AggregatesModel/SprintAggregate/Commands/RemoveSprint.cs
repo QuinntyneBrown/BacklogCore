@@ -35,4 +35,3 @@ public class RemoveSprintHandler : IRequestHandler<RemoveSprintRequest, RemoveSp
     }
         
 }
-}

@@ -43,5 +43,3 @@ namespace Backlog.Core;
             };
         }
     }
-
-}

@@ -71,5 +71,4 @@ public class TokenProvider : ITokenProvider
             return Convert.ToBase64String(randomNumber);
         }
     }
-
 }

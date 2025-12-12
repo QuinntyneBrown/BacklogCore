@@ -28,4 +28,3 @@ public class CreateStory : BaseDomainEvent
         Effort = effort;
     }
 }
-}

@@ -52,5 +52,3 @@ public class UpdateStoryHandler : IRequestHandler<UpdateStoryRequest, UpdateStor
         };
     }
 }
-
-}

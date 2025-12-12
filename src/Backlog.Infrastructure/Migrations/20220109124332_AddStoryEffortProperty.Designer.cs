@@ -358,4 +358,3 @@ partial class AddStoryEffortProperty
 #pragma warning restore 612, 618
     }
 }
-}

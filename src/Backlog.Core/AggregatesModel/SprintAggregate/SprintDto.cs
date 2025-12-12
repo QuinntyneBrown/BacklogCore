@@ -10,4 +10,3 @@ public class SprintDto
     public DateTime End { get; set; }
     public List<string> StoryIds { get; set; } = new List<string>();
 }
-}

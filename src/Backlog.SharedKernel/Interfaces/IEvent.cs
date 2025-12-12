@@ -7,4 +7,3 @@ public interface IEvent : INotification
     Guid CorrelationId { get; }
     Dictionary<string, object> Items { get; }
 }
-}

@@ -46,4 +46,3 @@ public class GetUsersPageHandler : IRequestHandler<GetUsersPageRequest, GetUsers
     }
 
 }
-}

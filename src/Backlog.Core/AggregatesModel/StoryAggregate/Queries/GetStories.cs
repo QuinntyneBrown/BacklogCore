@@ -29,4 +29,3 @@ public class GetStoriesHandler : IRequestHandler<GetStoriesRequest, GetStoriesRe
     }
 
 }
-}

@@ -286,4 +286,3 @@ partial class AddAttachments
 #pragma warning restore 612, 618
     }
 }
-}

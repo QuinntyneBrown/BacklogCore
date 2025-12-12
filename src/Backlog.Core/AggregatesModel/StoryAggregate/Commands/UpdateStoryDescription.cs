@@ -34,5 +34,3 @@ public class UpdateStoryDescriptionHandler : IRequestHandler<UpdateStoryDescript
     }
 
 }
-
-}

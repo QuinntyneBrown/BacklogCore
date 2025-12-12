@@ -41,4 +41,3 @@ public class GetTaskItemsPageHandler : IRequestHandler<GetTaskItemsPageRequest, 
     }
 
 }
-}

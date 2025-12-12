@@ -45,4 +45,3 @@ public class CreateBugHandler : IRequestHandler<CreateBugRequest, CreateBugRespo
     }
 
 }
-}

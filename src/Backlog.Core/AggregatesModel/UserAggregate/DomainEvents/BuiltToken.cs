@@ -18,4 +18,3 @@ public class BuiltToken : BaseDomainEvent
         accessToken = AccessToken;
     }
 }
-}

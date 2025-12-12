@@ -8,4 +8,3 @@ public class Authentication
     public string? JwtAudience { get; set; }
     public string? AuthType { get; set; }
 }
-}

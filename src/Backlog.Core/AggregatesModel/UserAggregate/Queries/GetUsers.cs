@@ -25,4 +25,3 @@ public class GetUsersHandler : IRequestHandler<GetUsersRequest, GetUsersResponse
         };
     }
 }
-}

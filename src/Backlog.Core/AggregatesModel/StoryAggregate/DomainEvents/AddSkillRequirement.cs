@@ -10,4 +10,3 @@ public class AddSkillRequirement : BaseDomainEvent
         SkillRequirement = skillRequirement;
     }
 }
-}

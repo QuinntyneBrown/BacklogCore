@@ -10,4 +10,3 @@ public interface ITokenBuilder
     TokenBuilder FromClaimsPrincipal(ClaimsPrincipal claimsPrincipal);
     TokenBuilder RemoveClaim(Claim claim);
 }
-}

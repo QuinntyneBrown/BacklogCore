@@ -26,5 +26,3 @@ public class GetCompetencyLevelsHandler : IRequestHandler<GetCompetencyLevelsReq
     }
 
 }
-
-}

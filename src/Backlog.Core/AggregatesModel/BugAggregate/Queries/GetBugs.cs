@@ -26,4 +26,3 @@ public class GetBugsHandler : IRequestHandler<GetBugsRequest, GetBugsResponse>
     }
 
 }
-}

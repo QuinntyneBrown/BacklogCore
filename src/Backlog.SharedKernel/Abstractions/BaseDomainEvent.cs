@@ -11,4 +11,3 @@ public class BaseDomainEvent : IEvent
         Items.Add(nameof(CorrelationId), Guid.NewGuid());
     }
 }
-}

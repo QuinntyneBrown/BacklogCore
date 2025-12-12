@@ -34,4 +34,3 @@ public class RemoveStoryHandler : IRequestHandler<RemoveStoryRequest, RemoveStor
         };
     }
 }
-}

@@ -9,4 +9,3 @@ public class BuildToken : BaseDomainEvent
     }
     public string Username { get; private set; }
 }
-}

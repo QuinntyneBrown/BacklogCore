@@ -237,4 +237,3 @@ partial class InitialCreate
 #pragma warning restore 612, 618
     }
 }
-}

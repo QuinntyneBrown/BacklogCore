@@ -49,5 +49,3 @@ public class UpdateSprintHandler : IRequestHandler<UpdateSprintRequest, UpdateSp
         };
     }
 }
-
-}

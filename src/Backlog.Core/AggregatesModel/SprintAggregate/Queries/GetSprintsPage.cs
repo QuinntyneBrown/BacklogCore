@@ -41,5 +41,3 @@ public class GetSprintsPageHandler : IRequestHandler<GetSprintsPageRequest, GetS
     }
         
 }
-
-}

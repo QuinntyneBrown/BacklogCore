@@ -79,4 +79,3 @@ public partial class AddDigitalAssets : Migration
             onDelete: ReferentialAction.Cascade);
     }
 }
-}

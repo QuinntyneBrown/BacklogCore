@@ -10,4 +10,3 @@ public class UpdateStoryStatus : BaseDomainEvent
         Status = status;
     }
 }
-}

@@ -10,4 +10,3 @@ public class UpdateStoryAcceptanceCriteria : BaseDomainEvent
         AcceptanceCriteria = acceptanceCriteria;
     }
 }
-}

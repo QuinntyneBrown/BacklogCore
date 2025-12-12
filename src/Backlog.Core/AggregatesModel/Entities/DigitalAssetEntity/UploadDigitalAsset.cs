@@ -101,5 +101,4 @@ public class UploadDigitalAssetHandler : IRequestHandler<UploadDigitalAssetReque
             DigitalAssetIds = digitalAssets.Select(x => x.DigitalAssetId).ToList()
         };
     }
-}    
 }

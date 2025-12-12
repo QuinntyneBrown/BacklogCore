@@ -46,4 +46,3 @@ public class CreateProfileValidator : AbstractValidator<CreateProfileRequest>
             return new(profile.ToDto());
         }
     }
-}

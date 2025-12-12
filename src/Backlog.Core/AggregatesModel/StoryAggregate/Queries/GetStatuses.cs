@@ -26,4 +26,3 @@ public class GetStatusesHandler : IRequestHandler<GetStatusesRequest, GetStatuse
     }
 
 }
-}

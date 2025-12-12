@@ -38,4 +38,3 @@ public class RemoveBugHandler : IRequestHandler<RemoveBugRequest, RemoveBugRespo
         return new (bug.ToDto());
     }
 }
-}

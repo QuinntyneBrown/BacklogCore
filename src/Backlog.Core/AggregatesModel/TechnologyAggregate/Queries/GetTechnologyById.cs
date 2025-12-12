@@ -29,5 +29,3 @@ public class GetTechnologyByIdHandler : IRequestHandler<GetTechnologyByIdRequest
     }
 
 }
-
-}

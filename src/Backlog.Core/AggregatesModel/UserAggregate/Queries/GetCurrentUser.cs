@@ -40,4 +40,3 @@ public class GetCurrentUserHandler : IRequestHandler<GetCurrentUserRequest, GetC
         };
     }
 }
-}

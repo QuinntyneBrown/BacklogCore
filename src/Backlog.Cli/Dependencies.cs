@@ -22,7 +22,7 @@ public static class Dependencies
         //TODO: Implement without default
         Backlog.Api.Dependencies.ConfigureAuth(services, configuration, webHostEnvironement);
 
-        services.AddMediatR(typeof(IBacklogDbContext), typeof(Program));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<IBacklogDbContext>());
     }
 
     public static IConfiguration Create()
@@ -53,5 +53,4 @@ public class WebHostEnvironment : IWebHostEnvironment
     public IFileProvider ContentRootFileProvider { get; set; }
     public string ContentRootPath { get; set; }
     public string EnvironmentName { get; set; }
-}
 }

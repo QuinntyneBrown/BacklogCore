@@ -13,7 +13,7 @@ public class OrchestrationHandlerTests : TestBase
     public async Task Handle()
     {
         var container = _serviceCollection
-            .AddMediatR(typeof(OrchestrationHandlerTests))
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<OrchestrationHandlerTests>())
             .AddSingleton<OrchestrationItemsCache>()
             .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
             .BuildServiceProvider();
@@ -40,7 +40,7 @@ public class OrchestrationHandlerTests : TestBase
     public async Task Handle_Multiple()
     {
         var container = _serviceCollection
-            .AddMediatR(typeof(OrchestrationHandlerTests))
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<OrchestrationHandlerTests>())
             .AddSingleton<OrchestrationItemsCache>()
             .AddSingleton<IOrchestrationHandler, OrchestrationHandler>()
             .BuildServiceProvider();
@@ -93,5 +93,4 @@ public class OrchestrationHandlerTests : TestBase
             await _orchestrationHandler.Publish(new Step1Completed());
         }
     }
-}
 }

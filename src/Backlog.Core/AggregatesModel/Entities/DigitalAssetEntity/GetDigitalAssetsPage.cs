@@ -41,5 +41,3 @@ public class GetDigitalAssetsPageHandler : IRequestHandler<GetDigitalAssetsPageR
     }
 
 }
-
-}

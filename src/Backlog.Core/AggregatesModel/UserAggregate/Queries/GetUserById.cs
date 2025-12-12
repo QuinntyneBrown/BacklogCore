@@ -29,4 +29,3 @@ public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, GetUserByI
         };
     }
 }
-}

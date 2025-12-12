@@ -18,4 +18,3 @@ public interface IBacklogDbContext
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     
 }
-}

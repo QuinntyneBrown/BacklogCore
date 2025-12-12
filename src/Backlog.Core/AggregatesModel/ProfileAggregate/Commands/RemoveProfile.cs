@@ -36,4 +36,3 @@ public class RemoveProfileHandler : IRequestHandler<RemoveProfileRequest, Remove
         return new (profile.ToDto());
     }
 }
-}

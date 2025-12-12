@@ -26,4 +26,3 @@ public class GetTechnologiesHandler : IRequestHandler<GetTechnologiesRequest, Ge
     }
 
 }
-}

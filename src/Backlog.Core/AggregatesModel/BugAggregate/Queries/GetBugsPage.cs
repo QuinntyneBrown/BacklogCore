@@ -41,4 +41,3 @@ public class GetBugsPageHandler : IRequestHandler<GetBugsPageRequest, GetBugsPag
     }
 
 }
-}

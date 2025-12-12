@@ -44,4 +44,3 @@ public class UpdateBugHandler : IRequestHandler<UpdateBugRequest, UpdateBugRespo
         return new (bug.ToDto());
     }
 }
-}

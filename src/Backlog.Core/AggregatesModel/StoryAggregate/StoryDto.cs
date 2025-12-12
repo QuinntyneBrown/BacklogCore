@@ -36,4 +36,3 @@ public class StoryDto
         StoryId = storyId;
     }
 }
-}

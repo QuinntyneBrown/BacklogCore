@@ -10,4 +10,3 @@ public class TestBase
         _serviceCollection = new ServiceCollection();
     }
 }
-}

@@ -9,4 +9,3 @@ public class AuthenticatedUser : BaseDomainEvent
     }
     public string Username { get; private set; }
 }
-}

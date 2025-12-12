@@ -25,4 +25,3 @@ public class GetProfilesHandler : IRequestHandler<GetProfilesRequest, GetProfile
         };
     }
 }
-}

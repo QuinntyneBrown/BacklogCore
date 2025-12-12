@@ -45,4 +45,3 @@ public class UserEventHandler :
         await _orchestrationHandler.PublishBuiltTokenEvent(user.UserId, _tokenBuilder.Build());
     }
 }
-}

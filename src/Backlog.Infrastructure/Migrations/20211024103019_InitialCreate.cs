@@ -194,4 +194,3 @@ public partial class InitialCreate : Migration
             name: "Stories");
     }
 }
-}

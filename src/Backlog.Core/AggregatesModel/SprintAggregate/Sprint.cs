@@ -50,4 +50,3 @@ public class Sprint: AggregateRoot
         SprintStories.Add(new SprintStory { StoryId = @event.StoryId });
     }
 }
-}

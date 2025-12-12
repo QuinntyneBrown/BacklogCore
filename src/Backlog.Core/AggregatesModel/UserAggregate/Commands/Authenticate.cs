@@ -60,4 +60,3 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, Authenti
         return user.Password == transformedPassword;
     }
 }
-}

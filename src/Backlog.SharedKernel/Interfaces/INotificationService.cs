@@ -7,4 +7,3 @@ public interface INotificationService
 
     void OnNext(dynamic value);
 }
-}

@@ -352,4 +352,3 @@ partial class AddUser
 #pragma warning restore 612, 618
     }
 }
-}

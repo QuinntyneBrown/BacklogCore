@@ -27,4 +27,3 @@ public class UpdateStory : BaseDomainEvent
         Effort = effort;
     }
 }
-}

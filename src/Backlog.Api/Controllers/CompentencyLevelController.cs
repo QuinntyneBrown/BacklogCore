@@ -76,4 +76,3 @@ public class CompetencyLevelController
         return await _mediator.Send(request);
     }
 }
-}

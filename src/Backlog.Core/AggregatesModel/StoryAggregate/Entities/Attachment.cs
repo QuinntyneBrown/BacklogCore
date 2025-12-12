@@ -7,4 +7,3 @@ public class Attachment
 {
     public Guid DigitalAssetId { get; set; }
 }
-}

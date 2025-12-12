@@ -77,4 +77,3 @@ public class StatusController
         return await _mediator.Send(request);
     }
 }
-}

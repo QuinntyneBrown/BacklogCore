@@ -28,5 +28,3 @@ public class GetSprintByIdHandler : IRequestHandler<GetSprintByIdRequest, GetSpr
     }
         
 }
-
-}

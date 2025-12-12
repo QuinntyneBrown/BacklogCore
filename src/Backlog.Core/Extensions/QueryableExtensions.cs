@@ -47,4 +47,3 @@ public static class IQueryableExtensions
         return source.Where(Lambda<Func<T, bool>>(selector, itemParameter));
     }
 }
-}

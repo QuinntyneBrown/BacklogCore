@@ -61,4 +61,3 @@ public class TokenBuilder : ITokenBuilder
         return _tokenProivder.Get(_username, _claims);
     }
 }
-}

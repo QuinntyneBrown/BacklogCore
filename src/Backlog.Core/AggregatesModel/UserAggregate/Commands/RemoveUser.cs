@@ -40,4 +40,3 @@ public class RemoveUserHandler : IRequestHandler<RemoveUserRequest, RemoveUserRe
     }
 
 }
-}

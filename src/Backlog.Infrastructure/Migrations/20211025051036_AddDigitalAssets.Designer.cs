@@ -263,4 +263,3 @@ partial class AddDigitalAssets
 #pragma warning restore 612, 618
     }
 }
-}

@@ -41,4 +41,3 @@ public class GetStatusesPageHandler : IRequestHandler<GetStatusesPageRequest, Ge
     }
 
 }
-}

@@ -40,4 +40,3 @@ public class GetProfilesPageHandler : IRequestHandler<GetProfilesPageRequest, Ge
         };
     }
 }
-}

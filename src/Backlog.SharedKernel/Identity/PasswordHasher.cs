@@ -15,4 +15,3 @@ public class PasswordHasher : IPasswordHasher
         numBytesRequested: 256 / 8));
     }
 }
-}

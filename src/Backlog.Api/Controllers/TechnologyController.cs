@@ -74,4 +74,3 @@ public class TechnologyController
         => await _mediator.Send(new RemoveTechnologyRequest() { TechnologyId = technologyId });
 
 }
-}

@@ -88,4 +88,3 @@ public class DigitalAssetController
         return await _mediator.Send(request);
     }
 }
-}

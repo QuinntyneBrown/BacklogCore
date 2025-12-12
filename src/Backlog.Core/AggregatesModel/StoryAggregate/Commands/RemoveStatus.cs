@@ -36,4 +36,3 @@ public class RemoveStatusHandler : IRequestHandler<RemoveStatusRequest, RemoveSt
     }
 
 }
-}

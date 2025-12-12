@@ -52,5 +52,3 @@ public class CreateStoryHandler : IRequestHandler<CreateStoryRequest, CreateStor
     }
 
 }
-
-}

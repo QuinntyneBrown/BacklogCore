@@ -41,11 +41,12 @@ public class ServerSentEventController : Controller
         });
 
         using (cancellationToken.Register(() => tcs.TrySetCanceled()))
+        {
+        }
 
         await tcs.Task;
 
         return null;
 
     }
-
 }

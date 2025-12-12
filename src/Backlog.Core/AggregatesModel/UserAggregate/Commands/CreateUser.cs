@@ -50,4 +50,3 @@ public class CreateUserHandler : IRequestHandler<CreateUserRequest, CreateUserRe
     }
 
 }
-}

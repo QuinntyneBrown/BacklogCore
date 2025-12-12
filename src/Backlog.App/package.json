@@ -7,6 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report",
     "generate-models": "node node_modules/ng-swagger-gen/ng-swagger-gen --config ng-swagger-gen.json"
   },
   "private": true,
@@ -34,6 +38,7 @@
     "@angular-devkit/build-angular": "^17.3.0",
     "@angular/cli": "^17.3.0",
     "@angular/compiler-cli": "^17.3.0",
+    "@playwright/test": "^1.57.0",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.0.0",
     "jasmine-core": "~5.1.0",

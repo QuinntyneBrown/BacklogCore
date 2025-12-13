@@ -25,6 +25,7 @@ public class BacklogDbContext: DbContext, IBacklogDbContext
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(notificationService);
+
         SavingChanges += DbContext_SavingChanges;
         SavedChanges += DbContext_SavedChanges;
         _notificationService = notificationService;

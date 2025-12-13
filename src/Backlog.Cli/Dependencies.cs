@@ -18,10 +18,10 @@ public static class Dependencies
         var webHostEnvironement = new WebHostEnvironment();
 
         // TODO: Implement without default
-        Backlog.Api.Dependencies.Configure(services, configuration);
+        Backlog.Api.ConfigureServices.AddBacklogApiServices(services, configuration);
 
         //TODO: Implement without default
-        Backlog.Api.Dependencies.ConfigureAuth(services, configuration, webHostEnvironement);
+        Backlog.Api.ConfigureServices.ConfigureAuth(services, configuration, webHostEnvironement);
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<IBacklogDbContext>());
     }

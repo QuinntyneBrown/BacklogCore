@@ -30,7 +30,11 @@ public class CreateStoryHandler : IRequestHandler<CreateStoryRequest, CreateStor
     private readonly IBacklogDbContext _context;
 
     public CreateStoryHandler(IBacklogDbContext context)
-        => _context = context;
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        _context = context;
+    }
 
     public async Task<CreateStoryResponse> Handle(CreateStoryRequest request, CancellationToken cancellationToken)
     {

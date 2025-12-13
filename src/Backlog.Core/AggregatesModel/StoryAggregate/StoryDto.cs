@@ -6,14 +6,14 @@ namespace Backlog.Core;
 public class StoryDto
 {
     public Guid? StoryId { get; set; }
-    public string Name { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string AcceptanceCriteria { get; set; }
-    public string JiraUrl { get; set; }
-    public List<string> DependsOn { get; set; } = new List<string>();
-    public string Status { get; set; }
-    public int Effort { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string AcceptanceCriteria { get; set; } = string.Empty;
+    public string JiraUrl { get; set; } = string.Empty;
+    public List<string> DependsOn { get; set; } = [];
+    public string Status { get; set; } = string.Empty;
+    public int Effort { get; set; } = 0;
     public List<SkillRequirementDto> SkillRequirements { get; set; } = new List<SkillRequirementDto>();
 
     public StoryDto()

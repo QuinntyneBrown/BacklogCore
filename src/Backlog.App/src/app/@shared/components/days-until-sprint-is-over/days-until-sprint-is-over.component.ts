@@ -14,6 +14,11 @@ export class DaysUntilSprintIsOverComponent {
   .current()
   .pipe(
     map(sprint => {
+      if(!sprint?.end) {
+        return {
+          days: 0
+        }
+      }
       let dueDate = new Date(sprint.end) as any;
       let today = new Date() as any;
       const diffTime = Math.abs(today - dueDate);

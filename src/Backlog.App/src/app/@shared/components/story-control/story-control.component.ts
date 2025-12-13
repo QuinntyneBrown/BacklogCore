@@ -4,7 +4,6 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { BaseControl, ckEditorConfig } from '@core';
 import { SprintDto, StoryDto } from '@api';
-import { CKEditor4 } from 'ckeditor4-angular';
 
 
 @Component({
@@ -30,9 +29,9 @@ export class StoryControlComponent extends BaseControl implements Validator  {
   
   form = new FormGroup({
     storyId: new FormControl(null,[]),
-    title: new FormControl(null, [Validators.required]),
-    name: new FormControl(null, [Validators.required]),
-    jiraUrl: new FormControl(null,[]),
+    title: new FormControl("", [Validators.required]),
+    name: new FormControl("", [Validators.required]),
+    jiraUrl: new FormControl("",[]),
     description: new FormControl(null, [Validators.required]),
     acceptanceCriteria: new FormControl(null, [Validators.required]),
     effort: new FormControl(null,[Validators.required])
@@ -53,7 +52,7 @@ export class StoryControlComponent extends BaseControl implements Validator  {
 
   @Output() public fileUploadClick = new EventEmitter();
 
-  @Output() addSprint: EventEmitter<Story> = new EventEmitter();
+  @Output() addSprint: EventEmitter<StoryDto> = new EventEmitter();
 
   validate(control: AbstractControl): ValidationErrors | null {
       return this.form.errors;
@@ -91,11 +90,12 @@ export class StoryControlComponent extends BaseControl implements Validator  {
     isDisabled ? this.form.disable() : this.form.enable();
   }
 
-  onReady($event : CKEditor4.EventInfo, form: FormGroup, formControlName: string) {
-    $event.editor.on("afterInsertHtml",() => {
-      form.patchValue({
-        [formControlName]: $event.editor.getData()          
-      });
-    })
-  }
+  // CKEditor onReady method temporarily disabled due to Angular 17 Ivy compatibility issues
+  // onReady($event : CKEditor4.EventInfo, form: FormGroup, formControlName: string) {
+  //   $event.editor.on("afterInsertHtml",() => {
+  //     form.patchValue({
+  //       [formControlName]: $event.editor.getData()          
+  //     });
+  //   })
+  // }
 }

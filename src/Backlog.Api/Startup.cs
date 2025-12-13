@@ -28,9 +28,9 @@ public class Startup
             options.AllowSynchronousIO = true;
         });
 
-        Dependencies.Configure(services, Configuration);
+        Api.ConfigureServices.AddBacklogApiServices(services, Configuration);
 
-        Dependencies.ConfigureAuth(services, Configuration, WebHostEnvironment);
+        Api.ConfigureServices.ConfigureAuth(services, Configuration, WebHostEnvironment);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

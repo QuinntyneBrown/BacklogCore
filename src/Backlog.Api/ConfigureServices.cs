@@ -21,9 +21,9 @@ using System.Threading.Tasks;
 namespace Backlog.Api;
 
 
-public static class Dependencies
+public static class ConfigureServices
 {
-    public static void Configure(IServiceCollection services, IConfiguration configuration)
+    public static void AddBacklogApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSwaggerGen(options =>
         {

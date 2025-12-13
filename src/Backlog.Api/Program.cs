@@ -1,6 +1,7 @@
 using Backlog.Api.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -29,7 +30,7 @@ public class Program
             var context = scope.ServiceProvider.GetRequiredService<BacklogDbContext>();
 
             if (args.Contains("ci"))
-                args = new string[4] { "dropdb", "migratedb", "seeddb", "stop" };
+                args =  ["dropdb", "migratedb", "seeddb", "stop"];
 
             if (args.Contains("dropdb"))
             {

@@ -7,7 +7,7 @@ namespace Backlog.SharedKernel;
 
 public abstract class AggregateRoot : IAggregateRoot
 {
-    internal List<StoredEvent> _storedEvents = new List<StoredEvent>();
+    internal List<StoredEvent> _storedEvents = [];
 
     [NotMapped]
     public IReadOnlyList<StoredEvent> StoredEvents => _storedEvents.AsReadOnly();
